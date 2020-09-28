@@ -1,0 +1,67 @@
+@mixin font-face($font-name, $path, $weight: normal, $style: normal) {
+
+  @font-face {
+    font-family: icons;
+    src: url('src/assets/fonts/icons.woff') format("woff");
+    font-weight: 400;
+    font-style: normal
+  }
+
+  @font-face {
+    font-family: 'La Mer Text';
+    src: url('src/assets/fonts/LaMerText-Regular.woff2') format("woff2"), url('src/assets/fonts/LaMerText-Regular.woff') format("woff");
+    font-weight: 400;
+    font-style: normal
+  }
+
+  @font-face {
+    font-family: 'La Mer Text';
+    src: url("src/assets/fonts/LaMerText-RegularItalic.woff2") format("woff2"), url('src/assets/fonts/LaMerText-RegularItalic.woff') format("woff");
+    font-weight: 400;
+    font-style: italic
+  }
+
+  @font-face {
+    font-family: 'La Mer Text';
+    src: url('src/assets/fonts/LaMerText-Bold.woff2') format("woff2"), url('src/assets/fonts/LaMerText-Bold.woff') format("woff");
+    font-weight: 700;
+    font-style: normal
+  }
+
+  @font-face {
+    font-family: 'La Mer Headline';
+    src: url('src/assets/fonts/LaMerHeadline-Black.woff2') format("woff2"), url('src/assets/fonts/LaMerHeadline-Black.woff') format("woff");
+    font-weight: 400;
+    font-style: normal
+  }
+
+  @font-face {
+    font-family: 'La Mer Headline';
+    src: url('src/assets/fonts/LaMerHeadline-BlackItalic.woff2') format("woff2"), url('src/assets/fonts/LaMerHeadline-BlackItalic.woff') format("woff");
+    font-weight: 400;
+    font-style: italic
+  }
+
+  @font-face {
+    font-family: 'Neue Haas Unica Pro';
+    src: url('src/assets/fonts/NeueHaasUnicaPro-Regular.woff2') format("woff2"), url('src/assets/fonts/NeueHaasUnicaPro-Regular.woff') format("woff");
+    font-weight: 400;
+    font-style: normal
+  }
+
+  @font-face {
+    font-family: 'Neue Haas Unica Pro';
+    src: url('src/assets/fonts/NeueHaasUnicaPro-Bold.woff2') format("woff2"),
+    url('src/assets/fonts/NeueHaasUnicaPro-Bold.woff') format("woff");
+    font-weight: 700;
+    font-style: normal
+  }
+
+  @font-face {
+    font-family: Gravograph;
+    src: url('src/assets/fonts/Gravograph.woff') format("woff"),
+    url('src/assets/fonts/Gravograph.woff2') format("woff2");
+    font-weight: 400;
+    font-style: normal
+  }
+}

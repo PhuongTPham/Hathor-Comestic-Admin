@@ -1,0 +1,62 @@
+html {
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%
+}
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box
+}
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+*,:after,:before {
+  box-sizing: inherit
+}
+body {
+  margin: 0
+}
+body {
+  color: #1b1b1b;
+  font-family: "Neue Haas Unica Pro",sans-serif;
+  font-size: 15px;
+  line-height: 1.5
+}
+@media (min-width: 768px) {
+  body {
+    font-size:15px;
+    line-height: 1.5
+  }
+}
+article, aside, footer, header, nav, section {
+  display: block;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+.clearfix:after,.clearfix:before {
+  content: " ";
+  display: table
+}
+
+.clearfix:after {
+  clear: both
+}
+a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects
+}
+a {
+  color: #1b1b1b;
+  transition: color .3s
+}
+
+a:focus,a:hover {
+  color: #005c3e;
+  text-decoration: none
+}
