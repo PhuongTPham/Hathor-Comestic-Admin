@@ -145,23 +145,27 @@ export default {
           ],
         },
         {
-          name: 'Admin',
+          name: 'Account',
           icon: 'media/svg/icons/Layout/Layout-4-blocks.svg',
           child: [
             {
-              nameSubNav: 'Account',
+              nameSubNav: 'Danh sách admin',
+              router: '/manage-account',
+            },
+            {
+              nameSubNav: 'Danh sách customer',
               router: '/manage-account',
             },
           ],
         },
         {
-          name: 'Manage',
+          name: 'Category',
           icon: 'media/svg/icons/Communication/Group.svg',
           router: '/manage',
           child: [
             {
-              nameSubNav: 'Building',
-              router: '/manage-building',
+              nameSubNav: 'Danh sách danh mục sản phẩm',
+              router: '/manage-category',
             },
             {
               nameSubNav: 'Appartment',
@@ -174,12 +178,12 @@ export default {
           ],
         },
         {
-          name: 'Contract',
+          name: 'Product',
           icon: 'media/svg/icons/Media/Equalizer.svg',
           child: [
             {
-              nameSubNav: 'Manage Contract',
-              router: '/manage-contract',
+              nameSubNav: 'Danh sách sản phẩm',
+              router: '/manage-product',
             },
             {
               nameSubNav: 'Host',
@@ -196,33 +200,16 @@ export default {
           ],
         },
         {
-          name: 'Finance',
+          name: 'Order',
           icon: 'media/svg/icons/Media/Equalizer.svg',
           child: [
             {
-              nameSubNav: 'Danh sách kỳ thanh toán hợp đồng',
-              router: '/period-payment-contract',
-            },
-            {
-              nameSubNav: 'Danh sách kỳ thanh toán dịch vụ',
-              router: '/period-payment-service',
+              nameSubNav: 'Danh sách đơn mua',
+              router: '/manage-order',
             },
           ],
         },
-        {
-          name: 'Báo cáo chung',
-          icon: 'media/svg/icons/Media/Equalizer.svg',
-          child: [
-            {
-              nameSubNav: 'Báo cáo nợ xấu kỳ hợp đồng',
-              router: '/bad-debt-contract',
-            },
-            {
-              nameSubNav: 'Báo cáo nợ xấu kỳ dịch vụ',
-              router: '/bad-debt-service',
-            },
-          ],
-        },
+
       ],
     };
   },

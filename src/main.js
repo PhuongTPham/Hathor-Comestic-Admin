@@ -15,7 +15,6 @@ Vue.config.productionTip = false;
 // Remove this to disable mock API
 
 router.beforeEach((to, from, next) => {
-  // console.log(router);
   // Ensure we checked auth before each page load.
   // Promise.all([store.dispatch(VERIFY_AUTH)]).then(next);
 
@@ -30,9 +29,9 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['login'];
   const authRequired = !publicPages.includes(to.path.split('/')[1]);
   const loggedIn = sessionStorage.getItem('jwtToken');
-  // if (authRequired && !loggedIn) {
-  //   return next('/login');
-  // }
+  if (authRequired && !loggedIn) {
+    return next('/login');
+  }
   next();
 });
 

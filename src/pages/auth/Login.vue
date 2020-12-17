@@ -1,28 +1,10 @@
 <template>
   <div>
-    <!--begin::Content header-->
-    <!-- <div
-      class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10"
-    >
-      <span class="font-weight-bold font-size-3 text-dark-60">
-        Don't have an account yet?
-      </span>
-      <router-link
-        class="font-weight-bold font-size-3 ml-2"
-        :to="{ name: 'register' }"
-      >
-        Sign Up!
-      </router-link>
-    </div> -->
-    <!--end::Content header-->
-
-    <!--begin::Signin-->
     <div class="login-form login-signin">
       <div class="text-center mb-10 mb-lg-20">
-        <h3 class="font-size-h1">Sign In</h3>
-        <p class="text-muted font-weight-semi-bold">
-          Enter your username and password
-        </p>
+        <h3 class="font-size-h1">Đăng nhập</h3>
+        <!-- <p class="text-muted font-weight-semi-bold">
+        </p> -->
       </div>
 
       <!--begin::Form-->
@@ -41,73 +23,68 @@
         </div>
 
         <b-form-group
-          id="example-input-group-1"
+          id="email"
           label=""
-          label-for="example-input-1"
+          label-for="email"
         >
           <b-form-input
             class="form-control form-control-solid h-auto py-5 px-6"
-            id="example-input-1"
-            name="example-input-1"
+            id="email"
+            name="email"
+            placeholder="Email"
             @focus="resetMessageError"
-            v-model="$v.form.username.$model"
-            :state="validateState('username')"
-            aria-describedby="input-1-live-feedback"
+            v-model="$v.form.email.$model"
+            :state="validateState('email')"
+            aria-describedby="email"
           ></b-form-input>
 
-          <b-form-invalid-feedback id="input-1-live-feedback" v-if="!$v.form.username.required">
+          <b-form-invalid-feedback id="email" v-if="!$v.form.email.required">
             Xin hãy nhập tên đăng nhập
           </b-form-invalid-feedback>
-          <b-form-invalid-feedback id="input-1-live-feedback" v-else-if="!$v.form.username.minLength">
-            Độ dài tối thiểu của tên đăng nhập là 4
+          <b-form-invalid-feedback id="email" v-else-if="!$v.form.email.email">
+           Xin hãy nhập đúng định dạng email
           </b-form-invalid-feedback>
-          <b-form-invalid-feedback id="input-1-live-feedback" v-else-if="!$v.form.username.maxLength">
+          <b-form-invalid-feedback id="email" v-else-if="!$v.form.email.maxLength">
             Độ dài tối đa của tên đăng nhập là 32
           </b-form-invalid-feedback>
-          <div id="input-1-live-feedback" v-else style="height: 1.4rem"/>
+          <div id="email" v-else style="height: 1.4rem"/>
         </b-form-group>
 
         <b-form-group
-          id="example-input-group-2"
+          id="password"
           label=""
-          label-for="example-input-2"
+          label-for="password"
         >
           <b-form-input
             class="form-control form-control-solid h-auto py-5 px-6"
             type="password"
-            id="example-input-2"
-            name="example-input-2"
+            id="password"
+            placeholder="Password"
+            name="password"
             @focus="resetMessageError"
             v-model="$v.form.password.$model"
             :state="validateState('password')"
-            aria-describedby="input-2-live-feedback"
+            aria-describedby="password"
           ></b-form-input>
 
-          <b-form-invalid-feedback id="input-2-live-feedback"  v-if="!$v.form.password.required">
+          <b-form-invalid-feedback id="password"  v-if="!$v.form.password.required">
             Xin hãy nhập mật khẩu
           </b-form-invalid-feedback>
-          <b-form-invalid-feedback id="input-1-live-feedback" v-else-if="!$v.form.password.minLength">
+          <b-form-invalid-feedback id="password" v-else-if="!$v.form.password.minLength">
             Độ dài tối thiểu của tên đăng nhập là 6
           </b-form-invalid-feedback>
-          <div id="input-1-live-feedback" v-else style="height: 1.6rem"/>
+          <div id="password" v-else style="height: 1.6rem"/>
         </b-form-group>
 
         <!--begin::Action-->
         <div
           class="form-group d-flex flex-wrap justify-content-end align-items-center"
         >
-          <!-- <a
-            href="#"
-            class="text-dark-60 text-hover-primary my-3 mr-2"
-            id="login_forgot"
-          >
-            Forgot Password ?
-          </a> -->
           <button
             ref="kt_login_signin_submit"
             class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3"
           >
-            Sign In
+            Đăng nhập
           </button>
         </div>
         <!--end::Action-->
@@ -127,7 +104,7 @@
 <script>
 import { validationMixin } from 'vuelidate';
 import {
-  minLength, required, maxLength,
+  minLength, required, maxLength, email,
 } from 'vuelidate/lib/validators';
 import { ROUTER } from '../../config/const';
 import api from '../../core/services/api/api';
@@ -139,17 +116,17 @@ export default {
     return {
       // Remove this dummy login info
       form: {
-        username: 'admin@demo.com',
-        password: 'demo',
+        email: '',
+        password: '',
       },
       errors: [],
     };
   },
   validations: {
     form: {
-      username: {
+      email: {
         required,
-        minLength: minLength(4),
+        email,
         maxLength: maxLength(30),
       },
       password: {
@@ -165,7 +142,7 @@ export default {
     },
     resetForm() {
       this.form = {
-        username: null,
+        email: null,
         password: null,
       };
 
@@ -182,7 +159,7 @@ export default {
       // const password = this.$v.form.password.$model;
       const submitButton = this.$refs.kt_login_signin_submit;
       submitButton.classList.add('spinner', 'spinner-light', 'spinner-right');
-      const res = await api('loginApi', { username: this.form.username, password: this.form.password });
+      const res = await api('loginApi', { email: this.form.email, password: this.form.password });
       if (res.success) {
         this.errors = [];
         sessionStorage.setItem('jwtToken', res?.data?.data?.token);

@@ -1,6 +1,6 @@
 <template>
   <div class="header-container">
-    <div class="header-container__title">QUẢN LÝ CĂN HỘ</div>
+    <div class="header-container__title">QUẢN LÝ DANH MỤC SẢN PHẨM</div>
     <div>
       <Button :title="title" :styleCss="styleCss" />
     </div>

@@ -260,7 +260,7 @@
 
                 <router-link
                   to="/wizard/wizard-4"
-                  v-slot="{ href, navigate, isActive, isExactActive }"
+                   v-slot="{ href, navigate, isActive, isExactActive }"
                 >
                   <li
                     aria-haspopup="true"

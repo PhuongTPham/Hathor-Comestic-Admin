@@ -46,12 +46,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Header from '../../components/ManageCanHo/Headers/Header.vue';
-import Button from '../../components/ManageCanHo/Buttons/Button.vue';
+import Header from '../../components/ManageCategory/Headers/Header.vue';
+import Button from '../../components/ManageCategory/Buttons/Button.vue';
 import PopupDetailAccount from '../../components/ManageAccount/Popups/PopupDetailAccount.vue';
 
 export default {
-  name: 'ManageCanHo',
+  name: 'ManageCategory',
   components: {
     Header,
     PopupDetailAccount,

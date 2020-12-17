@@ -1,15 +1,15 @@
 <template>
-  <div class="manage-khachthue-container">
-    <div class="manage-khachthue-container__header">
+  <div class="manage-chunha-container">
+    <div class="manage-chunha-container__header">
       <Header />
     </div>
-    <div class="manage-khachthue-container__search-form" v-show="true">
+    <div class="manage-chunha-container__search-form" v-show="true">
       <b-form-input placeholder="Họ tên, username, ..." v-model="search"></b-form-input>
-      <div class="manage-khachthue-container__search-form__button">
+      <div class="manage-chunha-container__search-form__button">
         <Button :title="'Tìm kiếm'" :styleCss="styleCss" @click.native="setItemsTableWithSearch"/>
       </div>
     </div>
-    <div class="manage-khachthue-container__table">
+    <div class="manage-chunha-container__table">
       <b-table show-empty small stacked="md" :items="setItemsTable" :fields="fields">
         <template #cell(actions)="">
           <div class="show-detail">
@@ -44,12 +44,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Header from '../../components/ManageKhachThue/Headers/Header.vue';
-import Button from '../../components/ManageKhachThue/Buttons/Button.vue';
+import Header from '../../components/ManageProduct/Headers/Header.vue';
+import Button from '../../components/ManageProduct/Buttons/Button.vue';
 import PopupDetailAccount from '../../components/ManageAccount/Popups/PopupDetailAccount.vue';
 
 export default {
-  name: 'ManageKhachThue',
+  name: 'ManageProduct',
   components: {
     Header,
     PopupDetailAccount,
@@ -71,10 +71,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getlistKhachThue']),
+    ...mapGetters(['getlistChuNha']),
     setItemsTable() {
       const items = [];
-      this.getlistKhachThue.forEach((item) => {
+      this.getlistChuNha.forEach((item) => {
         items.push({
           name: item.name,
           phone: item.phone,
@@ -110,7 +110,7 @@ export default {
     //   }
     // },
     setItemsTableWithSearch() {
-      this.$store.dispatch('getGuest', this.search);
+      this.$store.dispatch('getHost', this.search);
     },
     submit() {
       // console.log('ok');
@@ -123,7 +123,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.manage-khachthue-container {
+.manage-chunha-container {
   &__header {
     margin-bottom: 12px;
   }

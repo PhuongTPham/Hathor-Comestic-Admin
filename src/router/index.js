@@ -42,31 +42,31 @@ const routes = [
         component: () => import('@/pages/ManageAccount/ManageAccount'),
       },
       {
-        name: 'ManageChuNha',
-        path: '/manage-host',
+        name: 'ManageProduct',
+        path: '/manage-product',
         beforeEnter: async (to, from, next) => {
           await store.dispatch('getHost', '');
           next();
         },
-        component: () => import('@/pages/ManageChuNha/ManageChuNha'),
+        component: () => import('@/pages/ManageProduct/ManageProduct'),
       },
       {
-        name: 'ManageKhachThue',
-        path: '/manage-guest',
+        name: 'ManageOrder',
+        path: '/manage-order',
         beforeEnter: async (to, from, next) => {
           await store.dispatch('getGuest', '');
           next();
         },
-        component: () => import('@/pages/ManageKhachThue/ManageKhachThue'),
+        component: () => import('@/pages/ManageOrder/ManageOrder'),
       },
       {
-        name: 'ManageCanHo',
-        path: '/manage-appartment',
+        name: 'ManageCategory',
+        path: '/manage-category',
         beforeEnter: async (to, from, next) => {
           await store.dispatch('getAppartment', '');
           next();
         },
-        component: () => import('@/pages/ManageCanHo/ManageCanHo'),
+        component: () => import('@/pages/ManageCategory/ManageCategory'),
       },
       {
         name: 'ManageToaNha',
