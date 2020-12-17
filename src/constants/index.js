@@ -4,6 +4,7 @@ const TITLE_POPUP_DELETE = 'Xóa tài khoản';
 const CONTENT_POPUP_DELETE = 'Bạn có chắc chắn muốn xóa tài khoản này ?';
 const TITLE_MANAGE_ACCOUNT = 'Thêm tài khoản';
 const HEADER_MANAGE_ACCOUNT = 'QUẢN LÝ TÀI KHOẢN';
+const HEADER_MANAGE_ACCOUNT_ADMIN = 'QUẢN LÝ TÀI KHOẢN ADMIN';
 const ID_POPUP_ADD_ACCOUNT = 'modal-add-account';
 const TITLE_POPUP_ADD_ACCOUNT = 'Thêm tài khoản';
 const MESSAGE_UPDATE_SUCCEED = 'Sửa thành công';
@@ -20,4 +21,5 @@ export default {
   TITLE_POPUP_ADD_ACCOUNT,
   MESSAGE_UPDATE_SUCCEED,
   MESSAGE_UPDATE_FAILED,
+  HEADER_MANAGE_ACCOUNT_ADMIN,
 };

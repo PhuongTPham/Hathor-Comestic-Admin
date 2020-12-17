@@ -150,7 +150,7 @@ export default {
           child: [
             {
               nameSubNav: 'Danh sách admin',
-              router: '/manage-account',
+              router: '/manage-account/admin',
             },
             {
               nameSubNav: 'Danh sách customer',

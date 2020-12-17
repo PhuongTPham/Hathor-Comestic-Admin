@@ -73,17 +73,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getlistCanHo']),
+    ...mapGetters('category', ['getlistCategory']),
     setItemsTable() {
       const items = [];
-      this.getlistCanHo.forEach((item) => {
-        items.push({
-          name: item.name,
-          host: item.chu_nha.name,
-          building: item.toa_nha.name,
-          address: item.address,
-        });
-      });
+      // this.getlistCategory.forEach((item) => {
+      //   items.push({
+      //     name: item.name,
+      //     host: item.chu_nha.name,
+      //     building: item.toa_nha.name,
+      //     address: item.address,
+      //   });
+      // });
       return items;
     },
     // getToken() {
@@ -110,9 +110,9 @@ export default {
     //     this.canUpdate = true;
     //   }
     // },
-    setItemsTableWithSearch() {
-      this.$store.dispatch('getAppartment', this.search);
-    },
+    // setItemsTableWithSearch() {
+    //   this.$store.dispatch('getListCategory', this.search);
+    // },
     submit() {
       // console.log('ok');
     },
