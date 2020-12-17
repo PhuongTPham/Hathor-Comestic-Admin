@@ -1,4 +1,4 @@
-# project-skin
+# Comestic-managenment
 
 ## Project setup
 ```

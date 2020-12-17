@@ -1,28 +1,30 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view></router-view>
   </div>
 </template>
 
+<style lang="scss">
+// 3rd party plugins css
+@import "~bootstrap-vue/dist/bootstrap-vue.css";
+
+// Main demo style scss
+@import "./assets/sass/style.vue.scss";
+
+// Check documentation for RTL css
+// Update HTML with RTL attribute at public/index.html
+/*@import "assets/css/style.vue.rtl";*/
+</style>
+
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  mounted() {
+    /**
+     * this is to override the layout config using saved data from localStorage
+     * remove this to use config only from static json (@/core/config/layout.config.json)
+     */
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

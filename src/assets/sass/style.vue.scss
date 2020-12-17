@@ -1,0 +1,80 @@
+//
+// Main Style
+//
+
+
+////////////////////////////////////////////////////////////////
+///////////// DO NOT MODIFY BELOW INCLUDE ORDER ////////////////
+////////////////////////////////////////////////////////////////
+
+// 1: Initialize
+@import "init";
+
+// 2: Bootstrap framework includes
+@import "~bootstrap/scss/bootstrap";
+@import "vendors/vue/include";
+
+// 3: Components
+@import
+    "components/utilities",
+    "components/burger-icon",
+    "components/card",
+    "components/type",
+    "components/breadcrumb",
+    "components/nav",
+    "components/alert",
+    "components/buttons",
+    "components/dropdown",
+    "components/forms",
+    "components/grid",
+    "components/modal",
+    "components/progress",
+    "components/table",
+    "components/popover",
+    "components/tooltip",
+    "components/accordion",
+    "components/datatable",
+    "components/checkbox",
+    "components/radio",
+    "components/switch",
+    "components/option",
+    "components/dialog",
+    "components/separator",
+    "components/label",
+    "components/loader",
+    "components/symbol",
+    "components/pulse",
+    "components/page-loader",
+    "components/quick-search",
+    "components/scrolltop",
+    "components/spinner",
+    "components/svg-icon",
+    "components/svg",
+    "components/overlay",
+    "components/wave",
+    "components/list",
+    "components/bullet",
+    "components/navi",
+    "components/offcanvas",
+    "components/toggle";
+
+// 4: Plugins
+@import
+    "vendors/plugins/formvalidation",
+    "vendors/plugins/bootstrap-datepicker",
+    "vendors/plugins/bootstrap-daterangepicker",
+    "vendors/plugins/bootstrap-markdown",
+    "vendors/plugins/bootstrap-maxlength",
+    "vendors/plugins/bootstrap-notify",
+    "vendors/plugins/bootstrap-select",
+    "vendors/plugins/bootstrap-session-timeout",
+    "vendors/plugins/bootstrap-switch",
+    "vendors/plugins/bootstrap-timepicker",
+    "vendors/plugins/bootstrap-touchspin";
+
+
+// 5: Layout
+@import "layout/init";
+////////////////////////////////////////////////////////////////
+///////////// DO NOT MODIFY ABOVE INCLUDE ORDER ////////////////
+////////////////////////////////////////////////////////////////
