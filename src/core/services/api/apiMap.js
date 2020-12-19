@@ -38,8 +38,14 @@ const api = (config) => ({
   getDetailOrder: (payload) => config('get', `/cms-admin/v1/get-order-detail/${payload.id}`),
   getListOrder: (keyword) => config('get', `/cms-admin/v1/list-order/?search=${keyword}`),
 
-  // item
+  // image
   uploadImage: (payload) => config('post', `/cms-admin/v1/upload-image-item/${payload.data}`),
+
+  // supplier
+  getListSupplier: (keyword) => config('get', `/cms-admin/v1/list-supplier/?search=${keyword}`),
+  addSupplier: (payload) => config('post', '/cms-admin/v1/add-new-supplier/', payload),
+  updateSupplier: (payload) => config('post', '/cms-admin/v1/update-supplier/', payload),
+  deleteSupplier: (payload) => config('post', '/cms-admin/v1/delete-supplier/', payload),
 });
 
 export default api;

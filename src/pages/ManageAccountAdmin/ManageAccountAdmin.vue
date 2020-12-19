@@ -134,11 +134,11 @@ export default {
       userDetail: {},
       fields: [
         { key: 'username', label: 'Tài khoản' },
-        { key: 'employeeName', label: 'Nhân viên' },
-        { key: 'role', label: 'Vai trò' },
-        { key: 'staffCode', label: 'Mã nhân viên' },
-        { key: 'company', label: 'Tên công ty' },
-        { key: 'actions', label: 'Tùy chọn' },
+        { key: 'email', label: 'Email ' },
+        { key: 'gender', label: 'Gioi tinh' },
+        { key: 'birthday', label: 'Ngay sinh' },
+        { key: 'is_active', label: 'Trang thai' },
+        { key: 'created_at', label: 'Created_at' },
       ],
       canUpdate: false,
       dataChanged: {},
@@ -153,12 +153,13 @@ export default {
       const items = [];
       this.getListAccount.forEach((item) => {
         items.push({
-          username: item.username,
-          employeeName: item.full_name,
-          role: item.role,
-          company: item.tenant.name,
-          staffCode: item.staff_code,
           id: item.id,
+          username: item.username,
+          email: item.email,
+          gender: item.gender,
+          birthday: item.birthday,
+          is_active: item.is_active,
+          created_at: item.created_at,
         });
       });
       return items;
@@ -192,7 +193,7 @@ export default {
   methods: {
     getDetailAccount(row) {
       this.userDetail = this.getListAccount.find((item) => item.username === row.item.username);
-      this.$store.dispatch('getTenant', '');
+      // this.$store.dispatch('getTenant', '');
     },
     onRowSelected(items) {
       this.selectedList = items;

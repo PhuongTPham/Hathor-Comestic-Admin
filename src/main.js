@@ -29,9 +29,9 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['login'];
   const authRequired = !publicPages.includes(to.path.split('/')[1]);
   const loggedIn = sessionStorage.getItem('jwtToken');
-  // if (authRequired && !loggedIn) {
-  //   return next('/login');
-  // }
+  if (authRequired && !loggedIn) {
+    return next('/login');
+  }
   next();
 });
 
