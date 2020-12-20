@@ -117,7 +117,7 @@ export default {
           icon: 'media/svg/icons/Communication/Group.svg',
           child: [
             {
-              nameSubNav: 'Danh sách admin',
+              nameSubNav: 'Danh sách tai khoan',
               router: '/manage-account/admin',
             },
           ],

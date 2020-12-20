@@ -69,6 +69,15 @@ const routes = [
         component: () => import('@/pages/ManageCategory/ManageCategory'),
       },
       {
+        name: 'ManageSupplier',
+        path: '/manage-supplier',
+        beforeEnter: async (to, from, next) => {
+          await store.dispatch('getListSupplier', '');
+          next();
+        },
+        component: () => import('@/pages/ManageSupplier/ManageSupplier'),
+      },
+      {
         name: 'Manage',
         path: '/manage',
         component: () => import('@/pages/Manage'),

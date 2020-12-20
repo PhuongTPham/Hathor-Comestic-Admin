@@ -44,7 +44,7 @@ const api = (config) => ({
   // supplier
   getListSupplier: (keyword) => config('get', `/cms-admin/v1/list-supplier/?search=${keyword}`),
   addSupplier: (payload) => config('post', '/cms-admin/v1/add-new-supplier/', payload),
-  updateSupplier: (payload) => config('post', '/cms-admin/v1/update-supplier/', payload),
+  updateSupplier: (payload) => config('post', '/cms-admin/v1/update-supplier/', payload.data),
   deleteSupplier: (payload) => config('post', '/cms-admin/v1/delete-supplier/', payload),
 
 });

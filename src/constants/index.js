@@ -43,15 +43,15 @@ const COMMENT_CONST = {
   TITLE_POPUP_DELETE: 'Xóa tòa nhà',
 };
 
-const SERVICE_CONST = {
-  HEADER_MANAGE: 'QUẢN LÝ DỊCH VỤ',
-  TITLE_MANAGE: 'Thêm dịch vụ',
-  ID_POPUP_ADD: 'modal-add-service',
-  ID_POPUP_DETAIL: 'modal-detail-service',
-  ID_POPUP_DELETE: 'modal-delete-service',
-  CONTENT_POPUP_DELETE: 'Bạn có chắc chắn muốn xóa dịch vụ này ?',
-  TITLE_POPUP_ADD: 'Thêm dịch vụ',
-  TITLE_POPUP_DELETE: 'Xóa dịch vụ',
+const SUPPLIER_CONST = {
+  HEADER_MANAGE: 'QUẢN LÝ NHÀ CUNG CẤP SẢN PHẨM',
+  TITLE_MANAGE: 'Thêm nhà cung cấp',
+  ID_POPUP_ADD: 'modal-add-supplier',
+  ID_POPUP_DETAIL: 'modal-detail-supplier',
+  ID_POPUP_DELETE: 'modal-delete-supplier',
+  CONTENT_POPUP_DELETE: 'Bạn có chắc chắn muốn xóa nhà cung ứng này ?',
+  TITLE_POPUP_ADD: 'Thêm nhà cung cấp',
+  TITLE_POPUP_DELETE: 'Xóa nhà cung cấp',
 };
 
 const CHUNHA_CONST = {
@@ -70,6 +70,6 @@ export default {
   ACCOUNT_CONST,
   CATEGORY_CONST,
   COMMENT_CONST,
-  SERVICE_CONST,
+  SUPPLIER_CONST,
   CHUNHA_CONST,
 };

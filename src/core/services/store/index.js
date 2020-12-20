@@ -7,6 +7,7 @@ import account from './account';
 import category from './category';
 import order from './order';
 import product from './product';
+import supplier from './supplier';
 
 Vue.use(Vuex);
 
@@ -18,5 +19,6 @@ export default new Vuex.Store({
     category,
     order,
     product,
+    supplier,
   },
 });
