@@ -46,7 +46,7 @@
 import { mapGetters } from 'vuex';
 import Header from '../../components/ManageOrder/Headers/Header.vue';
 import Button from '../../components/ManageOrder/Buttons/Button.vue';
-import PopupDetailAccount from '../../components/ManageAccount/Popups/PopupDetailAccount.vue';
+import PopupDetailAccount from '../../components/ManageAccountAdmin/Popups/PopupDetailAccount.vue';
 
 export default {
   name: 'ManageOrder',

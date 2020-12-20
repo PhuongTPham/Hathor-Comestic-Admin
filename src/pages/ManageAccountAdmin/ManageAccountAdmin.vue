@@ -1,5 +1,5 @@
 <template>
-  <div class="manage-account-container">
+ <div class="manage-account-container">
     <div class="manage-account-container__header">
       <Header />
     </div>
@@ -11,22 +11,6 @@
         </div>
       </b-form>
       <div class="manage-account-container__options__button-group">
-        <b-icon-ui-checks-grid
-          class="btn-group-options"
-          variant="success"
-          font-scale="2.5"
-          :class="checkSelectedAll ? '': '-disable'"
-          @click="selectAllRows"
-        >
-        </b-icon-ui-checks-grid>
-        <b-icon-arrow-counterclockwise
-          class="btn-group-options"
-          variant="success"
-          font-scale="2.5"
-          :class="checkClearAll ? '' : '-disable'"
-          @click="clearSelectedRows"
-        >
-        </b-icon-arrow-counterclockwise>
         <b-icon-trash
           class="btn-group-options"
           variant="danger"
@@ -47,36 +31,48 @@
       </div>
     </div>
     <div class="manage-account-container__table">
-      <b-table
-        ref="selectableTable"
-        sticky-header
-        selectable
-        show-empty
-        small
-        Striped
-        hover
-        stacked="md"
-        :items="setItemsTable"
-        :fields="fields"
-        responsive="sm"
-        empty-text="không có bản ghi"
-        @row-selected="onRowSelected"
-      >
-        <template #cell(actions)="row">
-          <div class="show-detail">
-            <b-icon-pencil-square
-              variant="light"
-              @click="getDetailAccount(row)"
-              v-b-modal.modal-detail-account
-            ></b-icon-pencil-square>
-            <b-icon-trash
-              variant="light"
-              class="rounded-circle bg-danger p-2"
-              v-b-modal.modal-delete-account
-            ></b-icon-trash>
-          </div>
-        </template>
-      </b-table>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">
+              <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
+            </th>
+            <th scope="col">Tài khoản</th>
+            <th scope="col">Email</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Tùy chọn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(account, index) in listAccount" :key="index">
+            <td>
+              <input type="checkbox" :value="account.id" v-model="selectedListAccount" />
+            </td>
+            <td>{{ account.username }}</td>
+            <td>{{ account.email }}</td>
+            <td>{{ account.gender }}</td>
+            <td>{{ account.birthday }}</td>
+            <td>{{ account.is_active }}</td>
+            <td>
+              <div class="show-detail">
+                <b-icon-pencil-square
+                  variant="light"
+                  @click="getDetailAccount(account.id)"
+                  v-b-modal.modal-detail-account
+                ></b-icon-pencil-square>
+                <b-icon-trash
+                  variant="light"
+                  class="rounded-circle bg-danger p-2"
+                  v-b-modal.modal-delete-account
+                  @click="getSingleIdAccount(account.id)"
+                ></b-icon-trash>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div>
@@ -86,7 +82,7 @@
           <b-button size="sm" variant="danger" @click="cancel">
             Hủy bỏ
           </b-button>
-          <b-button size="sm" variant="success" @click="submit" :disabled="!canUpdate">
+          <b-button ref="btn_update_account" size="sm" variant="success" @click="submit" :disabled="!canUpdate" :class="{ '-disable': !canUpdate }">
             Thay đổi
           </b-button>
         </template>
@@ -95,10 +91,11 @@
 
     <div>
       <PopupDeleteAccount
-        :titleModal="constants.TITLE_POPUP_DELETE"
-        :idModal="constants.ID_POPUP_DELETE_ACCOUNT"
-        :contentModal="constants.CONTENT_POPUP_DELETE"
-        :selectedListId="selectedListId"
+        :titleModal="constants.ACCOUNT_CONST.TITLE_POPUP_DELETE_ACCOUNT"
+        :idModal="constants.ACCOUNT_CONST.ID_POPUP_DELETE_ACCOUNT"
+        :contentModal="constants.ACCOUNT_CONST.CONTENT_POPUP_DELETE_ACCOUNT"
+        :selectedListId="selectedListAccount"
+        @updateSelectedListId="updateSelectedListId"
       />
     </div>
 
@@ -129,116 +126,106 @@ export default {
   },
   data() {
     return {
-      title: 'Thêm tài khoản',
-      styleCss: 'background: #FFFFFF;color:#333333;',
       userDetail: {},
-      fields: [
-        { key: 'username', label: 'Tài khoản' },
-        { key: 'email', label: 'Email ' },
-        { key: 'gender', label: 'Gioi tinh' },
-        { key: 'birthday', label: 'Ngay sinh' },
-        { key: 'is_active', label: 'Trang thai' },
-        { key: 'created_at', label: 'Created_at' },
-      ],
       canUpdate: false,
       dataChanged: {},
-      selectedList: [],
+      isSelectedAll: false,
+      selectedListAccount: [],
       constants,
       inputSearch: '',
     };
   },
+  watch: {
+    // check status isSelectedAll
+    selectedListAccount: {
+      handler() {
+        if (this.selectedListAccount.length === this.listIdAccount.length) {
+          this.isSelectedAll = true;
+        } else {
+          this.isSelectedAll = false;
+        }
+      },
+    },
+  },
   computed: {
     ...mapGetters(['getListAccount', 'getErrorCode']),
-    setItemsTable() {
-      const items = [];
+    listAccount() {
+      // set list account
+      const result = [];
       this.getListAccount.forEach((item) => {
-        items.push({
-          id: item.id,
+        result.push({
           username: item.username,
           email: item.email,
           gender: item.gender,
           birthday: item.birthday,
           is_active: item.is_active,
-          created_at: item.created_at,
+          id: item.id,
         });
       });
-      return items;
+      return result;
     },
-    selectedListId() {
+    listIdAccount() {
+      // set list id account
       const result = [];
-      this.selectedList.forEach((item) => {
+      this.listAccount.forEach((item) => {
         result.push(item.id);
       });
       return result;
     },
-    checkSelectedAll() {
-      let result;
-      if (this.selectedListId.length < this.getListAccount.length) result = true;
-      else result = false;
-      return result;
-    },
-    checkClearAll() {
-      let result;
-      if (this.selectedListId.length > 0) result = true;
-      else result = false;
-      return result;
-    },
     checkCanDelete() {
+      // check enable button delete
       let result;
-      if (this.selectedListId.length > 0) result = true;
+      if (this.selectedListAccount.length > 0) result = true;
       else result = false;
       return result;
     },
   },
   methods: {
-    getDetailAccount(row) {
-      this.userDetail = this.getListAccount.find((item) => item.username === row.item.username);
+    setIsSelectedAll() {
+      // change status select box all
+      this.isSelectedAll = !this.isSelectedAll;
+      if (this.isSelectedAll) {
+        this.selectedListAccount = this.listIdAccount;
+      } else {
+        this.selectedListAccount = [];
+      }
+    },
+    getDetailAccount(id) {
+      this.selectedListAccount = [id];
+      this.userDetail = this.getListAccount.find((item) => item.id === id);
       // this.$store.dispatch('getTenant', '');
     },
-    onRowSelected(items) {
-      this.selectedList = items;
+    getSingleIdAccount(id) {
+      // set id when delete single
+      this.selectedListAccount = [id];
     },
-    selectAllRows() {
-      this.$refs.selectableTable.selectAllRows();
-    },
-    clearSelectedRows() {
-      this.$refs.selectableTable.clearSelected();
-    },
-    convertRole(role) {
-      // change role to number
+    convertGender(gender) {
       let result;
-      if (role === 'Admin') {
-        result = 1;
-      } else if (role === 'View') {
-        result = 2;
+      if (gender === 1) {
+        result = 'Nu';
+      } else if (gender === 2) {
+        result = 'Nam';
       } else {
-        result = 3;
+        result = 'Other';
       }
       return result;
     },
     updateData(newData) {
-      // data before is changed
       const oldData = {
-        full_name: this.userDetail.full_name,
-        role: this.userDetail.role,
-        staff_code: this.userDetail.staff_code,
-        tenant: this.userDetail.tenant.id,
+        email: this.userDetail.email,
+        gender: this.userDetail.gender,
+        birthday: this.userDetail.birthday,
       };
-
-      // check data is changed -> active button submit
       if (JSON.stringify(oldData) === JSON.stringify(newData.data)) {
         this.canUpdate = false;
       } else {
         this.canUpdate = true;
       }
-
-      // data to submit api
       this.dataChanged = {
         data: {
-          full_name: newData.data.full_name,
-          role: this.convertRole(newData.data.role),
-          staff_code: newData.data.staff_code,
-          tenant: newData.data.tenant,
+          email: newData.data.email,
+          gender: this.convertGender(newData.data.gender),
+          birthday: newData.data.birthday,
         },
         id: newData.id,
       };
@@ -253,21 +240,35 @@ export default {
     },
     async submit() {
       // update account
+      const submitButton = this.$refs.btn_update_account;
+      submitButton.classList.add('spinner', 'spinner-light', 'spinner-right');
       await this.$store.dispatch('updateAccount', this.dataChanged);
-      if (this.getErrorCode === 0) {
-        this.$bvModal.hide(`${constants.ID_POPUP_DETAIL_ACCOUNT}`);
-        await this.$store.dispatch('getAccount');
-        this.makeToastMessage(constants.MESSAGE_UPDATE_SUCCEED, 'success');
+      if (this.getErrorCodeAccount === 0) {
+        this.$bvModal.hide(constants.ACCOUNT_CONST.ID_POPUP_DETAIL_ACCOUNT);
+        await this.$store.dispatch('getAccount', '');
+        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED, 'success');
+        this.canUpdate = false;
       } else {
-        this.makeToastMessage(constants.MESSAGE_UPDATE_FAILED, 'danger');
+        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_FAILED, 'danger');
       }
+      submitButton.classList.remove(
+        'spinner',
+        'spinner-light',
+        'spinner-right',
+      );
     },
     searchAccount(event) {
+      // call api search account
       event.preventDefault();
       this.$store.dispatch('getAccount', this.inputSearch);
     },
     cancel() {
-      this.$bvModal.hide(`${constants.ID_POPUP_DETAIL_ACCOUNT}`);
+      // close popup detail
+      this.$bvModal.hide(constants.ACCOUNT_CONST.ID_POPUP_DETAIL_ACCOUNT);
+      this.canUpdate = false;
+    },
+    updateSelectedListId(value) {
+      this.selectedListAccount = value;
     },
   },
 };

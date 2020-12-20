@@ -1,28 +1,27 @@
 <template>
   <div class="header-container">
-    <div class="header-container__title">{{ constants.HEADER_MANAGE_ACCOUNT }}</div>
+    <div class="header-container__title">{{ constants.COMMENT_CONST.HEADER_MANAGE}}</div>
     <div>
-      <b-button v-b-modal.modal-add-account @click="getTenant">{{ constants.TITLE_MANAGE_ACCOUNT }}</b-button>
+      <b-button>{{ constants.COMMENT_CONST.TITLE_MANAGE}}</b-button>
     </div>
   </div>
 </template>
 
 <script>
-import constants from '../../../constants/index';
+import Button from '../Buttons/Button.vue';
+import constants from '../../../constants/index'
 
 export default {
   name: 'Header',
-  components: {},
+  components: {
+    Button,
+  },
   data() {
     return {
-      constants,
+      constants
     };
   },
-  methods: {
-    getTenant() {
-      this.$store.dispatch('getTenant', '');
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -38,6 +37,7 @@ export default {
     align-items: center;
     font-weight: 900;
     font-size: 18px;
+    color: whitesmoke;
   }
 }
 </style>

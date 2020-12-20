@@ -3,11 +3,7 @@
     <div class="login-form login-signin">
       <div class="text-center mb-10 mb-lg-20">
         <h3 class="font-size-h1">Đăng nhập</h3>
-        <!-- <p class="text-muted font-weight-semi-bold">
-        </p> -->
       </div>
-
-      <!--begin::Form-->
       <b-form class="form" @submit.stop.prevent="onSubmit">
 
         <div style="height: 60px">
@@ -44,9 +40,6 @@
           <b-form-invalid-feedback id="email" v-else-if="!$v.form.email.email">
            Xin hãy nhập đúng định dạng email
           </b-form-invalid-feedback>
-          <b-form-invalid-feedback id="email" v-else-if="!$v.form.email.maxLength">
-            Độ dài tối đa của tên đăng nhập là 32
-          </b-form-invalid-feedback>
           <div id="email" v-else style="height: 1.4rem"/>
         </b-form-group>
 
@@ -75,8 +68,6 @@
           </b-form-invalid-feedback>
           <div id="password" v-else style="height: 1.6rem"/>
         </b-form-group>
-
-        <!--begin::Action-->
         <div
           class="form-group d-flex flex-wrap justify-content-end align-items-center"
         >
@@ -87,11 +78,8 @@
             Đăng nhập
           </button>
         </div>
-        <!--end::Action-->
       </b-form>
-      <!--end::Form-->
     </div>
-    <!--end::Signin-->
   </div>
 </template>
 
@@ -127,7 +115,6 @@ export default {
       email: {
         required,
         email,
-        maxLength: maxLength(30),
       },
       password: {
         required,
@@ -163,6 +150,7 @@ export default {
       if (res.success) {
         this.errors = [];
         sessionStorage.setItem('jwtToken', res?.data?.data?.token);
+        sessionStorage.setItem('myAccount', res?.data?.data?.profile?.id);
         this.$router.push(ROUTER.dashboard.path);
       } else {
         this.errors = [res.data.response.data.message];

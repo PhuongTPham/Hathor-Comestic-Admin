@@ -5,26 +5,19 @@
       <b-form-input placeholder="" id="username" v-model="userDetail.username" disabled></b-form-input>
     </div>
     <div class="form-input">
-      <label for="fullName">Nhân viên:</label>
-      <b-form-input placeholder="" id="fullName" v-model="dataSubmit.full_name"></b-form-input>
+      <label for="fullName">Email:</label>
+      <b-form-input placeholder="" id="email" v-model="dataSubmit.email"></b-form-input>
     </div>
     <div class="form-input">
-      <label for="role">Vai trò:</label>
+      <label for="role">Gioi tinh</label>
       <select id="role" v-model="dataSubmit.role" class="b-dropdown">
-        <option value="Admin">ADMIN</option>
-        <option value="View">VIEW</option>
-        <option value="Disable">DISABLED</option>
+        <option value="Nam">Nam</option>
+        <option value="Nu">Nu</option>
       </select>
     </div>
     <div class="form-input">
-      <label for="staffCode">Mã nhân viên:</label>
-      <b-form-input placeholder="" id="staffCode" v-model="dataSubmit.staff_code"></b-form-input>
-    </div>
-    <div class="form-input">
-      <label for="company">Tên công ty:</label>
-      <select id="company" class="b-dropdown" v-model="dataSubmit.tenant">
-        <option v-for="company in getListTenant" :key="company.id" :value="company.id">{{ company.name }}</option>
-      </select>
+      <label for="birthday">Ngày sinh:</label>
+      <b-form-input placeholder="" id="birthday" v-model="dataSubmit.birthday"></b-form-input>
     </div>
   </div>
 </template>
@@ -44,10 +37,9 @@ export default {
   data() {
     return {
       dataSubmit: {
-        full_name: this.userDetail.full_name,
-        role: this.userDetail.role,
-        staff_code: this.userDetail.staff_code,
-        tenant: this.userDetail.tenant.id,
+        email: this.userDetail.email,
+        gender: this.userDetail.gender,
+        birtday: this.userDetail.birthday,
       },
     };
   },

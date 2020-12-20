@@ -37,16 +37,11 @@
           </li>
         </ul>
         <div class="btn-logout" @click="logoutAction">
-          <span class=" svg-icon-xl">
-            <!--begin::Svg Icon-->
+          <span class="svg-icon-xl">
             <inline-svg src="media/svg/icons/Navigation/Sign-out.svg" />
-            <!--end::Svg Icon-->
           </span>
         </div>
-        <!--end::Nav-->
       </div>
-      <!--end::Nav Wrapper-->
-      <!--begin::Footer-->
       <div
         class="aside-footer d-flex flex-column align-items-center flex-column-auto py-4 py-lg-10"
       >
@@ -136,75 +131,77 @@ export default {
       listNav: [
         {
           name: 'Dashboard',
-          icon: 'media/svg/icons/Layout/Layout-4-blocks.svg',
+          icon: 'media/svg/icons/Media/Equalizer.svg',
           child: [
             {
-              nameSubNav: 'Summary',
+              nameSubNav: 'Analytics',
               router: '/summary',
             },
           ],
         },
         {
           name: 'Account',
-          icon: 'media/svg/icons/Layout/Layout-4-blocks.svg',
+          icon: 'media/svg/icons/Communication/Group.svg',
           child: [
             {
               nameSubNav: 'Danh sách admin',
               router: '/manage-account/admin',
             },
-            {
-              nameSubNav: 'Danh sách customer',
-              router: '/manage-account',
-            },
           ],
         },
         {
-          name: 'Category',
-          icon: 'media/svg/icons/Communication/Group.svg',
+          name: 'Shop',
+          icon: 'media/svg/icons/Layout/Layout-4-blocks.svg',
           router: '/manage',
           child: [
             {
-              nameSubNav: 'Danh sách danh mục sản phẩm',
+              nameSubNav: 'Category',
               router: '/manage-category',
             },
             {
-              nameSubNav: 'Appartment',
-              router: '/manage-appartment',
-            },
-            {
-              nameSubNav: 'Services',
-              router: '/manage-service',
-            },
-          ],
-        },
-        {
-          name: 'Product',
-          icon: 'media/svg/icons/Media/Equalizer.svg',
-          child: [
-            {
-              nameSubNav: 'Danh sách sản phẩm',
+              nameSubNav: 'Product',
               router: '/manage-product',
             },
+          ],
+        },
+        {
+          name: 'Supplier',
+          icon: 'media/svg/icons/General/Clip.svg',
+          child: [
             {
-              nameSubNav: 'Host',
-              router: '/manage-host',
-            },
-            {
-              nameSubNav: 'Guest',
-              router: '/manage-guest',
-            },
-            {
-              nameSubNav: 'Company',
-              router: '/manage-company',
+              nameSubNav: 'Danh sách nhà cung cấp',
+              router: '/manage-supplier',
             },
           ],
         },
         {
-          name: 'Order',
-          icon: 'media/svg/icons/Media/Equalizer.svg',
+          name: 'Billing',
+          icon: 'media/svg/icons/Home/Book.svg',
           child: [
             {
               nameSubNav: 'Danh sách đơn mua',
+              router: '/manage-order',
+            },
+            {
+              nameSubNav: 'Đơn hàng đanh xử lý',
+              router: '/manage-order',
+            },
+          ],
+        },
+        {
+          name: 'Contact',
+          icon: 'media/svg/icons/Home/Mailbox.svg',
+          child: [
+            {
+              nameSubNav: 'Contact',
+              router: '/manage-order',
+            },
+            {
+              nameSubNav: 'Comment',
+              router: '/manage-order',
+            },
+            {
+              nameSubNav: 'Blog/review sản phẩm',
               router: '/manage-order',
             },
           ],

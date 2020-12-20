@@ -33,15 +33,6 @@ const routes = [
     component: () => import('@/layout/Layout'),
     children: [
       {
-        name: 'ManageAccount',
-        path: '/manage-account',
-        beforeEnter: async (to, from, next) => {
-          await store.dispatch('getAccount', '');
-          next();
-        },
-        component: () => import('@/pages/ManageAccount/ManageAccount'),
-      },
-      {
         name: 'ManageAccountAdmin',
         path: '/manage-account/admin',
         beforeEnter: async (to, from, next) => {
