@@ -1,140 +1,296 @@
 <template>
-  <div class="manage-canho-container">
-    <div class="manage-canho-container__header">
+ <div class="manage-account-container">
+    <div class="manage-account-container__header">
       <Header />
     </div>
-    <div class="manage-canho-container__search-form" v-show="true">
-      <b-form-input placeholder="Tên căn hộ, username, ..." v-model="search"></b-form-input>
-      <div class="manage-canho-container__search-form__button">
-        <Button :title="'Tìm kiếm'" :styleCss="styleCss" @click.native="setItemsTableWithSearch"/>
+    <div class="manage-account-container__options">
+      <b-form @submit="searchCategory" >
+        <div class="manage-account-container__options__search-form" >
+          <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
+          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchCategory"></b-icon-search>
+        </div>
+      </b-form>
+      <div class="manage-account-container__options__button-group">
+        <b-icon-trash
+          class="btn-group-options"
+          variant="danger"
+          font-scale="2.5"
+          :class="checkCanDelete ? '' : '-disable'"
+          v-b-modal.modal-delete-category
+          v-if="checkCanDelete"
+        >
+        </b-icon-trash>
+        <b-icon-trash
+          class="btn-group-options"
+          variant="danger"
+          font-scale="2.5"
+          :class="checkCanDelete ? '' : '-disable'"
+          v-else
+        >
+        </b-icon-trash>
       </div>
     </div>
-    <div class="manage-canho-container__table">
-      <b-table show-empty small stacked="md" :items="setItemsTable" :fields="fields">
-        <template #cell(actions)="">
-          <div class="show-detail">
-            <!-- <inline-svg
-              src="media/svg/icons/Design/Edit.svg"
-              class="edit-svg"
-            />
-             <inline-svg
-              src="media/svg/icons/General/Trash.svg"
-              class="delete-svg"
-            /> -->
-            <b-icon-pencil-square></b-icon-pencil-square>
-            <b-icon-trash class="rounded-circle bg-danger p-2"></b-icon-trash>
-          </div>
-        </template>
-      </b-table>
+    <div class="manage-account-container__table">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">
+              <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
+            </th>
+            <th scope="col">ID</th>
+            <th scope="col">NAME</th>
+            <th scope="col">DESCRIPTION</th>
+            <th scope="col">Tùy chọn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(account, index) in listAccount" :key="index">
+            <td>
+              <input type="checkbox" :value="account.id" v-model="selectedListAccount" />
+            </td>
+            <td>{{ account.id }}</td>
+            <td>{{ account.name }}</td>
+            <td>{{ account.description }}</td>
+            <td>
+              <div class="show-detail">
+                <b-icon-pencil-square
+                  variant="light"
+                  @click="getDetailCategory(account.id)"
+                  v-b-modal.modal-detail-category
+                ></b-icon-pencil-square>
+                <b-icon-trash
+                  variant="light"
+                  class="rounded-circle bg-danger p-2"
+                  v-b-modal.modal-delete-category
+                  @click="getSingleIdCategory(account.id)"
+                ></b-icon-trash>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <!-- <div>
-      <b-modal id="modal-detail-account" no-close-on-backdrop size="lg" :title="userDetail.full_name">
-        <PopupDetailAccount :userDetail="userDetail" @update="updateData"/>
+    <div>
+      <b-modal id="modal-detail-category" no-close-on-backdrop size="lg" :title="userDetail.name">
+        <PopupDetaillCategory :userDetail="userDetail" @update="updateData"/>
         <template #modal-footer="">
           <b-button size="sm" variant="danger" @click="cancel">
             Hủy bỏ
           </b-button>
-          <b-button size="sm" variant="success" @click="submit" :disabled="!canUpdate">
+          <b-button ref="btn_update_category" size="sm" variant="success" @click="submit" :disabled="!canUpdate" :class="{ '-disable': !canUpdate }">
             Thay đổi
           </b-button>
         </template>
       </b-modal>
-    </div> -->
+    </div>
+
+    <div>
+      <PopupDeleteCategory
+        :titleModal="constants.CATEGORY_CONST.TITLE_POPUP_DELETE"
+        :idModal="constants.CATEGORY_CONST.ID_POPUP_DELETE"
+        :contentModal="constants.CATEGORY_CONST.CONTENT_POPUP_DELETE"
+        :selectedListId="selectedListAccount"
+        @updateSelectedListId="updateSelectedListId"
+      />
+    </div>
+
+     <div>
+      <PopupAddCategory
+        :titleModal="constants.CATEGORY_CONST.TITLE_POPUP_ADD"
+        :idModal="constants.CATEGORY_CONST.ID_POPUP_ADD"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import Header from '../../components/ManageCategory/Headers/Header.vue';
-import Button from '../../components/ManageCategory/Buttons/Button.vue';
-import PopupDetailAccount from '../../components/ManageAccountAdmin/Popups/PopupDetailAccount.vue';
+import PopupDetaillCategory from '../../components/ManageCategory/Popups/PopupDetaillCategory.vue';
+import PopupDeleteCategory from '../../components/ManageCategory/Popups/PopupDeleteCategory.vue';
+import PopupAddCategory from '../../components/ManageCategory/Popups/PopupAddCategory.vue';
+
+import constants from '../../constants/index';
 
 export default {
   name: 'ManageCategory',
   components: {
     Header,
-    PopupDetailAccount,
-    Button,
+    PopupDetaillCategory,
+    PopupAddCategory,
+    PopupDeleteCategory,
   },
   data() {
     return {
-      styleCss: 'background: #FFFFFF;color:#333333;',
       userDetail: {},
-      fields: [
-        { key: 'name', label: 'Căn hộ' },
-        { key: 'host', label: 'Chủ nhà' },
-        { key: 'building', label: 'Tòa nhà' },
-        { key: 'address', label: 'Địa chỉ' },
-        { key: 'actions', label: 'Tùy chọn' },
-      ],
       canUpdate: false,
-      search: '',
+      dataChanged: {},
+      isSelectedAll: false,
+      selectedListAccount: [],
+      constants,
+      inputSearch: '',
     };
   },
-  computed: {
-    ...mapGetters('category', ['getlistCategory']),
-    setItemsTable() {
-      const items = [];
-      // this.getlistCategory.forEach((item) => {
-      //   items.push({
-      //     name: item.name,
-      //     host: item.chu_nha.name,
-      //     building: item.toa_nha.name,
-      //     address: item.address,
-      //   });
-      // });
-      return items;
+  watch: {
+    // check status isSelectedAll
+    selectedListAccount: {
+      handler() {
+        if (this.selectedListAccount.length === this.listIdAccount.length) {
+          this.isSelectedAll = true;
+        } else {
+          this.isSelectedAll = false;
+        }
+      },
     },
-    // getToken() {
-    //   return window.sessionStorage.jwtToken;
-    // },
+  },
+  computed: {
+    ...mapGetters(['getlistCategory', 'getErrorCodeCategory']),
+    listAccount() {
+      // set list account
+      const result = [];
+      this.getlistCategory.forEach((item) => {
+        result.push({
+          id: item.id,
+          name: item.name,
+          description: item.description,
+        });
+      });
+      return result;
+    },
+    listIdAccount() {
+      const result = [];
+      this.listAccount.forEach((item) => {
+        result.push(item.id);
+      });
+      return result;
+    },
+    checkCanDelete() {
+      let result;
+      if (this.selectedListAccount.length > 0) result = true;
+      else result = false;
+      return result;
+    },
   },
   methods: {
-    // getDetailAccount(row) {
-    //   this.userDetail = this.getListAccount.find((item) => item.username === row.item.username);
-    //   this.$store.dispatch('getTenant', this.getToken);
-    // },
-    // updateData(newData) {
-    //   const oldData = {
-    //     full_name: this.userDetail.full_name,
-    //     role: this.userDetail.role,
-    //     staff_code: this.userDetail.staff_code,
-    //     tenant: this.userDetail.tenant.id,
-    //   };
-
-    //   // check data is changed -> active button submit
-    //   if (JSON.stringify(oldData) === JSON.stringify(newData)) {
-    //     this.canUpdate = false;
-    //   } else {
-    //     this.canUpdate = true;
-    //   }
-    // },
-    // setItemsTableWithSearch() {
-    //   this.$store.dispatch('getListCategory', this.search);
-    // },
-    submit() {
-      // console.log('ok');
+    setIsSelectedAll() {
+      this.isSelectedAll = !this.isSelectedAll;
+      if (this.isSelectedAll) {
+        this.selectedListAccount = this.listIdAccount;
+      } else {
+        this.selectedListAccount = [];
+      }
+    },
+    getDetailCategory(id) {
+      this.selectedListAccount = [id];
+      this.userDetail = this.getlistCategory.find((item) => item.id === id);
+    },
+    getSingleIdCategory(id) {
+      // set id when delete single
+      this.selectedListAccount = [id];
+    },
+    updateData(newData) {
+      const oldData = {
+        category_id: this.userDetail.id,
+        name: this.userDetail.name,
+        description: this.userDetail.description,
+      };
+      if (JSON.stringify(oldData) === JSON.stringify(newData)) {
+        this.canUpdate = false;
+      } else {
+        this.canUpdate = true;
+      }
+      this.dataChanged = {
+        data: {
+          category_id: newData.category_id,
+          name: newData.name,
+          description: newData.description,
+        },
+      };
+    },
+    makeToastMessage(message, status) {
+      this.$bvToast.toast(message, {
+        title: 'Thông báo',
+        variant: status,
+        autoHideDelay: 2000,
+        solid: true,
+      });
+    },
+    async submit() {
+      // update category
+      const submitButton = this.$refs.btn_update_category;
+      submitButton.classList.add('spinner', 'spinner-light', 'spinner-right');
+      await this.$store.dispatch('updateCategory', this.dataChanged);
+      if (this.getErrorCodeCategory === 0) {
+        this.$bvModal.hide(constants.CATEGORY_CONST.ID_POPUP_DETAIL);
+        await this.$store.dispatch('getListCategory', '');
+        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED, 'success');
+        this.canUpdate = false;
+      } else {
+        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_FAILED, 'danger');
+      }
+      submitButton.classList.remove(
+        'spinner',
+        'spinner-light',
+        'spinner-right',
+      );
+    },
+    searchCategory(event) {
+      event.preventDefault();
+      this.$store.dispatch('getListCategory', this.inputSearch);
     },
     cancel() {
-      this.$bvModal.hide('modal-detail-account');
+      this.$bvModal.hide(constants.CATEGORY_CONST.ID_POPUP_DETAIL);
+      this.canUpdate = false;
+    },
+    updateSelectedListId(value) {
+      this.selectedListAccount = value;
     },
   },
 };
 </script>
 
 <style lang='scss' scoped>
-.manage-canho-container {
+.manage-account-container {
   &__header {
     margin-bottom: 12px;
   }
-  &__search-form {
+  &__options {
     display: grid;
-    grid-template-columns: 80% 20%;
-    padding: 12px 0px;
-    &__button {
+    grid-template-columns: 50% 50%;
+    &__search-form {
+      display: flex;
+      align-items: center;
+      padding: 12px 0px;
+      position: relative;
+      .search-form-input {
+        padding-left: 35px;
+      }
+      .search-form-icon {
+        position: absolute;
+        cursor: pointer;
+        left: 10px;
+      }
+    }
+    &__button-group {
+      margin: 12px 0px;
       display: flex;
       justify-content: flex-end;
+      align-items: center;
+      .btn-group-options {
+        margin: 0px 5px;
+        cursor: pointer;
+      }
+      .btn-group-options:first-child {
+        margin-left: 0px;
+      }
+      .btn-group-options:last-child {
+        margin-right: 0px;
+      }
+      .-disable {
+        opacity: 0.2;
+        cursor: default;
+      }
     }
   }
   &__table {
@@ -154,8 +310,11 @@ export default {
 </style>
 <style lang='scss'>
 thead {
-  background: #28c5bd;
+  background: linear-gradient(to bottom left, #6600cc 0%, #ff99cc 100%);
   opacity: 0.7;
   color: #ffffff;
+}
+td {
+  vertical-align: middle !important;
 }
 </style>

@@ -101,8 +101,8 @@
 
     <div>
       <PopupAddAccount
-        :titleModal="constants.TITLE_POPUP_ADD_ACCOUNT"
-        :idModal="constants.ID_POPUP_ADD_ACCOUNT"
+        :titleModal="constants.ACCOUNT_CONST.TITLE_POPUP_ADD_ACCOUNT"
+        :idModal="constants.ACCOUNT_CONST.ID_POPUP_ADD_ACCOUNT"
       />
     </div>
   </div>

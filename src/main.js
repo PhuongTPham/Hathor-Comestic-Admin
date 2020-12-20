@@ -2,17 +2,19 @@
 /* eslint-disable consistent-return */
 import Vue from 'vue';
 import store from '@/core/services/store/index';
+import VueApexCharts from 'vue-apexcharts';
 import App from './App.vue';
 import router from './router/index';
 import '@/core/plugins/portal-vue';
 import '@/core/plugins/bootstrap-vue';
 import '@/core/plugins/inline-svg';
 
+Vue.use(VueApexCharts);
+
+Vue.component('apexchart', VueApexCharts);
 Vue.config.productionTip = false;
 // window.PerfectScrollbar = PerfectScrollbar;
 // window.ClipboardJS = ClipboardJS;
-
-// Remove this to disable mock API
 
 router.beforeEach((to, from, next) => {
   // Ensure we checked auth before each page load.

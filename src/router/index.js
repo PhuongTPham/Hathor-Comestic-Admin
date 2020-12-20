@@ -63,7 +63,7 @@ const routes = [
         name: 'ManageCategory',
         path: '/manage-category',
         beforeEnter: async (to, from, next) => {
-          await store.dispatch('getAppartment', '');
+          await store.dispatch('getListCategory', '');
           next();
         },
         component: () => import('@/pages/ManageCategory/ManageCategory'),

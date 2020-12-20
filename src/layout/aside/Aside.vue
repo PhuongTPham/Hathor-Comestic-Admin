@@ -1,20 +1,14 @@
 /* eslint-disable no-plusplus */ /* eslint-disable radix */ /* eslint-disable radix */
 <template>
-  <!-- begin:: Aside -->
   <div class="aside aside-left d-flex aside-fixed" id="aside" ref="aside">
-    <!--begin::Primary-->
     <div class="aside-primary d-flex flex-column align-items-center flex-row-auto">
-      <!--begin::Brand-->
       <Brand></Brand>
-      <!--end::Brand-->
-      <!--begin::Nav Wrapper-->
       <div
         class="aside-nav position-relative d-flex flex-column align-items-center flex-column-fluid py-5 scroll scroll-pull ps"
         style="height: 528px; overflow: hidden;"
       >
         <!--begin::Nav-->
         <ul class="nav flex-column" role="tablist" v-for="(nav, index) in listNav" :key="index">
-          <!--begin::Item-->
           <li
             class="nav-item mb-3"
             data-placement="right"
@@ -29,9 +23,7 @@
               @click="setActiveTab(index)"
             >
               <span class="svg-icon svg-icon-xl">
-                <!--begin::Svg Icon-->
                 <inline-svg :src="nav.icon" />
-                <!--end::Svg Icon-->
               </span>
             </div>
           </li>
@@ -45,7 +37,6 @@
       <div
         class="aside-footer d-flex flex-column align-items-center flex-column-auto py-4 py-lg-10"
       >
-        <!--begin::Aside Toggle-->
         <span
           class="aside-toggle btn btn-icon btn-primary btn-hover-primary shadow-sm"
           id="aside_toggle"
@@ -61,25 +52,16 @@
             :style="{ transform: asideExpand ? 'rotate(0deg)' : 'rotate(180deg)' }"
           />
         </span>
-        <!--end::Aside Toggle-->
       </div>
-      <!--end::Footer-->
     </div>
-    <!--end::Primary-->
-    <!--begin::Secondary-->
     <div class="aside-secondary d-flex flex-row-fluid">
-      <!--begin::Workspace-->
       <div
         class="aside-workspace scroll scroll-push my-2 ps"
         style="height: 824px; overflow: hidden;"
       >
-        <!--begin::Tab Content-->
         <b-tabs class="hide-tabs">
-          <!--begin::Tab Pane-->
           <b-tab>
-            <!--begin::Aside Menu-->
             <div class="aside-menu-wrapper flex-column-fluid px-10 py-5" id="aside_menu_wrapper">
-              <!--begin::Menu Container-->
               <div
                 ref="aside_menu"
                 id="aside_menu"
@@ -87,23 +69,14 @@
                 data-menu-vertical="1"
                 data-menu-scroll="1"
               >
-                <!-- example static menu here -->
                 <Menu :subMenu="listNav[activeTab].child"></Menu>
-                <!-- <MenuManage v-if="activeTab == 2"></MenuManage> -->
               </div>
-              <!--end::Menu Container-->
             </div>
-            <!--end::Aside Menu-->
           </b-tab>
-          <!--end::Tab Pane-->
         </b-tabs>
-        <!--end::Tab Content-->
-        <!--end::Workspace-->
       </div>
-      <!--end::Secondary-->
     </div>
   </div>
-  <!-- end:: Aside -->
 </template>
 
 <style lang="scss">

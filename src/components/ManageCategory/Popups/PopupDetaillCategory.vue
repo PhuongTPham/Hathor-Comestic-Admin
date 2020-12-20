@@ -1,47 +1,23 @@
 <template>
   <div class="popup-detail-account">
     <div class="form-input">
-      <label for="username">Tài khoản:</label>
-      <b-form-input placeholder="" id="username" v-model="userDetail.username" disabled></b-form-input>
+      <label for="category_id">Mã danh mục sản phẩm:</label>
+      <b-form-input placeholder="" id="category_id" v-model="dataSubmit.category_id" disabled></b-form-input>
     </div>
     <div class="form-input">
-      <label for="fullName">Nhân viên:</label>
-      <b-form-input placeholder="" id="fullName" v-model="dataSubmit.full_name"></b-form-input>
+      <label for="name">Têm danh mục sản phẩm:</label>
+      <b-form-input placeholder="" id="name" v-model="dataSubmit.name"></b-form-input>
     </div>
     <div class="form-input">
-      <label for="role">Vai trò:</label>
-      <select id="role" v-model="dataSubmit.role" class="b-dropdown">
-        <option value="Admin">ADMIN</option>
-        <option value="View">VIEWER</option>
-        <option value="Disable">DISABLED</option>
-      </select>
+      <label for="description">Miêu tả:</label>
+      <b-form-input placeholder="" id="description" v-model="dataSubmit.description"></b-form-input>
     </div>
-    <div class="form-input">
-      <label for="staffCode">Mã nhân viên:</label>
-      <b-form-input placeholder="" id="staffCode" v-model="dataSubmit.staff_code"></b-form-input>
-    </div>
-    <div class="form-input">
-      <label for="company">Tên công ty:</label>
-      <select id="role" class="b-dropdown" v-model="dataSubmit.tenant">
-        <option v-for="company in getListTenant" :key="company.id" :value="company.id">{{ company.name }}</option>
-      </select>
-    </div>
-    <!-- <div class="popup-detail-account__button-wrapper">
-      <b-button size="sm" @click="cancel">
-        Hủy bỏ
-      </b-button>
-      <b-button size="sm" variant="success" @click="submit">
-        Sửa
-      </b-button>
-    </div> -->
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
-  name: 'PopupDetailAccount',
+  name: 'PopupDetailCategory',
   props: {
     userDetail: {
       type: Object,
@@ -52,10 +28,9 @@ export default {
   data() {
     return {
       dataSubmit: {
-        full_name: this.userDetail.full_name,
-        role: this.userDetail.role,
-        staff_code: this.userDetail.staff_code,
-        tenant: this.userDetail.tenant.id,
+        category_id: this.userDetail.id,
+        name: this.userDetail.name,
+        description: this.userDetail.description,
       },
     };
   },
@@ -68,13 +43,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getListTenant']),
   },
   methods: {
     submit() {
     },
     cancel() {
-      this.$bvModal.hide('modal-detail-account');
+      this.$bvModal.hide('modal-detail-category');
     },
   },
 };

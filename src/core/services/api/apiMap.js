@@ -46,6 +46,7 @@ const api = (config) => ({
   addSupplier: (payload) => config('post', '/cms-admin/v1/add-new-supplier/', payload),
   updateSupplier: (payload) => config('post', '/cms-admin/v1/update-supplier/', payload),
   deleteSupplier: (payload) => config('post', '/cms-admin/v1/delete-supplier/', payload),
+
 });
 
 export default api;
