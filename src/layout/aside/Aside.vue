@@ -108,7 +108,7 @@ export default {
           child: [
             {
               nameSubNav: 'Analytics',
-              router: '/summary',
+              router: '/dashboard',
             },
           ],
         },

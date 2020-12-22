@@ -10,7 +10,6 @@ import '@/core/plugins/bootstrap-vue';
 import '@/core/plugins/inline-svg';
 
 Vue.use(VueApexCharts);
-
 Vue.component('apexchart', VueApexCharts);
 Vue.config.productionTip = false;
 // window.PerfectScrollbar = PerfectScrollbar;
