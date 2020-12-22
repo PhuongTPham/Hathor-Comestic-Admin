@@ -65,6 +65,17 @@ const CHUNHA_CONST = {
   TITLE_POPUP_DELETE: 'Xóa chủ nhà',
 };
 
+const PRODUCT_CONST = {
+  HEADER_MANAGE: 'QUẢN LÝ SẢM PHẨM',
+  TITLE_MANAGE: 'Thêm sản phẩm',
+  ID_POPUP_ADD: 'modal-add-product',
+  ID_POPUP_DETAIL: 'modal-detail-product',
+  ID_POPUP_DELETE: 'modal-delete-product',
+  CONTENT_POPUP_DELETE: 'Bạn có chắc chắn muốn xóa sản phẩm này ?',
+  TITLE_POPUP_ADD: 'Thêm sản phẩm',
+  TITLE_POPUP_DELETE: 'Xóa sản phẩm',
+};
+
 export default {
   COMMON_CONST,
   ACCOUNT_CONST,
@@ -72,4 +83,5 @@ export default {
   COMMENT_CONST,
   SUPPLIER_CONST,
   CHUNHA_CONST,
+  PRODUCT_CONST
 };

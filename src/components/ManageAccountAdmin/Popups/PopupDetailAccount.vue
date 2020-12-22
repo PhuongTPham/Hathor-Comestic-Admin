@@ -1,24 +1,6 @@
 <template>
   <div class="popup-detail-account">
-    <div class="form-input">
-      <label for="username">Tài khoản:</label>
-      <b-form-input placeholder="" id="username" v-model="userDetail.username" disabled></b-form-input>
-    </div>
-    <div class="form-input">
-      <label for="fullName">Email:</label>
-      <b-form-input placeholder="" id="email" v-model="dataSubmit.email"></b-form-input>
-    </div>
-    <div class="form-input">
-      <label for="role">Gioi tinh</label>
-      <select id="role" v-model="dataSubmit.role" class="b-dropdown">
-        <option value="Nam">Nam</option>
-        <option value="Nu">Nu</option>
-      </select>
-    </div>
-    <div class="form-input">
-      <label for="birthday">Ngày sinh:</label>
-      <b-form-input placeholder="" id="birthday" v-model="dataSubmit.birthday"></b-form-input>
-    </div>
+  <div>Bạn có muốn chuyển tài khoản {{ userDetail.username }} thành quản trị viên không ?</div>
   </div>
 </template>
 

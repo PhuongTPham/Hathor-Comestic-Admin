@@ -3,14 +3,41 @@
     <div class="manage-chunha-container__header">
       <Header />
     </div>
-    <div class="manage-chunha-container__search-form" v-show="true">
+    <!-- <div class="manage-chunha-container__search-form" v-show="true">
       <b-form-input placeholder="Họ tên, username, ..." v-model="search"></b-form-input>
       <div class="manage-chunha-container__search-form__button">
         <Button :title="'Tìm kiếm'" :styleCss="styleCss" @click.native="setItemsTableWithSearch"/>
       </div>
+    </div> -->
+    <div class="manage-chunha-container__options">
+      <b-form @submit="searchProduct" >
+        <div class="manage-chunha-container__options__search-form" >
+          <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
+          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchProduct"></b-icon-search>
+        </div>
+      </b-form>
+      <div class="manage-chunha-container__options__button-group">
+        <b-icon-trash
+          class="btn-group-options"
+          variant="danger"
+          font-scale="2.5"
+          :class="checkCanDelete ? '' : '-disable'"
+          v-b-modal.modal-delete-product
+          v-if="checkCanDelete"
+        >
+        </b-icon-trash>
+        <b-icon-trash
+          class="btn-group-options"
+          variant="danger"
+          font-scale="2.5"
+          :class="checkCanDelete ? '' : '-disable'"
+          v-else
+        >
+        </b-icon-trash>
+      </div>
     </div>
     <div class="manage-chunha-container__table">
-      <b-table show-empty small stacked="md" :items="setItemsTable" :fields="fields">
+      <!-- <b-table show-empty small stacked="md" :items="setItemsTable" :fields="fields">
         <template #cell(actions)="">
           <div class="show-detail">
             <inline-svg
@@ -23,30 +50,96 @@
             />
           </div>
         </template>
-      </b-table>
+      </b-table> -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">
+              <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
+            </th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Giá gốc</th>
+            <th scope="col">Giá sale</th>
+            <th scope="col">Mô tả</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Lượt xem</th>
+            <th scope="col">Ngày đăng</th>
+            <th scope="col">Tùy chọn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(product, index) in listProduct" :key="index">
+            <td>
+              <input type="checkbox" :value="product.id" v-model="selectedListProduct" />
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ formatNumber(product.price) }}</td>
+            <td>{{ formatNumber(product.price_temp) }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ formatNumber(product.quantity) }}</td>
+            <td>{{ product.view_item }}</td>
+            <td>{{ formatDate(product.created_at) }}</td>
+            <td>
+              <div class="show-detail">
+                <b-icon-pencil-square
+                  variant="light"
+                  @click="getDetailProduct(product.id)"
+                  v-b-modal.modal-detail-product
+                ></b-icon-pencil-square>
+                <b-icon-trash
+                  variant="light"
+                  class="rounded-circle bg-danger p-2"
+                  v-b-modal.modal-delete-product
+                  @click="getSingleIdProduct(product.id)"
+                ></b-icon-trash>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-    <!-- <div>
-      <b-modal id="modal-detail-account" no-close-on-backdrop size="lg" :title="userDetail.full_name">
-        <PopupDetailAccount :userDetail="userDetail" @update="updateData"/>
+    <div>
+      <PopupDeleteProduct
+        :titleModal="constants.PRODUCT_CONST.TITLE_POPUP_DELETE"
+        :idModal="constants.PRODUCT_CONST.ID_POPUP_DELETE"
+        :contentModal="constants.PRODUCT_CONST.CONTENT_POPUP_DELETE"
+        :selectedListId="selectedListProduct"
+        @updateSelectedListId="updateSelectedListId"
+      />
+    </div>
+    <div>
+      <PopupAddProduct
+        :titleModal="constants.PRODUCT_CONST.TITLE_POPUP_ADD"
+        :idModal="constants.PRODUCT_CONST.ID_POPUP_ADD"
+      />
+    </div>
+    <div>
+      <b-modal id="modal-detail-product" no-close-on-backdrop size="lg" :title="productDetail.name">
+        <PopupDetailProduct :productDetail="productDetail" @update="updateData"/>
         <template #modal-footer="">
-          <b-button size="sm" variant="danger" @click="cancel">
+          <b-button size="sm" variant="danger" @click="cancelModalDetail">
             Hủy bỏ
           </b-button>
-          <b-button size="sm" variant="success" @click="submit" :disabled="!canUpdate">
+          <b-button ref="btn_update_category" size="sm" variant="success" @click="editProduct" :disabled="!canUpdate" :class="{ '-disable': !canUpdate }">
             Thay đổi
           </b-button>
         </template>
       </b-modal>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import moment from 'moment';
 import Header from '../../components/ManageProduct/Headers/Header.vue';
 import Button from '../../components/ManageProduct/Buttons/Button.vue';
 import PopupDetailAccount from '../../components/ManageAccountAdmin/Popups/PopupDetailAccount.vue';
+import PopupDeleteProduct from '../../components/ManageProduct/Popups/PopupDeleteProduct.vue'
+import PopupAddProduct from '../../components/ManageProduct/Popups/PopupAddProduct.vue'
+import PopupDetailProduct from '../../components/ManageProduct/Popups/PopupDetailProduct.vue'
+import constants from '../../constants/index';
+import util from '../../utils/index'
 
 export default {
   name: 'ManageProduct',
@@ -54,69 +147,140 @@ export default {
     Header,
     PopupDetailAccount,
     Button,
+    PopupDeleteProduct,
+    PopupAddProduct,
+    PopupDetailProduct
   },
   data() {
     return {
       styleCss: 'background: #FFFFFF;color:#333333;',
-      userDetail: {},
+      productDetail: {},
       fields: [
-        { key: 'name', label: 'Tên chủ nhà' },
-        { key: 'phone', label: 'Số điện thoại' },
-        { key: 'email', label: 'Email' },
-        { key: 'identity', label: 'Giấy tờ tùy thân' },
-        { key: 'actions', label: 'Tùy chọn' },
+        { key: 'name', label: 'Tên sản phẩm' },
+        { key: 'price', label: 'Giá gốc' },
+        { key: 'price_temp', label: 'Giá sale' },
+        { key: 'description', label: 'Mô tả' },
+        { key: 'quantity', label: 'Số lượng' },
+        { key: 'view_item', label: 'Lượt xem' },
+        { key: 'created_at', label: 'Ngày đăng' },
       ],
       canUpdate: false,
       search: '',
+      isSelectedAll: false,
+      selectedListProduct: [],
+      inputSearch: '',
+      constants,
+      formatNumber: util.formatNumber
     };
   },
+  watch: {
+    selectedListProduct: {
+      handler() {
+        if (this.selectedListProduct.length === this.listIdProduct.length) {
+          this.isSelectedAll = true;
+        } else {
+          this.isSelectedAll = false;
+        }
+      },
+    },
+  },
   computed: {
-    ...mapGetters(['getlistChuNha']),
-    setItemsTable() {
-      const items = [];
-      this.getlistChuNha.forEach((item) => {
-        items.push({
+    ...mapGetters(['getListProducts']),
+    listProduct() {
+      // set list account
+      const result = [];
+      this.getListProducts.forEach((item) => {
+        result.push({
+          id: item.id,
           name: item.name,
-          phone: item.phone,
-          email: item.email,
-          identity: item.cmt ?? item.cccd ?? item.passport_no ?? '-',
-
+          price: item.price,
+          price_temp: item.price_temp,
+          description: item.description,
+          quantity: item.quantity,
+          view_item: item.view_item,
+          created_at: item.created_at,
         });
       });
-      return items;
+      return result;
     },
-    // getToken() {
-    //   return window.sessionStorage.jwtToken;
-    // },
+    listIdProduct() {
+      const result = [];
+      this.listProduct.forEach((item) => {
+        result.push(item.id);
+      });
+      return result;
+    },
+    checkCanDelete() {
+      let result;
+      if (this.selectedListProduct.length > 0) result = true;
+      else result = false;
+      return result;
+    },
   },
   methods: {
-    // getDetailAccount(row) {
-    //   this.userDetail = this.getListAccount.find((item) => item.username === row.item.username);
-    //   this.$store.dispatch('getTenant', this.getToken);
-    // },
-    // updateData(newData) {
-    //   const oldData = {
-    //     full_name: this.userDetail.full_name,
-    //     role: this.userDetail.role,
-    //     staff_code: this.userDetail.staff_code,
-    //     tenant: this.userDetail.tenant.id,
-    //   };
-
-    //   // check data is changed -> active button submit
-    //   if (JSON.stringify(oldData) === JSON.stringify(newData)) {
-    //     this.canUpdate = false;
-    //   } else {
-    //     this.canUpdate = true;
-    //   }
-    // },
-    setItemsTableWithSearch() {
-      this.$store.dispatch('getHost', this.search);
+    setIsSelectedAll() {
+      this.isSelectedAll = !this.isSelectedAll;
+      if (this.isSelectedAll) {
+        this.selectedListProduct = this.listIdProduct;
+      } else {
+        this.selectedListProduct = [];
+      }
     },
-    submit() {
+    setItemsTableWithSearch() {
+      this.$store.dispatch('getProduct', this.search);
+    },
+    editProduct() {
       // console.log('ok');
     },
-    cancel() {
-      this.$bvModal.hide('modal-detail-account');
+    cancelModalDetail() {
+      this.$bvModal.hide('modal-detail-product');
+    },
+    searchProduct(event) {
+      event.preventDefault();
+      this.$store.dispatch('getProduct', this.inputSearch);
+    },
+    formatDate(date) {
+      if (date) {
+        return moment(date).format('YYYY-MM-DD')
+      } return ''
+    },
+    deleteProduct(productId) {
+
+    },
+    updateSelectedListId(value) {
+      this.selectedListProduct = value;
+    },
+    getSingleIdProduct(productId) {
+      // set id when delete single
+      this.selectedListProduct = [productId];
+    },
+    updateData(newData) {
+      const oldData = {
+        name: this.productDetail.name,
+        description: this.productDetail.description,
+        category_id: this.productDetail.categoryId,
+        supplier_id: this.productDetail.supplierId,
+        quantity: this.productDetail.quantity,
+        short_description: this.productDetail.shortDescription,
+        price_temp: this.productDetail.priceTemp,
+        price: this.productDetail.price,
+      };
+      if (JSON.stringify(oldData) === JSON.stringify(newData)) {
+        this.canUpdate = false;
+      } else {
+        this.canUpdate = true;
+      }
+      this.dataChanged = {
+        data: {
+          category_id: newData.category_id,
+          name: newData.name,
+          description: newData.description,
+        },
+      };
+    },
+    getDetailProduct(id) {
+      this.selectedListProduct = [id];
+      this.productDetail = this.getListProducts.find((item) => item.id === id);
     },
   },
 };
@@ -127,13 +291,51 @@ export default {
   &__header {
     margin-bottom: 12px;
   }
-  &__search-form {
+  // &__search-form {
+  //   display: grid;
+  //   grid-template-columns: 80% 20%;
+  //   padding: 12px 0px;
+  //   &__button {
+  //     display: flex;
+  //     justify-content: flex-end;
+  //   }
+  // }
+  &__options {
     display: grid;
-    grid-template-columns: 80% 20%;
-    padding: 12px 0px;
-    &__button {
+    grid-template-columns: 50% 50%;
+    &__search-form {
+      display: flex;
+      align-items: center;
+      padding: 12px 0px;
+      position: relative;
+      .search-form-input {
+        padding-left: 35px;
+      }
+      .search-form-icon {
+        position: absolute;
+        cursor: pointer;
+        left: 10px;
+      }
+    }
+    &__button-group {
+      margin: 12px 0px;
       display: flex;
       justify-content: flex-end;
+      align-items: center;
+      .btn-group-options {
+        margin: 0px 5px;
+        cursor: pointer;
+      }
+      .btn-group-options:first-child {
+        margin-left: 0px;
+      }
+      .btn-group-options:last-child {
+        margin-right: 0px;
+      }
+      .-disable {
+        opacity: 0.2;
+        cursor: default;
+      }
     }
   }
   &__table {

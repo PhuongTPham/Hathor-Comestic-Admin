@@ -15,7 +15,7 @@ const api = (config) => ({
   // account
   getAccount: (keyword) => config('get', `/cms-admin/v1/list-account/?search=${keyword}`),
   addAccount: (payload) => config('post', '/auth/v1/register/', payload),
-  changeRoleAccount: (payload) => config('post', '//cms-admin/v1/change-role-account/', payload),
+  changeRoleAccount: (payload) => config('post', `/cms-admin/v1/change-role-account/?user_id=${payload.user_id}`, payload),
   updateAccount: (payload) => config('patch', `/account/v1/update-profile/${payload.id}/`, payload.data),
 
   // getService: (keyword) => config('get', `/dich-vu/v1/list-dich-vu/?search=${keyword}`, ''),

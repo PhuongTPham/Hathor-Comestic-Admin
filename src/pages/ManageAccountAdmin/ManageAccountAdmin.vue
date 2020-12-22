@@ -52,7 +52,7 @@
             </td>
             <td>{{ account.username }}</td>
             <td>{{ account.email }}</td>
-            <td>{{ account.gender }}</td>
+            <td>{{ convertGender(account.gender) }}</td>
             <td>{{ account.birthday }}</td>
             <td>{{ account.is_active }}</td>
             <td>
@@ -76,14 +76,14 @@
     </div>
 
     <div>
-      <b-modal id="modal-detail-account" no-close-on-backdrop size="lg" :title="userDetail.full_name">
+      <b-modal id="modal-detail-account" no-close-on-backdrop size="md" :title="userDetail.full_name">
         <PopupDetailAccount :userDetail="userDetail" @update="updateData"/>
         <template #modal-footer="">
           <b-button size="sm" variant="danger" @click="cancel">
             Hủy bỏ
           </b-button>
-          <b-button ref="btn_update_account" size="sm" variant="success" @click="submit" :disabled="!canUpdate" :class="{ '-disable': !canUpdate }">
-            Thay đổi
+          <b-button ref="btn_update_account" size="sm" variant="success" @click="changeRole">
+            Đồng ý
           </b-button>
         </template>
       </b-modal>
@@ -238,12 +238,17 @@ export default {
         solid: true,
       });
     },
-    async submit() {
+    async changeRole() {
       // update account
       const submitButton = this.$refs.btn_update_account;
       submitButton.classList.add('spinner', 'spinner-light', 'spinner-right');
-      await this.$store.dispatch('updateAccount', this.dataChanged);
-      if (this.getErrorCodeAccount === 0) {
+      const params = {
+        user_id: this.userDetail.id
+      }
+      const changeRoleAccount = await this.$store.dispatch('changeRoleAccount', params);
+      console.log(changeRoleAccount)
+      // await this.$store.dispatch('updateAccount', this.dataChanged);
+      if (changeRoleAccount.success) {
         this.$bvModal.hide(constants.ACCOUNT_CONST.ID_POPUP_DETAIL_ACCOUNT);
         await this.$store.dispatch('getAccount', '');
         this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED, 'success');

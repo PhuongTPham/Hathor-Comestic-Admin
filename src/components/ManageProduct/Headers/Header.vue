@@ -1,8 +1,9 @@
 <template>
   <div class="header-container">
-    <div class="header-container__title">QUẢN LÝ CHỦ NHÀ</div>
+    <div class="header-container__title">QUẢN LÝ SẢN PHẨM</div>
     <div>
-      <Button :title="title" :styleCss="styleCss" />
+      <Button :title="title" :styleCss="styleCss" v-b-modal.modal-add-product/>
+      <!-- <b-button v-b-modal.modal-add-category >{{ constants.CATEGORY_CONST.TITLE_MANAGE }}</b-button> -->
     </div>
   </div>
 </template>
@@ -17,7 +18,7 @@ export default {
   },
   data() {
     return {
-      title: 'Thêm chủ nhà',
+      title: 'Thêm sản phẩm',
       styleCss: 'background: #FFFFFF;color:#333333;',
     };
   },

@@ -45,7 +45,7 @@ const routes = [
         name: 'ManageProduct',
         path: '/manage-product',
         beforeEnter: async (to, from, next) => {
-          await store.dispatch('getHost', '');
+          await store.dispatch('getProduct', '');
           next();
         },
         component: () => import('@/pages/ManageProduct/ManageProduct'),

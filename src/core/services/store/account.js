@@ -40,8 +40,9 @@ export default {
       commit('SET_ERROR_CODE', response.data.error_code);
     },
     async changeRoleAccount({ commit }, payload) {
-      const response = await api('updateAccount', payload);
+      const response = await api('changeRoleAccount', payload);
       commit('SET_ERROR_CODE', response.data.error_code);
+      return response
     }
   },
 };
