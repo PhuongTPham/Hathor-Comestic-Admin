@@ -6,6 +6,57 @@ const COMMON_CONST = {
   MESSAGE_DELETE_SUCCEED: 'Xóa thành công',
   MESSAGE_DELETE_FAILED: 'Xóa mới thất bại',
   MESSAGE_DELETE_MY_ACCOUNT: 'Không thể xóa tài khoản của chính mình',
+  CHART_OPTIONS: {
+    chart: {
+      type: 'pie',
+    },
+    title: {
+      text: 'Số người subscribeth',
+    },
+    accessibility: {
+      announceNewData: {
+        enabled: true,
+      },
+      point: {
+        valueSuffix: '%',
+      },
+    },
+    plotOptions: {
+      series: {
+        dataLabels: {
+          enabled: true,
+          format: '{point.name}: {point.y}%',
+        },
+      },
+    },
+    tooltip: {
+      headerFormat: "<span style='font-size:11px'>{series.name}</span><br>",
+      pointFormat: "<span style='color:{point.color}'>{point.name}</span>: <b>{point.y}%</b><br/>",
+    },
+    series: [
+      {
+        name: 'Browsers',
+        colorByPoint: true,
+        data: [
+          {
+            name: 'Số người đã subscribeth',
+            y: 62,
+          },
+          {
+            name: 'Số người mới subscribeth',
+            y: 12,
+          },
+          {
+            name: 'Số người chưa subscribeth',
+            y: 26,
+          },
+        ],
+      },
+    ],
+    credits: {
+      enabled: false,
+    },
+  }
 };
 
 const ACCOUNT_CONST = {

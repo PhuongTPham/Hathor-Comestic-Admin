@@ -10,6 +10,13 @@ const routes = [
   {
     path: '/dashboard',
     component: () => import('@/layout/Layout'),
+    children: [
+      {
+        name: 'Analytics',
+        path: '/',
+        component: () => import('@/pages/Dashboard/Analytics'),
+      },
+    ],
   },
   {
     path: ROUTER.login.path,
