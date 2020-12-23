@@ -31,11 +31,11 @@ export default {
   methods: {
     async submit() {
       const payload = {
-        category_id: this.selectedListId,
+        subscriber_id: this.selectedListId,
       };
-      await this.$store.dispatch('deleteCategory', payload);
+      await this.$store.dispatch('deleteSubscriber', payload);
       this.$bvModal.hide(`${this.idModal}`);
-      await this.$store.dispatch('getListCategory');
+      await this.$store.dispatch('getListSubscriber');
     },
     cancel() {
       this.$bvModal.hide(`${this.idModal}`);

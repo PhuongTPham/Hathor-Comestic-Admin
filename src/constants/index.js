@@ -13,7 +13,7 @@ const COMMON_CONST = {
       type: 'pie',
     },
     title: {
-      text: 'Số người subscribeth',
+      text: 'Số người subscriber',
     },
     accessibility: {
       announceNewData: {

@@ -115,6 +115,15 @@ const routes = [
         },
         component: () => import('@/pages/ManageComment/ManageComment'),
       },
+      {
+        name: 'ManageSubscriber',
+        path: '/manage-subscriber',
+        beforeEnter: async (to, from, next) => {
+          await store.dispatch('getListContact', '');
+          next();
+        },
+        component: () => import('@/pages/ManageSubscribers/ManageSubscriber'),
+      },
     ],
   },
 ];

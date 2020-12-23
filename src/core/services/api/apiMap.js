@@ -54,6 +54,11 @@ const api = (config) => ({
 
   // comment
   getListComment: (keyword) => config('get', `/cms-admin/v1/list-comment/?search=${keyword}`),
+
+  // subscriber
+  getListSubscriber: (keyword) => config('get', `/customer/v1/list-subscriber/?search=${keyword}`),
+  deleteSubscriber: (payload) => config('post', '/customer/v1/delete-subscriber/', payload),
+
 });
 
 export default api;

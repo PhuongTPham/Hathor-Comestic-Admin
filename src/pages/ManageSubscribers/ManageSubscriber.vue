@@ -1,22 +1,22 @@
 <template>
-  <div class="manage-toanha-container">
-    <div class="manage-toanha-container__header">
+  <div class="manage-subscriber-container">
+    <div class="manage-subscriber-container__header">
       <Header />
     </div>
-    <div class="manage-toanha-container__options">
-      <b-form @submit="searchBuilding" >
-        <div class="manage-toanha-container__options__search-form" >
+    <div class="manage-subscriber-container__options">
+      <b-form @submit="searchSubscriber" >
+        <div class="manage-subscriber-container__options__search-form" >
           <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchBuilding"></b-icon-search>
+          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchSubscriber"></b-icon-search>
         </div>
       </b-form>
-      <div class="manage-toanha-container__options__button-group">
+      <div class="manage-subscriber-container__options__button-group">
         <b-icon-trash
           class="btn-group-options"
           variant="danger"
           font-scale="2.5"
           :class="checkCanDelete ? '' : '-disable'"
-          v-b-modal.modal-delete-toanha
+          v-b-modal.modal-delete-subscriber
           v-if="checkCanDelete"
         >
         </b-icon-trash>
@@ -30,43 +30,34 @@
         </b-icon-trash>
       </div>
     </div>
-    <div class="manage-toanha-container__table">
+    <div class="manage-subscriber-container__table">
       <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">
               <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
             </th>
-            <th scope="col">Tên tòa nhà</th>
-            <th scope="col">Địa chỉ</th>
-            <th scope="col">Phường</th>
-            <th scope="col">Quận</th>
-            <th scope="col">Thành phố</th>
+            <th scope="col">Email</th>
+            <th scope="col">Ngày đăng kí</th>
+            <th scope="col">Trạng thái</th>
             <th scope="col">Tùy chọn</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(building, index) in listBuilding" :key="index">
+          <tr v-for="(sub, index) in listSubscriber" :key="index">
             <td>
-              <input type="checkbox" :value="building.id" v-model="selectedListBuilding" />
+              <input type="checkbox" :value="sub.id" v-model="selectedListSubscriber" />
             </td>
-            <td>{{ building.name }}</td>
-            <td>{{ building.address }}</td>
-            <td>{{ building.phuong }}</td>
-            <td>{{ building.district }}</td>
-            <td>{{ building.city }}</td>
+            <td>{{ sub.email }}</td>
+            <td>{{ sub.created_at }}</td>
+            <td>True</td>
             <td>
               <div class="show-detail">
-                <b-icon-pencil-square
-                  variant="light"
-                  @click="getDetailAccount(account.id)"
-                  v-b-modal.modal-detail-account
-                ></b-icon-pencil-square>
                 <b-icon-trash
                   variant="light"
                   class="rounded-circle bg-danger p-2"
-                  v-b-modal.modal-delete-toanha
-                  @click="getSingleIdBuilding(building.id)"
+                  v-b-modal.modal-delete-subscriber
+                  @click="getSingleIdSubscriber(sub.id)"
                 ></b-icon-trash>
               </div>
             </td>
@@ -75,11 +66,11 @@
       </table>
     </div>
     <div>
-      <PopupDeleteComment
-        :titleModal="constants.COMMENT_CONST.TITLE_POPUP_DELETE"
-        :idModal="constants.COMMENT_CONST.ID_POPUP_DELETE"
-        :contentModal="constants.COMMENT_CONST.CONTENT_POPUP_DELETE"
-        :selectedListId="selectedListBuilding"
+      <PopupDeleteSubscriber
+        :titleModal="constants.SUBSCRIBER_CONST.TITLE_POPUP_DELETE"
+        :idModal="constants.SUBSCRIBER_CONST.ID_POPUP_DELETE"
+        :contentModal="constants.SUBSCRIBER_CONST.CONTENT_POPUP_DELETE"
+        :selectedListId="selectedListSubscriber"
         @updateSelectedListId="updateSelectedListId"
       />
     </div>
@@ -89,14 +80,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import Header from '../../components/ManageComment/Headers/Header.vue';
-import PopupDeleteComment from '../../components/ManageComment/Popups/PopupDeleteComment.vue';
+import PopupDeleteSubscriber from '../../components/ManageSubscriber/Popups/PopupDeleteSubscriber.vue';
 import constants from '../../constants/index';
 
 export default {
-  name: 'ManageToaNha',
+  name: 'ManageSubscriber',
   components: {
     Header,
-    PopupDeleteComment,
+    PopupDeleteSubscriber,
   },
   data() {
     return {
@@ -104,14 +95,14 @@ export default {
       canUpdate: false,
       isSelectedAll: false,
       inputSearch: '',
-      selectedListBuilding: [],
+      selectedListSubscriber: [],
       constants,
     };
   },
   watch: {
-    selectedListBuilding: {
+    selectedListSubscriber: {
       handler() {
-        if (this.selectedListBuilding.length === this.listIdBuilding.length) {
+        if (this.selectedListSubscriber.length === this.listIdSubscriber.length) {
           this.isSelectedAll = true;
         } else {
           this.isSelectedAll = false;
@@ -120,24 +111,21 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getlistToaNha']),
-    listBuilding() {
+    ...mapGetters(['getlistSubscriber']),
+    listSubscriber() {
       const items = [];
-      this.getlistToaNha.forEach((item) => {
+      this.getlistSubscriber.forEach((item) => {
         items.push({
-          name: item.name,
-          address: item.address,
-          phuong: item.phuong,
-          district: item.district.name,
-          city: item.city,
+          email: item.email,
+          created_at: item.created_at,
           id: item.id,
         });
       });
       return items;
     },
-    listIdBuilding() {
+    listIdSubscriber() {
       const result = [];
-      this.listBuilding.forEach((item) => {
+      this.listSubscriber.forEach((item) => {
         result.push(item.id);
       });
       return result;
@@ -145,7 +133,7 @@ export default {
     checkCanDelete() {
       // check enable button delete
       let result;
-      if (this.selectedListBuilding.length > 0) result = true;
+      if (this.selectedListSubscriber.length > 0) result = true;
       else result = false;
       return result;
     },
@@ -155,33 +143,34 @@ export default {
     setIsSelectedAll() {
       this.isSelectedAll = !this.isSelectedAll;
       if (this.isSelectedAll) {
-        this.selectedListBuilding = this.listIdBuilding;
+        this.selectedListSubscriber = this.listIdSubscriber;
       } else {
-        this.selectedListBuilding = [];
+        this.selectedListSubscriber = [];
       }
     },
-    searchBuilding(event) {
+    searchSubscriber(event) {
       event.preventDefault();
-      this.$store.dispatch('getBuilding', this.inputSearch);
+      this.$store.dispatch('getListSubscriber', this.inputSearch);
     },
     updateSelectedListId(value) {
-      this.selectedListBuilding = value;
+      this.selectedListSubscriber = value;
     },
-    getSingleIdBuilding(id) {
-      this.selectedListBuilding = [id];
+    getSingleIdSubscriber(id) {
+      this.selectedListSubscriber = [id];
     },
     submit() {
       // console.log('ok');
     },
     cancel() {
-      this.$bvModal.hide('modal-detail-account');
+      this.$bvModal.hide(constants.SUBSCRIBER_CONST.ID_POPUP_DETAIL);
+      this.canUpdate = false;
     },
   },
 };
 </script>
 
 <style lang='scss' scoped>
-.manage-toanha-container {
+.manage-subscriber-container {
   &__header {
     margin-bottom: 12px;
   }

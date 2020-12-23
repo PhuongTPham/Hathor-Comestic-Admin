@@ -6,11 +6,13 @@ export default {
     listContact: [],
     errorCode: null,
     listComment: [],
+    listSubscriber: [],
   },
   getters: {
     getlistContact: (state) => state.listContact,
     getErrorCodeContact: (state) => state.errorCode,
-    listComment: (state) => state.listComment,
+    getlistComment: (state) => state.listComment,
+    getlistSubscriber: (state) => state.listSubscriber,
   },
   mutations: {
     SET_LIST_CONTACT(state, payload) {
@@ -18,6 +20,12 @@ export default {
     },
     SET_ERROR_CODE(state, payload) {
       state.errorCode = payload;
+    },
+    SET_LIST_COMMENT(state, payload) {
+      state.listComment = payload;
+    },
+    SET_LIST_SUBSCRIBER(state, payload) {
+      state.listSubscriber = payload;
     },
   },
   actions: {
@@ -34,15 +42,23 @@ export default {
       commit('SET_ERROR_CODE', response.data.error_code);
     },
     async getListComment({ commit }, payload) {
-      const response = await api('getListContact', payload);
+      const response = await api('getListComment', payload);
       if (response.data.error_code === 0) {
-        commit('SET_LIST_CONTACT', response.data.data);
+        commit('SET_LIST_COMMENT', response.data.data);
       } else {
         // show message failed
       }
     },
-    async deleteComment({ commit }, payload) {
-      const response = await api('deleteContact', payload);
+    async getListSubscriber({ commit }, payload) {
+      const response = await api('getListSubscriber', payload);
+      if (response.data.error_code === 0) {
+        commit('SET_LIST_SUBSCRIBER', response.data.data);
+      } else {
+        // show message failed
+      }
+    },
+    async deleteSubscriber({ commit }, payload) {
+      const response = await api('deleteSubscriber', payload);
       commit('SET_ERROR_CODE', response.data.error_code);
     },
   },

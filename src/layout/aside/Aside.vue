@@ -182,6 +182,11 @@ export default {
               icon: 'media/svg/icons/Files/Selected-file.svg',
             },
             {
+              nameSubNav: 'Subscriber',
+              router: '/manage-subscriber',
+              icon: 'media/svg/icons/General/User.svg',
+            },
+            {
               nameSubNav: 'Blog/review sản phẩm',
               router: '/manage-blog',
               icon: 'media/svg/icons/General/Folder.svg',

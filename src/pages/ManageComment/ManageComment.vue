@@ -4,10 +4,10 @@
       <Header />
     </div>
     <div class="manage-comment-container__options">
-      <b-form @submit="searchContact" >
+      <b-form @submit="searchComment" >
         <div class="manage-comment-container__options__search-form" >
           <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchContact"></b-icon-search>
+          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchComment"></b-icon-search>
         </div>
       </b-form>
       <div class="manage-comment-container__options__button-group">
@@ -16,7 +16,7 @@
           variant="danger"
           font-scale="2.5"
           :class="checkCanDelete ? '' : '-disable'"
-          v-b-modal.modal-delete-contact
+          v-b-modal.modal-delete-comment
           v-if="checkCanDelete"
         >
         </b-icon-trash>
@@ -37,27 +37,29 @@
             <th scope="col">
               <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
             </th>
-            <th scope="col">Họ và tên</th>
-            <th scope="col">Email</th>
-            <th scope="col">Nội dung</th>
+            <th scope="col">Nội dung bình luận</th>
+            <th scope="col">Mã sản phẩm</th>
+            <th scope="col">Mã người bình luận</th>
+            <th scope="col">Đánh giá</th>
             <th scope="col">Tùy chọn</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(contact, index) in listContact" :key="index">
+          <tr v-for="(comment, index) in listComment" :key="index">
             <td>
-              <input type="checkbox" :value="contact.id" v-model="selectedListContact" />
+              <input type="checkbox" :value="comment.id" v-model="selectedListComment" />
             </td>
-            <td>{{ contact.full_name }}</td>
-            <td>{{ contact.email }}</td>
-            <td>{{ contact.body }}</td>
+            <td>{{ comment.comment }}</td>
+            <td>{{ comment.item_id }}</td>
+            <td>{{ comment.user_id }}</td>
+            <td>{{ comment.rating }}</td>
             <td>
               <div class="show-detail">
                 <b-icon-trash
                   variant="light"
                   class="rounded-circle bg-danger p-2"
-                  v-b-modal.modal-delete-contact
-                  @click="getSingleIdContact(contact.id)"
+                  v-b-modal.modal-delete-comment
+                  @click="getListIdComment(comment.id)"
                 ></b-icon-trash>
               </div>
             </td>
@@ -66,11 +68,11 @@
       </table>
     </div>
     <div>
-      <PopupDeleteContact
-        :titleModal="constants.CONTACT_CONST.TITLE_POPUP_DELETE"
-        :idModal="constants.CONTACT_CONST.ID_POPUP_DELETE"
-        :contentModal="constants.CONTACT_CONST.CONTENT_POPUP_DELETE"
-        :selectedListId="selectedListContact"
+      <PopupDeleteComment
+        :titleModal="constants.COMMENT_CONST.TITLE_POPUP_DELETE"
+        :idModal="constants.COMMENT_CONST.ID_POPUP_DELETE"
+        :contentModal="constants.COMMENT_CONST.CONTENT_POPUP_DELETE"
+        :selectedListId="selectedListComment"
         @updateSelectedListId="updateSelectedListId"
       />
     </div>
@@ -80,14 +82,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import Header from '../../components/ManageComment/Headers/Header.vue';
-import PopupDeleteContact from '../../components/ManageContact/Popups/PopupDeleteContact.vue';
+import PopupDeleteComment from '../../components/ManageComment/Popups/PopupDeleteComment.vue';
 import constants from '../../constants/index';
 
 export default {
   name: 'ManageComment',
   components: {
     Header,
-    PopupDeleteContact,
+    PopupDeleteComment,
   },
   data() {
     return {
@@ -95,15 +97,14 @@ export default {
       canUpdate: false,
       isSelectedAll: false,
       inputSearch: '',
-      selectedListContact: [],
+      selectedListComment: [],
       constants,
-      contactDetail: {},
     };
   },
   watch: {
-    selectedListContact: {
+    selectedListComment: {
       handler() {
-        if (this.selectedListContact.length === this.listIdContact.length) {
+        if (this.selectedListComment.length === this.listIdComment.length) {
           this.isSelectedAll = true;
         } else {
           this.isSelectedAll = false;
@@ -112,29 +113,30 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getlistContact', 'getErrorCodeContact']),
-    listContact() {
+    ...mapGetters(['getlistComment']),
+    listComment() {
       const items = [];
-      this.getlistContact.forEach((item) => {
+      this.getlistComment.forEach((item) => {
         items.push({
-          full_name: item.full_name,
-          email: item.email,
-          body: item.body,
+          comment: item.comment,
+          item_id: item.item_id,
+          user_id: item.user_id,
+          rating: item.rating,
           id: item.id,
         });
       });
       return items;
     },
-    listIdContact() {
+    listIdComment() {
       const result = [];
-      this.listContact.forEach((item) => {
+      this.listComment.forEach((item) => {
         result.push(item.id);
       });
       return result;
     },
     checkCanDelete() {
       let result;
-      if (this.selectedListContact.length > 0) result = true;
+      if (this.selectedListComment.length > 0) result = true;
       else result = false;
       return result;
     },
@@ -144,26 +146,26 @@ export default {
     setIsSelectedAll() {
       this.isSelectedAll = !this.isSelectedAll;
       if (this.isSelectedAll) {
-        this.selectedListContact = this.listIdContact;
+        this.selectedListComment = this.listIdComment;
       } else {
-        this.selectedListContact = [];
+        this.selectedListComment = [];
       }
     },
-    searchContact(event) {
+    searchComment(event) {
       event.preventDefault();
-      this.$store.dispatch('getListContact', this.inputSearch);
+      this.$store.dispatch('getListComment', this.inputSearch);
     },
     updateSelectedListId(value) {
-      this.selectedListContact = value;
+      this.selectedListComment = value;
     },
-    getSingleIdContact(id) {
-      this.selectedListContact = [id];
+    getListIdComment(id) {
+      this.selectedListComment = [id];
     },
     submit() {
       // console.log('ok');
     },
     cancel() {
-      this.$bvModal.hide(constants.CONTACT_CONST.ID_POPUP_DETAIL);
+      this.$bvModal.hide(constants.COMMENT_CONST.ID_POPUP_DETAIL);
       this.canUpdate = false;
     },
   },

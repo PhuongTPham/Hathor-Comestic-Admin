@@ -79,7 +79,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Header from '../../components/ManageComment/Headers/Header.vue';
+import Header from '../../components/ManageContact/Headers/Header.vue';
 import PopupDeleteContact from '../../components/ManageContact/Popups/PopupDeleteContact.vue';
 import constants from '../../constants/index';
 

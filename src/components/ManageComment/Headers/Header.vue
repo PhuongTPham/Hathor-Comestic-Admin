@@ -2,7 +2,6 @@
   <div class="header-container">
     <div class="header-container__title">{{ constants.COMMENT_CONST.HEADER_MANAGE}}</div>
     <div>
-      <b-button>{{ constants.COMMENT_CONST.TITLE_MANAGE}}</b-button>
     </div>
   </div>
 </template>
