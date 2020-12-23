@@ -2,12 +2,24 @@
   <b-modal :id="idModal" no-close-on-backdrop size="lg" :title="titleModal">
     <div class="popup-add-account">
       <div class="form-input">
-        <label for="name">Tên danh mục sản phẩm:</label>
-        <b-form-input placeholder="" id="name" v-model="name" ></b-form-input>
+        <label for="title">Tiêu đề bài viết:</label>
+        <b-form-input placeholder="" id="title" v-model="title" ></b-form-input>
       </div>
       <div class="form-input">
-        <label for="description">Miêu tả:</label>
-        <b-form-input placeholder="" id="description" v-model="description" ></b-form-input>
+        <label for="description">Nội dung:</label>
+        <b-form-textarea placeholder="" id="description" v-model="description" ></b-form-textarea>
+      </div>
+      <div class="form-input">
+        <label for="author">Tác giả:</label>
+        <b-form-input placeholder="" id="author" v-model="author" ></b-form-input>
+      </div>
+      <div class="form-input">
+        <label for="image">Ảnh:</label>
+        <b-form-input placeholder="" id="image" v-model="image" ></b-form-input>
+      </div>
+      <div class="form-input">
+        <label for="like">Like:</label>
+        <b-form-input placeholder="" id="like" v-model="like" ></b-form-input>
       </div>
     </div>
     <template #modal-footer="">
@@ -15,7 +27,7 @@
         Hủy bỏ
       </b-button>
       <b-button size="sm" variant="success" @click="submit" >
-        Thêm category
+        Thêm bài viết
       </b-button>
     </template>
   </b-modal>
@@ -34,29 +46,38 @@ export default {
   },
   data() {
     return {
-      name: '',
+      title: '',
       description: '',
+      author: '',
+      image: '',
+      like: '',
     };
   },
   computed: {
   },
   methods: {
     clearData() {
-      this.name = '';
+      this.title = '';
       this.description = '';
+      this.author = '';
+      this.image = '';
+      this.like = '';
     },
     cancel() {
       this.$bvModal.hide(this.idModal);
     },
     async submit() {
       const payload = {
-        name: this.name,
+        title: this.title,
         description: this.description,
+        author: this.author,
+        image: this.image,
+        like: this.like,
       };
-      await this.$store.dispatch('addCategory', payload);
+      await this.$store.dispatch('addBlog', payload);
       this.$bvModal.hide(this.idModal);
       this.clearData();
-      await this.$store.dispatch('getListCategory');
+      await this.$store.dispatch('getListBlog');
     },
   },
 };

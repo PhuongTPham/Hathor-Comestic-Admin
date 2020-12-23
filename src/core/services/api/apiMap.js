@@ -59,6 +59,11 @@ const api = (config) => ({
   getListSubscriber: (keyword) => config('get', `/customer/v1/list-subscriber/?search=${keyword}`),
   deleteSubscriber: (payload) => config('post', '/customer/v1/delete-subscriber/', payload),
 
+  // blog
+  getListBlog: (keyword) => config('get', `/cms-admin/v1/list-blog/?search=${keyword}`),
+  addBlog: (payload) => config('post', '/cms-admin/v1/add-new-blog/', payload),
+  updateBlog: (payload) => config('post', '/cms-admin/v1/update-blog/', payload.data),
+  deleteBlog: (payload) => config('post', '/cms-admin/v1/delete-blog/', payload),
 });
 
 export default api;

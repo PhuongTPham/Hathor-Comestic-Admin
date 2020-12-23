@@ -1,22 +1,22 @@
 <template>
-  <div class="manage-toanha-container">
-    <div class="manage-toanha-container__header">
+  <div class="manage-blog-container">
+    <div class="manage-blog-container__header">
       <Header />
     </div>
-    <div class="manage-toanha-container__options">
-      <b-form @submit="searchBuilding" >
-        <div class="manage-toanha-container__options__search-form" >
+    <div class="manage-blog-container__options">
+      <b-form @submit="searchBlog" >
+        <div class="manage-blog-container__options__search-form" >
           <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchBuilding"></b-icon-search>
+          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchBlog"></b-icon-search>
         </div>
       </b-form>
-      <div class="manage-toanha-container__options__button-group">
+      <div class="manage-blog-container__options__button-group">
         <b-icon-trash
           class="btn-group-options"
           variant="danger"
           font-scale="2.5"
           :class="checkCanDelete ? '' : '-disable'"
-          v-b-modal.modal-delete-toanha
+          v-b-modal.modal-delete-blog
           v-if="checkCanDelete"
         >
         </b-icon-trash>
@@ -30,43 +30,43 @@
         </b-icon-trash>
       </div>
     </div>
-    <div class="manage-toanha-container__table">
+    <div class="manage-blog-container__table">
       <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">
               <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
             </th>
-            <th scope="col">Tên tòa nhà</th>
-            <th scope="col">Địa chỉ</th>
-            <th scope="col">Phường</th>
-            <th scope="col">Quận</th>
-            <th scope="col">Thành phố</th>
+            <th scope="col">Tiêu đề</th>
+            <th scope="col">Nội dung</th>
+            <th scope="col">Tác giả</th>
+            <th scope="col">Image</th>
+            <th scope="col">Like</th>
             <th scope="col">Tùy chọn</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(building, index) in listBuilding" :key="index">
+          <tr v-for="(blog, index) in listBlog" :key="index">
             <td>
-              <input type="checkbox" :value="building.id" v-model="selectedListBuilding" />
+              <input type="checkbox" :value="blog.id" v-model="selectedListBlog" />
             </td>
-            <td>{{ building.name }}</td>
-            <td>{{ building.address }}</td>
-            <td>{{ building.phuong }}</td>
-            <td>{{ building.district }}</td>
-            <td>{{ building.city }}</td>
+            <td>{{ blog.title }}</td>
+            <td>{{ blog.description }}</td>
+            <td>{{ blog.author }}</td>
+            <td>{{ blog.image }}</td>
+            <td>{{ blog.like }}</td>
             <td>
               <div class="show-detail">
                 <b-icon-pencil-square
                   variant="light"
-                  @click="getDetailAccount(account.id)"
-                  v-b-modal.modal-detail-account
+                  @click="getDetailBlog(blog.id)"
+                  v-b-modal.modal-detail-blog
                 ></b-icon-pencil-square>
                 <b-icon-trash
                   variant="light"
                   class="rounded-circle bg-danger p-2"
-                  v-b-modal.modal-delete-toanha
-                  @click="getSingleIdBuilding(building.id)"
+                  v-b-modal.modal-delete-blog
+                  @click="getSingleIdBlog(blog.id)"
                 ></b-icon-trash>
               </div>
             </td>
@@ -74,29 +74,56 @@
         </tbody>
       </table>
     </div>
+
     <div>
-      <PopupDeleteComment
-        :titleModal="constants.COMMENT_CONST.TITLE_POPUP_DELETE"
-        :idModal="constants.COMMENT_CONST.ID_POPUP_DELETE"
-        :contentModal="constants.COMMENT_CONST.CONTENT_POPUP_DELETE"
-        :selectedListId="selectedListBuilding"
+      <b-modal id="modal-detail-category" no-close-on-backdrop size="lg" :title="userDetail.name">
+        <PopupDetailBlog :userDetail="userDetail" @update="updateData"/>
+        <template #modal-footer="">
+          <b-button size="sm" variant="danger" @click="cancel">
+            Hủy bỏ
+          </b-button>
+          <b-button ref="btn_update_blog" size="sm" variant="success" @click="submit" :disabled="!canUpdate" :class="{ '-disable': !canUpdate }">
+            Thay đổi
+          </b-button>
+        </template>
+      </b-modal>
+    </div>
+
+    <div>
+      <PopupDeleteBlog
+        :titleModal="constants.BLOG_CONST.TITLE_POPUP_DELETE"
+        :idModal="constants.BLOG_CONST.ID_POPUP_DELETE"
+        :contentModal="constants.BLOG_CONST.CONTENT_POPUP_DELETE"
+        :selectedListId="selectedListBlog"
         @updateSelectedListId="updateSelectedListId"
       />
     </div>
+
+    <div>
+      <PopupAddBlog
+        :titleModal="constants.BLOG_CONST.TITLE_POPUP_ADD"
+        :idModal="constants.BLOG_CONST.ID_POPUP_ADD"
+      />
+    </div>
+
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import Header from '../../components/ManageComment/Headers/Header.vue';
-import PopupDeleteComment from '../../components/ManageComment/Popups/PopupDeleteComment.vue';
+import Header from '../../components/ManageBlog/Headers/Header.vue';
+import PopupDeleteBlog from '../../components/ManageBlog/Popups/PopupDeleteBlog.vue';
+import PopupDetailBlog from '../../components/ManageBlog/Popups/PopupDetailBlog.vue';
+import PopupAddBlog from '../../components/ManageBlog/Popups/PopupAddBlog.vue';
 import constants from '../../constants/index';
 
 export default {
-  name: 'ManageToaNha',
+  name: 'ManageBlog',
   components: {
     Header,
-    PopupDeleteComment,
+    PopupDeleteBlog,
+    PopupDetailBlog,
+    PopupAddBlog,
   },
   data() {
     return {
@@ -104,14 +131,15 @@ export default {
       canUpdate: false,
       isSelectedAll: false,
       inputSearch: '',
-      selectedListBuilding: [],
+      selectedListBlog: [],
       constants,
+      userDetail: {},
     };
   },
   watch: {
-    selectedListBuilding: {
+    selectedListBlog: {
       handler() {
-        if (this.selectedListBuilding.length === this.listIdBuilding.length) {
+        if (this.selectedListBlog.length === this.listIdBlog.length) {
           this.isSelectedAll = true;
         } else {
           this.isSelectedAll = false;
@@ -120,32 +148,31 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getlistToaNha']),
-    listBuilding() {
+    ...mapGetters(['getlistBlog']),
+    listBlog() {
       const items = [];
-      this.getlistToaNha.forEach((item) => {
+      this.getlistBlog.forEach((item) => {
         items.push({
-          name: item.name,
-          address: item.address,
-          phuong: item.phuong,
-          district: item.district.name,
-          city: item.city,
+          title: item.title,
+          description: item.description,
+          author: item.author,
+          image: item.image,
+          like: item.like,
           id: item.id,
         });
       });
       return items;
     },
-    listIdBuilding() {
+    listIdBlog() {
       const result = [];
-      this.listBuilding.forEach((item) => {
+      this.listBlog.forEach((item) => {
         result.push(item.id);
       });
       return result;
     },
     checkCanDelete() {
-      // check enable button delete
       let result;
-      if (this.selectedListBuilding.length > 0) result = true;
+      if (this.selectedListBlog.length > 0) result = true;
       else result = false;
       return result;
     },
@@ -155,33 +182,87 @@ export default {
     setIsSelectedAll() {
       this.isSelectedAll = !this.isSelectedAll;
       if (this.isSelectedAll) {
-        this.selectedListBuilding = this.listIdBuilding;
+        this.selectedListBlog = this.listIdBlog;
       } else {
-        this.selectedListBuilding = [];
+        this.selectedListBlog = [];
       }
     },
-    searchBuilding(event) {
+    searchBlog(event) {
       event.preventDefault();
-      this.$store.dispatch('getBuilding', this.inputSearch);
+      this.$store.dispatch('getListBlog', this.inputSearch);
     },
     updateSelectedListId(value) {
-      this.selectedListBuilding = value;
+      this.selectedListBlog = value;
     },
-    getSingleIdBuilding(id) {
-      this.selectedListBuilding = [id];
+    getSingleIdBlog(id) {
+      this.selectedListBlog = [id];
     },
-    submit() {
-      // console.log('ok');
+    getDetailBlog(id) {
+      this.selectedListBlog = [id];
+      this.userDetail = this.getlistBlog.find((item) => item.id === id);
+    },
+    updateData(newData) {
+      const oldData = {
+        blog_id: this.userDetail.id,
+        title: this.userDetail.title,
+        description: this.userDetail.description,
+        author: this.userDetail.author,
+        image: this.userDetail.image,
+        like: this.userDetail.like,
+      };
+      if (JSON.stringify(oldData) === JSON.stringify(newData)) {
+        this.canUpdate = false;
+      } else {
+        this.canUpdate = true;
+      }
+      this.dataChanged = {
+        data: {
+          blog_id: newData.blog_id,
+          title: newData.title,
+          description: newData.description,
+          author: newData.author,
+          image: newData.image,
+          like: newData.like,
+        },
+      };
+    },
+    makeToastMessage(message, status) {
+      this.$bvToast.toast(message, {
+        title: 'Thông báo',
+        variant: status,
+        autoHideDelay: 2000,
+        solid: true,
+      });
+    },
+    async submit() {
+      // update blog
+      const submitButton = this.$refs.btn_update_blog;
+      submitButton.classList.add('spinner', 'spinner-light', 'spinner-right');
+      await this.$store.dispatch('updateBlog', this.dataChanged);
+      if (this.getErrorCodeBlog === 0) {
+        this.$bvModal.hide(constants.BLOG_CONST.ID_POPUP_DETAIL);
+        await this.$store.dispatch('getListBlog', '');
+        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED, 'success');
+        this.canUpdate = false;
+      } else {
+        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_FAILED, 'danger');
+      }
+      submitButton.classList.remove(
+        'spinner',
+        'spinner-light',
+        'spinner-right',
+      );
     },
     cancel() {
-      this.$bvModal.hide('modal-detail-account');
+      this.$bvModal.hide('modal-detail-blog');
+      this.canUpdate = false;
     },
   },
 };
 </script>
 
 <style lang='scss' scoped>
-.manage-toanha-container {
+.manage-blog-container {
   &__header {
     margin-bottom: 12px;
   }

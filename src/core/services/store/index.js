@@ -9,6 +9,7 @@ import order from './order';
 import product from './product';
 import supplier from './supplier';
 import contact from './contact';
+import blog from './blog';
 
 Vue.use(Vuex);
 
@@ -22,5 +23,6 @@ export default new Vuex.Store({
     product,
     supplier,
     contact,
+    blog,
   },
 });

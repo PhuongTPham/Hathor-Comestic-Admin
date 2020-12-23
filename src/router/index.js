@@ -110,7 +110,7 @@ const routes = [
         name: 'ManageComment',
         path: '/manage-comment',
         beforeEnter: async (to, from, next) => {
-          await store.dispatch('getListContact', '');
+          await store.dispatch('getListComment', '');
           next();
         },
         component: () => import('@/pages/ManageComment/ManageComment'),
@@ -119,10 +119,19 @@ const routes = [
         name: 'ManageSubscriber',
         path: '/manage-subscriber',
         beforeEnter: async (to, from, next) => {
-          await store.dispatch('getListContact', '');
+          await store.dispatch('getListSubscriber', '');
           next();
         },
         component: () => import('@/pages/ManageSubscribers/ManageSubscriber'),
+      },
+      {
+        name: 'ManageBlog',
+        path: '/manage-blog',
+        beforeEnter: async (to, from, next) => {
+          await store.dispatch('getListBlog', '');
+          next();
+        },
+        component: () => import('@/pages/ManageBlog/ManageBlog'),
       },
     ],
   },

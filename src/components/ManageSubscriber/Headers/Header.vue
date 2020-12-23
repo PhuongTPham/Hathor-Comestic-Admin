@@ -1,8 +1,8 @@
 <template>
   <div class="header-container">
-    <div class="header-container__title">QUẢN LÝ DANH MỤC SẢN PHẨM</div>
+    <div class="header-container__title">QUẢN LÝ NGƯỜI THEO DÕI</div>
     <div>
-      <b-button v-b-modal.modal-add-category >{{ constants.CATEGORY_CONST.TITLE_MANAGE }}</b-button>
+      <b-button v-b-modal.modal-add-category >{{ constants.SUBSCRIBER_CONST.TITLE_MANAGE }}</b-button>
     </div>
   </div>
 </template>
