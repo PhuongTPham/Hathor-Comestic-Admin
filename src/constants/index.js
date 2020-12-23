@@ -105,15 +105,15 @@ const SUPPLIER_CONST = {
   TITLE_POPUP_DELETE: 'Xóa nhà cung cấp',
 };
 
-const CHUNHA_CONST = {
-  HEADER_MANAGE: 'QUẢN LÝ CHỦ NHÀ',
-  TITLE_MANAGE: 'Thêm chủ nhà',
-  ID_POPUP_ADD: 'modal-add-chunha',
-  ID_POPUP_DETAIL: 'modal-detail-chunha',
-  ID_POPUP_DELETE: 'modal-delete-chunha',
-  CONTENT_POPUP_DELETE: 'Bạn có chắc chắn muốn xóa chủ nhà này ?',
-  TITLE_POPUP_ADD: 'Thêm chủ nha',
-  TITLE_POPUP_DELETE: 'Xóa chủ nhà',
+const CONTACT_CONST = {
+  HEADER_MANAGE: 'QUẢN LÝ LIÊN HỆ',
+  TITLE_MANAGE: 'Thêm liên hệ',
+  ID_POPUP_ADD: 'modal-add-contact',
+  ID_POPUP_DETAIL: 'modal-detail-contact',
+  ID_POPUP_DELETE: 'modal-delete-contact',
+  CONTENT_POPUP_DELETE: 'Bạn có chắc chắn muốn xóa liên hệ này ?',
+  TITLE_POPUP_ADD: 'Thêm liên hệ',
+  TITLE_POPUP_DELETE: 'Xóa liên hệ',
 };
 
 const PRODUCT_CONST = {
@@ -126,13 +126,32 @@ const PRODUCT_CONST = {
   TITLE_POPUP_ADD: 'Thêm sản phẩm',
   TITLE_POPUP_DELETE: 'Xóa sản phẩm',
 };
-
+const SUBSCRIBER_CONST = {
+  HEADER_MANAGE: 'QUẢN LÝ NGƯỜI THEO DÕI',
+  ID_POPUP_DETAIL: 'modal-detail-subscriber',
+  ID_POPUP_DELETE: 'modal-delete-subscriber',
+  CONTENT_POPUP_DELETE: 'Bạn có chắc chắn muốn xóa subscriber này ?',
+  TITLE_POPUP_DELETE: 'Xóa subscriber',
+};
+const BLOG_CONST = {
+  HEADER_MANAGE: 'QUẢN LÝ BLOG',
+  TITLE_MANAGE: 'Thêm review',
+  ID_POPUP_ADD: 'modal-add-blog',
+  ID_POPUP_DETAIL: 'modal-detail-blog',
+  ID_POPUP_DELETE: 'modal-delete-blog',
+  CONTENT_POPUP_DELETE: 'Bạn có chắc chắn muốn xóa blog này ?',
+  TITLE_POPUP_ADD: 'Thêm blog',
+  TITLE_POPUP_DELETE: 'Xóa blog',
+};
+con
 export default {
   COMMON_CONST,
   ACCOUNT_CONST,
   CATEGORY_CONST,
   COMMENT_CONST,
   SUPPLIER_CONST,
-  CHUNHA_CONST,
-  PRODUCT_CONST
+  CONTACT_CONST,
+  PRODUCT_CONST,
+  SUBSCRIBER_CONST,
+  BLOG_CONST
 };
