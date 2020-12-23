@@ -354,9 +354,14 @@ export default {
 }
 </style>
 <style lang='scss'>
-thead {
-  background: #28c5bd;
-  opacity: 0.7;
-  color: #ffffff;
+th {
+  background: #dcdcdc;
+}
+td {
+  vertical-align: middle !important;
+  padding: 10px !important;
+}
+.-disable {
+  cursor: default !important;
 }
 </style>

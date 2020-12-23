@@ -246,4 +246,7 @@ td {
   vertical-align: middle !important;
   padding: 10px !important;
 }
+.-disable {
+  cursor: default !important;
+}
 </style>

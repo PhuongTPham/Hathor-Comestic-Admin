@@ -10,7 +10,7 @@
       >
         <div class="d-flex flex-row-fluid flex-column justify-content-between">
           <a href="#" class="flex-column-auto">
-            <img src="media/logos/logo-letter-1.png" class="h-25" />
+            <img src="media/logos/real-estate-1.png" class="h-25" />
           </a>
           <div
             class="flex-column-fluid d-flex flex-column justify-content-center"

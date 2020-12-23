@@ -109,6 +109,7 @@ export default {
             {
               nameSubNav: 'Analytics',
               router: '/dashboard',
+              icon: 'media/svg/icons/Design/Select.svg',
             },
           ],
         },
@@ -117,8 +118,9 @@ export default {
           icon: 'media/svg/icons/Communication/Group.svg',
           child: [
             {
-              nameSubNav: 'Danh sách tai khoan',
+              nameSubNav: 'Danh sách tài khoản ',
               router: '/manage-account/admin',
+              icon: 'media/svg/icons/Communication/Address-card.svg',
             },
           ],
         },
@@ -130,10 +132,12 @@ export default {
             {
               nameSubNav: 'Category',
               router: '/manage-category',
+              icon: 'media/svg/icons/Map/Marker1.svg',
             },
             {
               nameSubNav: 'Product',
               router: '/manage-product',
+              icon: 'media/svg/icons/Map/Marker1.svg',
             },
           ],
         },
@@ -144,20 +148,23 @@ export default {
             {
               nameSubNav: 'Danh sách nhà cung cấp',
               router: '/manage-supplier',
+              icon: 'media/svg/icons/Communication/Clipboard-list.svg',
             },
           ],
         },
         {
           name: 'Billing',
-          icon: 'media/svg/icons/Home/Book.svg',
+          icon: 'media/svg/icons/Design/PenAndRuller.svg',
           child: [
             {
               nameSubNav: 'Danh sách đơn mua',
               router: '/manage-order',
+              icon: 'media/svg/icons/Code/Compiling.svg',
             },
             {
-              nameSubNav: 'Đơn hàng đanh xử lý',
+              nameSubNav: 'Đơn hàng đang xử lý',
               router: '/manage-order',
+              icon: 'media/svg/icons/Code/Compiling.svg'
             },
           ],
         },
@@ -168,10 +175,12 @@ export default {
             {
               nameSubNav: 'Contact',
               router: '/manage-order',
+              icon: 'media/svg/icons/General/User.svg',
             },
             {
               nameSubNav: 'Comment',
               router: '/manage-order',
+              icon: 'media/svg/icons/Files/Selected-file.svg',
             },
             {
               nameSubNav: 'Blog/review sản phẩm',
@@ -191,9 +200,6 @@ export default {
   computed: {
     ...mapGetters(['layoutConfig', 'getClasses']),
 
-    /**
-     * Get extra classes for menu based on the options
-     */
     asideMenuClass() {
       const classes = this.getClasses('aside_menu');
       if (typeof classes !== 'undefined') {
@@ -204,7 +210,6 @@ export default {
   },
   methods: {
     setActiveTab(index) {
-      // set active menu
       this.activeTab = index;
       document.body.classList.remove('aside-minimize');
       this.asideExpand = true;

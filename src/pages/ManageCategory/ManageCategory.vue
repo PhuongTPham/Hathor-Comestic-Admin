@@ -309,12 +309,14 @@ export default {
 }
 </style>
 <style lang='scss'>
-thead {
-  background: linear-gradient(to bottom left, #6600cc 0%, #ff99cc 100%);
-  opacity: 0.7;
-  color: #ffffff;
+th {
+  background: #dcdcdc;
 }
 td {
   vertical-align: middle !important;
+  padding: 10px !important;
+}
+.-disable {
+  cursor: default !important;
 }
 </style>

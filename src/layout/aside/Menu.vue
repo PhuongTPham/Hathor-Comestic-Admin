@@ -17,7 +17,12 @@
       >
         <a :href="href" class="menu-link" @click="navigate">
           <i class="menu-icon flaticon2-architecture-and-city"></i>
-          <span class="menu-text">{{item.nameSubNav}}</span>
+          <span class="svg-icon svg-icon-lg">
+              <!--begin::Svg Icon-->
+              <inline-svg :src="item.icon" />
+              <!--end::Svg Icon-->
+          </span>
+          <span class="menu-text ml-5">{{item.nameSubNav}}</span>
         </a>
       </li>
     </router-link>
