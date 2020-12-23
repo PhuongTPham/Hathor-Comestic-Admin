@@ -4,10 +4,10 @@
       <Header />
     </div>
     <div class="manage-toanha-container__options">
-      <b-form @submit="searchBuilding" >
+      <b-form @submit="searchContact" >
         <div class="manage-toanha-container__options__search-form" >
           <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchBuilding"></b-icon-search>
+          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchContact"></b-icon-search>
         </div>
       </b-form>
       <div class="manage-toanha-container__options__button-group">
@@ -16,7 +16,7 @@
           variant="danger"
           font-scale="2.5"
           :class="checkCanDelete ? '' : '-disable'"
-          v-b-modal.modal-delete-toanha
+          v-b-modal.modal-delete-contact
           v-if="checkCanDelete"
         >
         </b-icon-trash>
@@ -37,36 +37,27 @@
             <th scope="col">
               <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
             </th>
-            <th scope="col">Tên tòa nhà</th>
-            <th scope="col">Địa chỉ</th>
-            <th scope="col">Phường</th>
-            <th scope="col">Quận</th>
-            <th scope="col">Thành phố</th>
+            <th scope="col">Họ và tên</th>
+            <th scope="col">Email</th>
+            <th scope="col">Nội dung</th>
             <th scope="col">Tùy chọn</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(building, index) in listBuilding" :key="index">
+          <tr v-for="(contact, index) in listContact" :key="index">
             <td>
-              <input type="checkbox" :value="building.id" v-model="selectedListBuilding" />
+              <input type="checkbox" :value="contact.id" v-model="selectedListContact" />
             </td>
-            <td>{{ building.name }}</td>
-            <td>{{ building.address }}</td>
-            <td>{{ building.phuong }}</td>
-            <td>{{ building.district }}</td>
-            <td>{{ building.city }}</td>
+            <td>{{ contact.full_name }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.body }}</td>
             <td>
               <div class="show-detail">
-                <b-icon-pencil-square
-                  variant="light"
-                  @click="getDetailAccount(account.id)"
-                  v-b-modal.modal-detail-account
-                ></b-icon-pencil-square>
                 <b-icon-trash
                   variant="light"
                   class="rounded-circle bg-danger p-2"
-                  v-b-modal.modal-delete-toanha
-                  @click="getSingleIdBuilding(building.id)"
+                  v-b-modal.modal-delete-contact
+                  @click="getSingleIdContact(contact.id)"
                 ></b-icon-trash>
               </div>
             </td>
@@ -75,11 +66,11 @@
       </table>
     </div>
     <div>
-      <PopupDeleteComment
-        :titleModal="constants.COMMENT_CONST.TITLE_POPUP_DELETE"
-        :idModal="constants.COMMENT_CONST.ID_POPUP_DELETE"
-        :contentModal="constants.COMMENT_CONST.CONTENT_POPUP_DELETE"
-        :selectedListId="selectedListBuilding"
+      <PopupDeleteContact
+        :titleModal="constants.CONTACT_CONST.TITLE_POPUP_DELETE"
+        :idModal="constants.CONTACT_CONST.ID_POPUP_DELETE"
+        :contentModal="constants.CONTACT_CONST.CONTENT_POPUP_DELETE"
+        :selectedListId="selectedListContact"
         @updateSelectedListId="updateSelectedListId"
       />
     </div>
@@ -89,14 +80,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import Header from '../../components/ManageComment/Headers/Header.vue';
-import PopupDeleteComment from '../../components/ManageComment/Popups/PopupDeleteComment.vue';
+import PopupDeleteContact from '../../components/ManageContact/Popups/PopupDeleteContact.vue';
 import constants from '../../constants/index';
 
 export default {
-  name: 'ManageToaNha',
+  name: 'ManageContact',
   components: {
     Header,
-    PopupDeleteComment,
+    PopupDeleteContact,
   },
   data() {
     return {
@@ -104,14 +95,15 @@ export default {
       canUpdate: false,
       isSelectedAll: false,
       inputSearch: '',
-      selectedListBuilding: [],
+      selectedListContact: [],
       constants,
+      contactDetail: {},
     };
   },
   watch: {
-    selectedListBuilding: {
+    selectedListContact: {
       handler() {
-        if (this.selectedListBuilding.length === this.listIdBuilding.length) {
+        if (this.selectedListContact.length === this.listIdContact.length) {
           this.isSelectedAll = true;
         } else {
           this.isSelectedAll = false;
@@ -120,32 +112,29 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getlistToaNha']),
-    listBuilding() {
+    ...mapGetters(['getlistContact', 'getErrorCodeContact']),
+    listContact() {
       const items = [];
-      this.getlistToaNha.forEach((item) => {
+      this.getlistContact.forEach((item) => {
         items.push({
-          name: item.name,
-          address: item.address,
-          phuong: item.phuong,
-          district: item.district.name,
-          city: item.city,
+          full_name: item.full_name,
+          email: item.email,
+          body: item.body,
           id: item.id,
         });
       });
       return items;
     },
-    listIdBuilding() {
+    listIdContact() {
       const result = [];
-      this.listBuilding.forEach((item) => {
+      this.listContact.forEach((item) => {
         result.push(item.id);
       });
       return result;
     },
     checkCanDelete() {
-      // check enable button delete
       let result;
-      if (this.selectedListBuilding.length > 0) result = true;
+      if (this.selectedListContact.length > 0) result = true;
       else result = false;
       return result;
     },
@@ -155,26 +144,27 @@ export default {
     setIsSelectedAll() {
       this.isSelectedAll = !this.isSelectedAll;
       if (this.isSelectedAll) {
-        this.selectedListBuilding = this.listIdBuilding;
+        this.selectedListContact = this.listIdContact;
       } else {
-        this.selectedListBuilding = [];
+        this.selectedListContact = [];
       }
     },
-    searchBuilding(event) {
+    searchContact(event) {
       event.preventDefault();
-      this.$store.dispatch('getBuilding', this.inputSearch);
+      this.$store.dispatch('getListContact', this.inputSearch);
     },
     updateSelectedListId(value) {
-      this.selectedListBuilding = value;
+      this.selectedListContact = value;
     },
-    getSingleIdBuilding(id) {
-      this.selectedListBuilding = [id];
+    getSingleIdContact(id) {
+      this.selectedListContact = [id];
     },
     submit() {
       // console.log('ok');
     },
     cancel() {
-      this.$bvModal.hide('modal-detail-account');
+      this.$bvModal.hide(constants.CONTACT_CONST.ID_POPUP_DETAIL);
+      this.canUpdate = false;
     },
   },
 };

@@ -135,11 +135,11 @@ import moment from 'moment';
 import Header from '../../components/ManageProduct/Headers/Header.vue';
 import Button from '../../components/ManageProduct/Buttons/Button.vue';
 import PopupDetailAccount from '../../components/ManageAccountAdmin/Popups/PopupDetailAccount.vue';
-import PopupDeleteProduct from '../../components/ManageProduct/Popups/PopupDeleteProduct.vue'
-import PopupAddProduct from '../../components/ManageProduct/Popups/PopupAddProduct.vue'
-import PopupDetailProduct from '../../components/ManageProduct/Popups/PopupDetailProduct.vue'
+import PopupDeleteProduct from '../../components/ManageProduct/Popups/PopupDeleteProduct.vue';
+import PopupAddProduct from '../../components/ManageProduct/Popups/PopupAddProduct.vue';
+import PopupDetailProduct from '../../components/ManageProduct/Popups/PopupDetailProduct.vue';
 import constants from '../../constants/index';
-import util from '../../utils/index'
+import util from '../../utils/index';
 
 export default {
   name: 'ManageProduct',
@@ -149,7 +149,7 @@ export default {
     Button,
     PopupDeleteProduct,
     PopupAddProduct,
-    PopupDetailProduct
+    PopupDetailProduct,
   },
   data() {
     return {
@@ -170,7 +170,7 @@ export default {
       selectedListProduct: [],
       inputSearch: '',
       constants,
-      formatNumber: util.formatNumber
+      formatNumber: util.formatNumber,
     };
   },
   watch: {
@@ -241,8 +241,8 @@ export default {
     },
     formatDate(date) {
       if (date) {
-        return moment(date).format('YYYY-MM-DD')
-      } return ''
+        return moment(date).format('YYYY-MM-DD');
+      } return '';
     },
     deleteProduct(productId) {
 

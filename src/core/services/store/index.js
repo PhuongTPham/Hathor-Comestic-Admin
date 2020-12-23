@@ -8,6 +8,7 @@ import category from './category';
 import order from './order';
 import product from './product';
 import supplier from './supplier';
+import contact from './contact';
 
 Vue.use(Vuex);
 
@@ -20,5 +21,6 @@ export default new Vuex.Store({
     order,
     product,
     supplier,
+    contact,
   },
 });

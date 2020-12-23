@@ -89,6 +89,32 @@ const routes = [
         path: '/manage',
         component: () => import('@/pages/Manage'),
       },
+      {
+        name: 'ChangePassword',
+        path: '/change-password',
+        beforeEnter: async (to, from, next) => {
+          next();
+        },
+        component: () => import('@/pages/ChangePassword/ChangePassword'),
+      },
+      {
+        name: 'ManageContact',
+        path: '/manage-contact',
+        beforeEnter: async (to, from, next) => {
+          await store.dispatch('getListContact', '');
+          next();
+        },
+        component: () => import('@/pages/ManageContact/ManageContact'),
+      },
+      {
+        name: 'ManageComment',
+        path: '/manage-comment',
+        beforeEnter: async (to, from, next) => {
+          await store.dispatch('getListContact', '');
+          next();
+        },
+        component: () => import('@/pages/ManageComment/ManageComment'),
+      },
     ],
   },
 ];

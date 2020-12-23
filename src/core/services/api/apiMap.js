@@ -12,6 +12,7 @@ const api = (config) => ({
   logout: (token) => config('post', '/auth/v1/logout/', '', {
     Authorization: `JWT ${token} `,
   }),
+  changePassword: (payload) => config('patch', '/auth/v1/change-password/', payload),
   // account
   getAccount: (keyword) => config('get', `/cms-admin/v1/list-account/?search=${keyword}`),
   addAccount: (payload) => config('post', '/auth/v1/register/', payload),
@@ -47,6 +48,12 @@ const api = (config) => ({
   updateSupplier: (payload) => config('post', '/cms-admin/v1/update-supplier/', payload.data),
   deleteSupplier: (payload) => config('post', '/cms-admin/v1/delete-supplier/', payload),
 
+  // contact
+  getListContact: (keyword) => config('get', `/customer/v1/list-contact/?search=${keyword}`),
+  deleteContact: (payload) => config('post', '/customer/v1/delete-contact/', payload),
+
+  // comment
+  getListComment: (keyword) => config('get', `/cms-admin/v1/list-comment/?search=${keyword}`),
 });
 
 export default api;

@@ -7,7 +7,6 @@
         class="aside-nav position-relative d-flex flex-column align-items-center flex-column-fluid py-5 scroll scroll-pull ps"
         style="height: 528px; overflow: hidden;"
       >
-        <!--begin::Nav-->
         <ul class="nav flex-column" role="tablist" v-for="(nav, index) in listNav" :key="index">
           <li
             class="nav-item mb-3"
@@ -174,21 +173,32 @@ export default {
           child: [
             {
               nameSubNav: 'Contact',
-              router: '/manage-order',
+              router: '/manage-contact',
               icon: 'media/svg/icons/General/User.svg',
             },
             {
               nameSubNav: 'Comment',
-              router: '/manage-order',
+              router: '/manage-comment',
               icon: 'media/svg/icons/Files/Selected-file.svg',
             },
             {
               nameSubNav: 'Blog/review sản phẩm',
-              router: '/manage-order',
+              router: '/manage-blog',
+              icon: 'media/svg/icons/General/Folder.svg',
             },
           ],
         },
-
+        {
+          name: 'Cài đặt',
+          icon: 'media/svg/icons/Navigation/Exchange.svg',
+          child: [
+            {
+              nameSubNav: 'Thay đổi mật khẩu',
+              router: '/change-password',
+              icon: 'media/svg/icons/General/Settings-2.svg',
+            },
+          ],
+        },
       ],
     };
   },

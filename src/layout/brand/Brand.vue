@@ -5,7 +5,7 @@
   >
     <!--begin::Logo-->
     <router-link to="/dashboard">
-      <img src="../../../public/media/logos/logo-letter-2.png" alt="Logo" class="max-h-30px" />
+       <img src="../../../public/media/logos/real-estate-1.png" alt="Logo" class="max-h-50px" />
     </router-link>
     <!--end::Logo-->
   </div>

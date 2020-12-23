@@ -6,6 +6,8 @@ const COMMON_CONST = {
   MESSAGE_DELETE_SUCCEED: 'Xóa thành công',
   MESSAGE_DELETE_FAILED: 'Xóa mới thất bại',
   MESSAGE_DELETE_MY_ACCOUNT: 'Không thể xóa tài khoản của chính mình',
+  MESSAGE_CHANGE_PASSWORD_SUCCEED: 'Mật khẩu đã được thay đổi',
+  MESSAGE_CHANGE_PASSWORD_FAILED: 'Không thể thay đổi mật khẩu. Xin hãy xác nhận lại!',
   CHART_OPTIONS: {
     chart: {
       type: 'pie',
@@ -39,15 +41,15 @@ const COMMON_CONST = {
         colorByPoint: true,
         data: [
           {
-            name: 'Số người đã subscribeth',
+            name: 'Số người đã subscriber',
             y: 62,
           },
           {
-            name: 'Số người mới subscribeth',
+            name: 'Số người mới subscriber',
             y: 12,
           },
           {
-            name: 'Số người chưa subscribeth',
+            name: 'Số người chưa subscriber',
             y: 26,
           },
         ],
@@ -56,7 +58,7 @@ const COMMON_CONST = {
     credits: {
       enabled: false,
     },
-  }
+  },
 };
 
 const ACCOUNT_CONST = {
@@ -143,7 +145,7 @@ const BLOG_CONST = {
   TITLE_POPUP_ADD: 'Thêm blog',
   TITLE_POPUP_DELETE: 'Xóa blog',
 };
-con
+
 export default {
   COMMON_CONST,
   ACCOUNT_CONST,
@@ -153,5 +155,5 @@ export default {
   CONTACT_CONST,
   PRODUCT_CONST,
   SUBSCRIBER_CONST,
-  BLOG_CONST
+  BLOG_CONST,
 };

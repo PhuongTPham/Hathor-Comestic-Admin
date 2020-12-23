@@ -5,7 +5,7 @@
   >
     <!--begin::Logo-->
     <a href="/dashboard">
-      <img alt="Logo" src="../../../public/media/logos/logo-letter-2.png" class="logo-default max-h-30px" />
+       <img alt="Logo" src="../../../public/media/logos/real-estate-1.png" class="logo-default max-h-50px" />
     </a>
     <!--end::Logo-->
     <!--begin::Toolbar-->
