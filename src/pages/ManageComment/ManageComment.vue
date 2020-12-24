@@ -49,12 +49,20 @@
             <td>
               <input type="checkbox" :value="comment.id" v-model="selectedListComment" />
             </td>
-            <td>{{ comment.comment }}</td>
-            <td>{{ comment.item_id }}</td>
-            <td>{{ comment.user_id }}</td>
-            <td>{{ comment.rating }}</td>
+            <td v-if="comment.comment.length <= 50">{{ comment.comment }}</td>
+            <td v-else>{{ comment.comment.substr(0,50)+ '...' }}</td>
+            <td>{{ comment.item }}</td>
+            <td>{{ comment.user }}</td>
+            <td>
+              <b-form-rating v-model="comment.rating" variant="warning" class="mb-2" readonly precision="2"></b-form-rating>
+              </td>
             <td>
               <div class="show-detail">
+                <b-icon-pencil-square
+                  variant="light"
+                  @click="getDetailComment(comment.id)"
+                  v-b-modal.modal-detail-comment
+                ></b-icon-pencil-square>
                 <b-icon-trash
                   variant="light"
                   class="rounded-circle bg-danger p-2"
@@ -66,6 +74,12 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div>
+      <b-modal id="modal-detail-comment" no-close-on-backdrop size="lg" :title="userDetail.comment">
+        <PopupDetailComment :userDetail="userDetail"/>
+      </b-modal>
     </div>
     <div>
       <PopupDeleteComment
@@ -83,6 +97,8 @@
 import { mapGetters } from 'vuex';
 import Header from '../../components/ManageComment/Headers/Header.vue';
 import PopupDeleteComment from '../../components/ManageComment/Popups/PopupDeleteComment.vue';
+import PopupDetailComment from '../../components/ManageComment/Popups/PopupDetailComment.vue';
+
 import constants from '../../constants/index';
 
 export default {
@@ -90,6 +106,7 @@ export default {
   components: {
     Header,
     PopupDeleteComment,
+    PopupDetailComment,
   },
   data() {
     return {
@@ -99,6 +116,8 @@ export default {
       inputSearch: '',
       selectedListComment: [],
       constants,
+      userDetail: {},
+
     };
   },
   watch: {
@@ -119,8 +138,8 @@ export default {
       this.getlistComment.forEach((item) => {
         items.push({
           comment: item.comment,
-          item_id: item.item_id,
-          user_id: item.user_id,
+          item: item.item,
+          user: item.user,
           rating: item.rating,
           id: item.id,
         });
@@ -160,6 +179,10 @@ export default {
     },
     getListIdComment(id) {
       this.selectedListComment = [id];
+    },
+    getDetailComment(id) {
+      this.selectedListComment = [id];
+      this.userDetail = this.getlistComment.find((item) => item.id === id);
     },
     submit() {
       // console.log('ok');

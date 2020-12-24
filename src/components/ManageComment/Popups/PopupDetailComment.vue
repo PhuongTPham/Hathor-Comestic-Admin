@@ -1,47 +1,31 @@
 <template>
   <div class="popup-detail-account">
     <div class="form-input">
-      <label for="username">Tài khoản:</label>
-      <b-form-input placeholder="" id="username" v-model="userDetail.username" disabled></b-form-input>
+      <label for="comment_id">Mã binh luan:</label>
+      <b-form-input placeholder="" id="comment_id" v-model="dataSubmit.comment_id" disabled></b-form-input>
     </div>
     <div class="form-input">
-      <label for="fullName">Nhân viên:</label>
-      <b-form-input placeholder="" id="fullName" v-model="dataSubmit.full_name"></b-form-input>
+      <label for="comment">Comment:</label>
+      <b-form-textarea placeholder="" id="comment" v-model="dataSubmit.comment" disabled></b-form-textarea>
     </div>
     <div class="form-input">
-      <label for="role">Vai trò:</label>
-      <select id="role" v-model="dataSubmit.role" class="b-dropdown">
-        <option value="Admin">ADMIN</option>
-        <option value="View">VIEWER</option>
-        <option value="Disable">DISABLED</option>
-      </select>
+      <label for="item">Mã sản phẩm:</label>
+      <b-form-input placeholder="" id="item" v-model="dataSubmit.item" disabled></b-form-input>
     </div>
-    <div class="form-input">
-      <label for="staffCode">Mã nhân viên:</label>
-      <b-form-input placeholder="" id="staffCode" v-model="dataSubmit.staff_code"></b-form-input>
+     <div class="form-input">
+      <label for="user">Người bình luận:</label>
+      <b-form-input placeholder="" id="user" v-model="dataSubmit.user" disabled></b-form-input>
     </div>
-    <div class="form-input">
-      <label for="company">Tên công ty:</label>
-      <select id="role" class="b-dropdown" v-model="dataSubmit.tenant">
-        <option v-for="company in getListTenant" :key="company.id" :value="company.id">{{ company.name }}</option>
-      </select>
+     <div class="form-input">
+      <label for="rating">Rating:</label>
+     <b-form-rating v-model="dataSubmit.rating" variant="warning" class="mb-2" readonly precision="2"></b-form-rating>
     </div>
-    <!-- <div class="popup-detail-account__button-wrapper">
-      <b-button size="sm" @click="cancel">
-        Hủy bỏ
-      </b-button>
-      <b-button size="sm" variant="success" @click="submit">
-        Sửa
-      </b-button>
-    </div> -->
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
-  name: 'PopupDetailAccount',
+  name: 'PopupDetailComment',
   props: {
     userDetail: {
       type: Object,
@@ -52,10 +36,11 @@ export default {
   data() {
     return {
       dataSubmit: {
-        full_name: this.userDetail.full_name,
-        role: this.userDetail.role,
-        staff_code: this.userDetail.staff_code,
-        tenant: this.userDetail.tenant.id,
+        comment_id: this.userDetail.id,
+        comment: this.userDetail.comment,
+        item: this.userDetail.item,
+        user: this.userDetail.user,
+        rating: this.userDetail.rating,
       },
     };
   },
@@ -68,13 +53,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getListTenant']),
   },
   methods: {
     submit() {
     },
     cancel() {
-      this.$bvModal.hide('modal-detail-account');
+      this.$bvModal.hide('modal-detail-comment');
     },
   },
 };

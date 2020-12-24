@@ -49,6 +49,10 @@ export default {
         // show message failed
       }
     },
+    async deleteComment({ commit }, payload) {
+      const response = await api('deleteComment', payload);
+      commit('SET_ERROR_CODE', response.data.error_code);
+    },
     async getListSubscriber({ commit }, payload) {
       const response = await api('getListSubscriber', payload);
       if (response.data.error_code === 0) {

@@ -51,9 +51,15 @@
               <input type="checkbox" :value="blog.id" v-model="selectedListBlog" />
             </td>
             <td>{{ blog.title }}</td>
-            <td>{{ blog.description }}</td>
+            <template>
+              <td v-if="blog.description.length <= 50">{{ blog.description }}</td>
+              <td v-else>{{ blog.description.substr(0, 50) + '...' }}</td>
+            </template>
             <td>{{ blog.author }}</td>
-            <td>{{ blog.image }}</td>
+            <template>
+              <td v-if="blog.image.length <= 50">{{ blog.image }}</td>
+              <td v-else>{{ blog.image.substr(0, 50) + '...' }}</td>
+            </template>
             <td>{{ blog.like }}</td>
             <td>
               <div class="show-detail">
@@ -76,7 +82,7 @@
     </div>
 
     <div>
-      <b-modal id="modal-detail-category" no-close-on-backdrop size="lg" :title="userDetail.name">
+      <b-modal id="modal-detail-blog" no-close-on-backdrop size="lg" :title="userDetail.title">
         <PopupDetailBlog :userDetail="userDetail" @update="updateData"/>
         <template #modal-footer="">
           <b-button size="sm" variant="danger" @click="cancel">

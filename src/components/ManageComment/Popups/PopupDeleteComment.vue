@@ -37,7 +37,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getErrorCodeToaNha']),
+    ...mapGetters(['getErrorCodeContact']),
   },
   methods: {
     makeToastMessage(message, status) {
@@ -50,18 +50,18 @@ export default {
     },
     async submit() {
       const payload = {
-        list_id: this.selectedListId,
+        comment_id: this.selectedListId,
       };
-      await this.$store.dispatch('deleteBuilding', payload);
+      await this.$store.dispatch('deleteComment', payload);
       this.$bvModal.hide(this.idModal);
-      if (this.getErrorCodeToaNha === 0) {
+      if (this.getErrorCodeContact === 0) {
         this.makeToastMessage(constants.COMMON_CONST.MESSAGE_DELETE_SUCCEED, 'success');
         this.selectedListId = [];
         this.$emit('updateSelectedListId', this.selectedListId);
       } else {
         this.makeToastMessage(constants.COMMON_CONST.MESSAGE_DELETE_FAILED, 'danger');
       }
-      await this.$store.dispatch('getBuilding', '');
+      await this.$store.dispatch('getListComment', '');
     },
     cancel() {
       this.$bvModal.hide(this.idModal);

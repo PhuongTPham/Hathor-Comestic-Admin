@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'PopupDetailCategory',
+  name: 'PopupDetailBlog',
   props: {
     userDetail: {
       type: Object,

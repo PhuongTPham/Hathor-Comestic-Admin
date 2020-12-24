@@ -1,6 +1,6 @@
 <template>
   <b-modal :id="idModal" no-close-on-backdrop size="lg" :title="titleModal">
-    <div class="popup-add-account">
+    <div class="popup-add-blog">
       <div class="form-input">
         <label for="title">Tiêu đề bài viết:</label>
         <b-form-input placeholder="" id="title" v-model="title" ></b-form-input>
@@ -84,7 +84,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.popup-add-account {
+.popup-add-blog {
   .form-input {
     display: grid;
     grid-template-columns: 20% 80%;

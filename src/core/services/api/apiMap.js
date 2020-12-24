@@ -54,16 +54,20 @@ const api = (config) => ({
 
   // comment
   getListComment: (keyword) => config('get', `/cms-admin/v1/list-comment/?search=${keyword}`),
+  deleteComment: (payload) => config('post', '/cms-admin/v1/delete-comment/', payload),
 
   // subscriber
   getListSubscriber: (keyword) => config('get', `/customer/v1/list-subscriber/?search=${keyword}`),
   deleteSubscriber: (payload) => config('post', '/customer/v1/delete-subscriber/', payload),
 
   // blog
-  getListBlog: (keyword) => config('get', `/cms-admin/v1/list-blog/?search=${keyword}`),
-  addBlog: (payload) => config('post', '/cms-admin/v1/add-new-blog/', payload),
-  updateBlog: (payload) => config('post', '/cms-admin/v1/update-blog/', payload.data),
-  deleteBlog: (payload) => config('post', '/cms-admin/v1/delete-blog/', payload),
+  getListBlog: (keyword) => config('get', `/customer/v1/list-blog/?search=${keyword}`),
+  addBlog: (payload) => config('post', '/customer/v1/add_new_blog/', payload),
+  updateBlog: (payload) => config('post', '/customer/v1/update-blog/', payload.data),
+  deleteBlog: (payload) => config('post', '/customer/v1/delete-blog/', payload),
+
+  // statistic
+  getAllStatistic: () => config('get', '/cms-admin/v1/statistic/'),
 });
 
 export default api;

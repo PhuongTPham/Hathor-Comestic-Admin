@@ -11,9 +11,10 @@ const COMMON_CONST = {
   CHART_OPTIONS: {
     chart: {
       type: 'pie',
+      width: '500',
     },
     title: {
-      text: 'Số người subscriber',
+      text: 'Visitors',
     },
     accessibility: {
       announceNewData: {
@@ -41,15 +42,15 @@ const COMMON_CONST = {
         colorByPoint: true,
         data: [
           {
-            name: 'Số người đã subscriber',
+            name: 'Số người xem trang',
             y: 62,
           },
           {
-            name: 'Số người mới subscriber',
+            name: 'Số người đăng ký tài khoản',
             y: 12,
           },
           {
-            name: 'Số người chưa subscriber',
+            name: 'Số người liên hệ',
             y: 26,
           },
         ],
@@ -58,6 +59,57 @@ const COMMON_CONST = {
     credits: {
       enabled: false,
     },
+  },
+  PIE_CHART_OPTIONS: {
+    chart: {
+      width: 450,
+      height: 300,
+      type: 'pie',
+    },
+    labels: ['Xác nhận', 'Chờ kho xác nhận', 'Đang vận chuyển', 'Hoàn thành', 'Thanh toán thành công', 'Chưa thanh toán', 'Hủy đơn'],
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          height: 345,
+        },
+        legend: {
+          position: 'bottom',
+        },
+      },
+    }],
+  },
+  BAR_CHART_OPTION: {
+    colors: ['#008ffb'],
+    chart: {
+      type: 'bar',
+    },
+    plotOptions: {
+      bar: {
+        horizontal: true,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    xaxis: {
+      categories: ['Tài khoản', 'Bình luận', 'Liên hệ', 'Blog', 'Nhà cung cấp'],
+    },
+    responsive: [
+      {
+        breakpoint: 1000,
+        options: {
+          plotOptions: {
+            bar: {
+              horizontal: false,
+            },
+          },
+          legend: {
+            position: 'bottom',
+          },
+        },
+      },
+    ],
   },
 };
 
@@ -89,11 +141,11 @@ const COMMENT_CONST = {
   HEADER_MANAGE: 'QUẢN LÝ BÌNH LUẬN',
   TITLE_MANAGE: 'Thêm tòa nhà',
   ID_POPUP_ADD: 'modal-add-toanha',
-  ID_POPUP_DETAIL: 'modal-detail-toanha',
-  ID_POPUP_DELETE: 'modal-delete-toanha',
-  CONTENT_POPUP_DELETE: 'Bạn có chắc chắn muốn xóa tòa nhà này ?',
+  ID_POPUP_DETAIL: 'modal-detail-comment',
+  ID_POPUP_DELETE: 'modal-delete-comment',
+  CONTENT_POPUP_DELETE: 'Bạn có chắc chắn muốn comment nhà này ?',
   TITLE_POPUP_ADD: 'Thêm tòa nhà',
-  TITLE_POPUP_DELETE: 'Xóa tòa nhà',
+  TITLE_POPUP_DELETE: 'Xóa bình luận',
 };
 
 const SUPPLIER_CONST = {
