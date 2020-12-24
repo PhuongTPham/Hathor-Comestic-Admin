@@ -5,7 +5,7 @@ export default {
   state: {
     listProduct: [],
     errorCode: null,
-    imagesUrl: null
+    imagesUrl: null,
   },
   getters: {
     getListProducts: (state) => state.listProduct,
@@ -20,10 +20,10 @@ export default {
       state.errorCode = payload;
     },
     SET_IMAGES_URL(state, payload) {
-      state.imagesUrl = payload
+      state.imagesUrl = payload;
     },
     RESET_IMAGES_URL(state) {
-      state.imagesUrl = null
+      state.imagesUrl = null;
     },
   },
   actions: {

@@ -1,22 +1,16 @@
 <template>
-  <div class="manage-chunha-container">
-    <div class="manage-chunha-container__header">
+  <div class="manage-product-container">
+    <div class="manage-product-container__header">
       <Header />
     </div>
-    <!-- <div class="manage-chunha-container__search-form" v-show="true">
-      <b-form-input placeholder="Họ tên, username, ..." v-model="search"></b-form-input>
-      <div class="manage-chunha-container__search-form__button">
-        <Button :title="'Tìm kiếm'" :styleCss="styleCss" @click.native="setItemsTableWithSearch"/>
-      </div>
-    </div> -->
-    <div class="manage-chunha-container__options">
+    <div class="manage-product-container__options">
       <b-form @submit="searchProduct" >
-        <div class="manage-chunha-container__options__search-form" >
+        <div class="manage-product-container__options__search-form" >
           <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
           <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchProduct"></b-icon-search>
         </div>
       </b-form>
-      <div class="manage-chunha-container__options__button-group">
+      <div class="manage-product-container__options__button-group">
         <b-icon-trash
           class="btn-group-options"
           variant="danger"
@@ -36,21 +30,7 @@
         </b-icon-trash>
       </div>
     </div>
-    <div class="manage-chunha-container__table">
-      <!-- <b-table show-empty small stacked="md" :items="setItemsTable" :fields="fields">
-        <template #cell(actions)="">
-          <div class="show-detail">
-            <inline-svg
-              src="media/svg/icons/Design/Edit.svg"
-              class="edit-svg"
-            />
-             <inline-svg
-              src="media/svg/icons/General/Trash.svg"
-              class="delete-svg"
-            />
-          </div>
-        </template>
-      </b-table> -->
+    <div class="manage-product-container__table">
       <table class="table table-hover">
         <thead>
           <tr>
@@ -72,10 +52,16 @@
             <td>
               <input type="checkbox" :value="product.id" v-model="selectedListProduct" />
             </td>
-            <td>{{ product.name }}</td>
+            <template>
+              <td v-if="product.name.length <= 50">{{ product.name }}</td>
+              <td v-else>{{ product.name.substr(0, 50) + '...' }}</td>
+            </template>
             <td>{{ formatNumber(product.price) }}</td>
             <td>{{ formatNumber(product.price_temp) }}</td>
-            <td>{{ product.description }}</td>
+            <template>
+             <td v-if="product.description.length <= 50">{{ product.description.substr(0, 50) + '...' }}</td>
+             <td v-else>{{ product.description.substr(0, 50) + '...' }}</td>
+            </template>
             <td>{{ formatNumber(product.quantity) }}</td>
             <td>{{ product.view_item }}</td>
             <td>{{ formatDate(product.created_at) }}</td>
@@ -130,11 +116,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import moment from 'moment';
 import Header from '../../components/ManageProduct/Headers/Header.vue';
-import Button from '../../components/ManageProduct/Buttons/Button.vue';
-import PopupDetailAccount from '../../components/ManageAccountAdmin/Popups/PopupDetailAccount.vue';
 import PopupDeleteProduct from '../../components/ManageProduct/Popups/PopupDeleteProduct.vue';
 import PopupAddProduct from '../../components/ManageProduct/Popups/PopupAddProduct.vue';
 import PopupDetailProduct from '../../components/ManageProduct/Popups/PopupDetailProduct.vue';
@@ -145,8 +129,6 @@ export default {
   name: 'ManageProduct',
   components: {
     Header,
-    PopupDetailAccount,
-    Button,
     PopupDeleteProduct,
     PopupAddProduct,
     PopupDetailProduct,
@@ -260,9 +242,6 @@ export default {
         return moment(date).format('YYYY-MM-DD');
       } return '';
     },
-    deleteProduct(productId) {
-
-    },
     updateSelectedListId(value) {
       this.selectedListProduct = value;
     },
@@ -298,7 +277,7 @@ export default {
           short_description: newData.shortDescription,
           price_temp: newData.priceTemp,
           price: newData.price,
-          image: newData.image
+          image: newData.image,
         },
       };
     },
@@ -319,19 +298,10 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.manage-chunha-container {
+.manage-product-container {
   &__header {
     margin-bottom: 12px;
   }
-  // &__search-form {
-  //   display: grid;
-  //   grid-template-columns: 80% 20%;
-  //   padding: 12px 0px;
-  //   &__button {
-  //     display: flex;
-  //     justify-content: flex-end;
-  //   }
-  // }
   &__options {
     display: grid;
     grid-template-columns: 50% 50%;

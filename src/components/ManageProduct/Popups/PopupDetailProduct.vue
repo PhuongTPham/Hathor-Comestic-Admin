@@ -62,10 +62,10 @@
           <b-form-file v-model="image" @input="handleSelectFile()">
           </b-form-file>
           <div class="image_container" v-if="productDetail.image">
-            <b-img 
+            <b-img
             class="item_image"
-            :src="dataSubmit.image" 
-            fluid alt="Responsive image" 
+            :src="dataSubmit.image"
+            fluid alt="Responsive image"
             style="height: 100px, width: 200px"
             ></b-img>
           </div>
@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -100,9 +100,9 @@ export default {
         quantity: this.productDetail.quantity,
         categoryId: this.productDetail.category,
         supplierId: this.productDetail.supplier,
-        image: this.productDetail.image.replace(/"/g, '')
+        image: this.productDetail.image.replace(/"/g, ''),
       },
-      image: []
+      image: [],
     };
   },
   created() {
@@ -118,8 +118,8 @@ export default {
       return this.getlistSupplier;
     },
     uploadImageUrl() {
-      return this.getImagesUrl
-    }
+      return this.getImagesUrl;
+    },
   },
   watch: {
     dataSubmit: {
@@ -129,8 +129,8 @@ export default {
       deep: true,
     },
     uploadImageUrl(val) {
-      this.dataSubmit.image = val
-    }
+      this.dataSubmit.image = val;
+    },
   },
   methods: {
     submit() {
@@ -139,11 +139,11 @@ export default {
       this.$bvModal.hide('modal-detail-category');
     },
     handleSelectFile() {
-      const formData = new FormData()
-      formData.append('image', this.image)
-      formData.append('type', 1)
+      const formData = new FormData();
+      formData.append('image', this.image);
+      formData.append('type', 1);
       this.$store.dispatch('uploadImage', formData);
-    }
+    },
   },
 };
 </script>

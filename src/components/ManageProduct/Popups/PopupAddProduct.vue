@@ -63,15 +63,15 @@
           <b-form-file accept="image/*" v-model="image" @input="handleSelectFile()">
           </b-form-file>
           <div class="image_container" v-if="getImagesUrl">
-            <b-img 
+            <b-img
             class="item_image"
-            :src="getImagesUrl" 
-            fluid alt="Responsive image" 
+            :src="getImagesUrl"
+            fluid alt="Responsive image"
             style="height: 100px, width: 200px"
             ></b-img>
           </div>
         </div>
-        
+
       </div>
     </div>
     <template #modal-footer="">
@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   props: {
@@ -105,7 +105,7 @@ export default {
       quantity: '',
       categoryId: '',
       supplierId: '',
-      image: []
+      image: [],
     };
   },
   created() {
@@ -155,11 +155,11 @@ export default {
       await this.$store.dispatch('getProduct', '');
     },
     handleSelectFile() {
-      const formData = new FormData()
-      formData.append('image', this.image)
-      formData.append('type', 1)
+      const formData = new FormData();
+      formData.append('image', this.image);
+      formData.append('type', 1);
       this.$store.dispatch('uploadImage', formData);
-    }
+    },
   },
 };
 </script>
