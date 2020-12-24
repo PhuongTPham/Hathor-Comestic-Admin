@@ -120,7 +120,7 @@
           <b-button size="sm" variant="danger" @click="cancelModalDetail">
             Hủy bỏ
           </b-button>
-          <b-button ref="btn_update_category" size="sm" variant="success" @click="editProduct" :disabled="!canUpdate" :class="{ '-disable': !canUpdate }">
+          <b-button ref="btn_update_product" size="sm" variant="success" @click="editProduct" :disabled="!canUpdate" :class="{ '-disable': !canUpdate }">
             Thay đổi
           </b-button>
         </template>
@@ -185,7 +185,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getListProducts']),
+    ...mapGetters(['getListProducts', 'getErrorCodeProduct']),
     listProduct() {
       // set list account
       const result = [];
@@ -229,8 +229,24 @@ export default {
     setItemsTableWithSearch() {
       this.$store.dispatch('getProduct', this.search);
     },
-    editProduct() {
-      // console.log('ok');
+    async editProduct() {
+      // update product
+      const submitButton = this.$refs.btn_update_product;
+      submitButton.classList.add('spinner', 'spinner-light', 'spinner-right');
+      await this.$store.dispatch('updateProduct', this.dataChanged);
+      if (this.getErrorCodeProduct === 0) {
+        this.$bvModal.hide(constants.PRODUCT_CONST.ID_POPUP_DETAIL);
+        await this.$store.dispatch('getProduct', '');
+        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED, 'success');
+        this.canUpdate = false;
+      } else {
+        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_FAILED, 'danger');
+      }
+      submitButton.classList.remove(
+        'spinner',
+        'spinner-light',
+        'spinner-right',
+      );
     },
     cancelModalDetail() {
       this.$bvModal.hide('modal-detail-product');
@@ -264,6 +280,7 @@ export default {
         short_description: this.productDetail.shortDescription,
         price_temp: this.productDetail.priceTemp,
         price: this.productDetail.price,
+        image: this.productDetail.image,
       };
       if (JSON.stringify(oldData) === JSON.stringify(newData)) {
         this.canUpdate = false;
@@ -272,15 +289,30 @@ export default {
       }
       this.dataChanged = {
         data: {
-          category_id: newData.category_id,
+          item_id: this.productDetail.id,
           name: newData.name,
           description: newData.description,
+          category_id: newData.categoryId,
+          supplier_id: newData.supplierId,
+          quantity: newData.quantity,
+          short_description: newData.shortDescription,
+          price_temp: newData.priceTemp,
+          price: newData.price,
+          image: newData.image
         },
       };
     },
     getDetailProduct(id) {
       this.selectedListProduct = [id];
       this.productDetail = this.getListProducts.find((item) => item.id === id);
+    },
+    makeToastMessage(message, status) {
+      this.$bvToast.toast(message, {
+        title: 'Thông báo',
+        variant: status,
+        autoHideDelay: 2000,
+        solid: true,
+      });
     },
   },
 };

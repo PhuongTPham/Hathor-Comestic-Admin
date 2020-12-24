@@ -56,6 +56,21 @@
           v-model="dataSubmit.quantity"
         ></b-form-input>
       </div>
+      <div class="form-input">
+        <label for="quantity">Ảnh:</label>
+        <div id="image">
+          <b-form-file v-model="image" @input="handleSelectFile()">
+          </b-form-file>
+          <div class="image_container" v-if="productDetail.image">
+            <b-img 
+            class="item_image"
+            :src="dataSubmit.image" 
+            fluid alt="Responsive image" 
+            style="height: 100px, width: 200px"
+            ></b-img>
+          </div>
+        </div>
+      </div>
     </div>
 </template>
 
@@ -85,7 +100,9 @@ export default {
         quantity: this.productDetail.quantity,
         categoryId: this.productDetail.category,
         supplierId: this.productDetail.supplier,
+        image: this.productDetail.image.replace(/"/g, '')
       },
+      image: []
     };
   },
   created() {
@@ -93,13 +110,16 @@ export default {
     this.$store.dispatch('getListSupplier', '');
   },
   computed: {
-    ...mapGetters(['getlistCategory', 'getlistSupplier']),
+    ...mapGetters(['getlistCategory', 'getlistSupplier', 'getImagesUrl']),
     listCategory() {
       return this.getlistCategory;
     },
     listSupplier() {
       return this.getlistSupplier;
     },
+    uploadImageUrl() {
+      return this.getImagesUrl
+    }
   },
   watch: {
     dataSubmit: {
@@ -108,6 +128,9 @@ export default {
       },
       deep: true,
     },
+    uploadImageUrl(val) {
+      this.dataSubmit.image = val
+    }
   },
   methods: {
     submit() {
@@ -115,6 +138,12 @@ export default {
     cancel() {
       this.$bvModal.hide('modal-detail-category');
     },
+    handleSelectFile() {
+      const formData = new FormData()
+      formData.append('image', this.image)
+      formData.append('type', 1)
+      this.$store.dispatch('uploadImage', formData);
+    }
   },
 };
 </script>
@@ -125,6 +154,16 @@ export default {
     display: grid;
     grid-template-columns: 20% 80%;
     margin-bottom: 12px;
+    .image_container {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .item_image  {
+      height: 100px;
+      width: auto;
+    }
     .b-dropdown {
       width: 130px;
       border: 1px solid #dcdcdc;

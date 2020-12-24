@@ -33,14 +33,14 @@ const api = (config) => ({
   deleteProduct: (payload) => config('post', '/cms-admin/v1/delete-item/', payload),
   getDetailProduct: (payload) => config('get', `/cms-admin/v1/get-detail-item/${payload.id}`),
   getListProduct: (keyword) => config('get', `/cms-admin/v1/list-item/?search=${keyword}`),
-  updateProduct: (payload) => config('post', '/cms-admin/v1/update-category/', payload.data),
+  updateProduct: (payload) => config('post', '/cms-admin/v1/update-item/', payload.data),
 
   // order
   getDetailOrder: (payload) => config('get', `/cms-admin/v1/get-order-detail/${payload.id}`),
   getListOrder: (keyword) => config('get', `/cms-admin/v1/list-order/?search=${keyword}`),
 
   // image
-  uploadImage: (payload) => config('post', `/cms-admin/v1/upload-image-item/${payload.data}`),
+  uploadImage: (payload) => config('post', '/cms-admin/v1/upload-image-item/', payload),
 
   // supplier
   getListSupplier: (keyword) => config('get', `/cms-admin/v1/list-supplier/?search=${keyword}`),
