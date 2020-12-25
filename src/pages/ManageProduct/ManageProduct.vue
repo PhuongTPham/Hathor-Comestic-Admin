@@ -43,6 +43,7 @@
             <th scope="col">Mô tả</th>
             <th scope="col">Số lượng</th>
             <th scope="col">Lượt xem</th>
+            <th scope="col">% sale</th>
             <th scope="col">Ngày đăng</th>
             <th scope="col">Tùy chọn</th>
           </tr>
@@ -64,6 +65,7 @@
             </template>
             <td>{{ formatNumber(product.quantity) }}</td>
             <td>{{ product.view_item }}</td>
+            <td>{{ product.sale }}</td>
             <td>{{ formatDate(product.created_at) }}</td>
             <td>
               <div class="show-detail">
@@ -144,6 +146,7 @@ export default {
         { key: 'description', label: 'Mô tả' },
         { key: 'quantity', label: 'Số lượng' },
         { key: 'view_item', label: 'Lượt xem' },
+        { key: 'sale', label: '% sale' },
         { key: 'created_at', label: 'Ngày đăng' },
       ],
       canUpdate: false,
@@ -180,6 +183,7 @@ export default {
           description: item.description,
           quantity: item.quantity,
           view_item: item.view_item,
+          sale: item.sale,
           created_at: item.created_at,
         });
       });
@@ -259,6 +263,7 @@ export default {
         short_description: this.productDetail.shortDescription,
         price_temp: this.productDetail.priceTemp,
         price: this.productDetail.price,
+        sale: this.productDetail.sale,
         image: this.productDetail.image,
       };
       if (JSON.stringify(oldData) === JSON.stringify(newData)) {
@@ -278,6 +283,7 @@ export default {
           price_temp: newData.priceTemp,
           price: newData.price,
           image: newData.image,
+          sale: newData.sale,
         },
       };
     },

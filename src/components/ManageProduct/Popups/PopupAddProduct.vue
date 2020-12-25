@@ -49,6 +49,14 @@
           v-model="shortDescription"
         ></b-form-input>
       </div>
+       <div class="form-input">
+        <label for="sale">% SALE:</label>
+        <b-form-input
+          placeholder=""
+          id="sale"
+          v-model="sale"
+        ></b-form-input>
+      </div>
       <div class="form-input">
         <label for="quantity">Số lượng:</label>
         <b-form-input
@@ -106,6 +114,7 @@ export default {
       categoryId: '',
       supplierId: '',
       image: [],
+      sale: '',
     };
   },
   created() {
@@ -132,6 +141,7 @@ export default {
       this.quantity = '';
       this.categoryId = '';
       this.supplierId = '';
+      this.sale = '';
       this.RESET_IMAGES_URL();
     },
     cancel() {
@@ -147,6 +157,7 @@ export default {
         short_description: this.shortDescription,
         price_temp: this.priceTemp,
         price: this.price,
+        sale: this.sale,
         image: this.getImagesUrl,
       };
       await this.$store.dispatch('addProduct', payload);

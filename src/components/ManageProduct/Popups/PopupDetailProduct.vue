@@ -49,6 +49,14 @@
         ></b-form-input>
       </div>
       <div class="form-input">
+        <label for="sale">% SALE:</label>
+        <b-form-input
+          placeholder=""
+          id="sale"
+          v-model="dataSubmit.sale"
+        ></b-form-input>
+      </div>
+      <div class="form-input">
         <label for="quantity">Số lượng:</label>
         <b-form-input
           placeholder=""
@@ -100,6 +108,7 @@ export default {
         quantity: this.productDetail.quantity,
         categoryId: this.productDetail.category,
         supplierId: this.productDetail.supplier,
+        sale: this.productDetail.sale,
         image: this.productDetail.image.replace(/"/g, ''),
       },
       image: [],
