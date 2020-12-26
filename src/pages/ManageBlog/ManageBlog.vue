@@ -57,8 +57,8 @@
             </template>
             <td>{{ blog.author }}</td>
             <template>
-              <td v-if="blog.image.length <= 50">{{ blog.image }}</td>
-              <td v-else>{{ blog.image.substr(0, 50) + '...' }}</td>
+              <td>
+                <img :src="blog.image" style="width: 50px; height: 50px" /></td>
             </template>
             <td>{{ blog.like }}</td>
             <td>
