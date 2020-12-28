@@ -265,6 +265,8 @@ export default {
         price: this.productDetail.price,
         sale: this.productDetail.sale,
         image: this.productDetail.image,
+        image2: this.productDetail.image2,
+        image3: this.productDetail.image3,
       };
       if (JSON.stringify(oldData) === JSON.stringify(newData)) {
         this.canUpdate = false;
@@ -283,6 +285,8 @@ export default {
           price_temp: newData.priceTemp,
           price: newData.price,
           image: newData.image,
+          image2: newData.image2,
+          image3: newData.image3,
           sale: newData.sale,
         },
       };

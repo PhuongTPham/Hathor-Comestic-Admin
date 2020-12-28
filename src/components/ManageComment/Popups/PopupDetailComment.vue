@@ -4,6 +4,10 @@
       <label for="comment_id">Mã binh luan:</label>
       <b-form-input placeholder="" id="comment_id" v-model="dataSubmit.comment_id" disabled></b-form-input>
     </div>
+     <div class="form-input">
+      <label for="header">Tiêu đề :</label>
+      <b-form-input placeholder="" id="header" v-model="dataSubmit.header" ></b-form-input>
+    </div>
     <div class="form-input">
       <label for="comment">Comment:</label>
       <b-form-textarea placeholder="" id="comment" v-model="dataSubmit.comment" disabled></b-form-textarea>
@@ -37,6 +41,7 @@ export default {
     return {
       dataSubmit: {
         comment_id: this.userDetail.id,
+        header: this.userDetail.header,
         comment: this.userDetail.comment,
         item: this.userDetail.item,
         user: this.userDetail.user,

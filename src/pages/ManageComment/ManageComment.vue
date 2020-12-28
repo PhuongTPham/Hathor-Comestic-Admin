@@ -37,6 +37,7 @@
             <th scope="col">
               <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
             </th>
+             <th scope="col">Tiêu đề</th>
             <th scope="col">Nội dung bình luận</th>
             <th scope="col">Mã sản phẩm</th>
             <th scope="col">Mã người bình luận</th>
@@ -49,6 +50,7 @@
             <td>
               <input type="checkbox" :value="comment.id" v-model="selectedListComment" />
             </td>
+            <td>{{ comment.header }}</td>
             <td v-if="comment.comment.length <= 50">{{ comment.comment }}</td>
             <td v-else>{{ comment.comment.substr(0,50)+ '...' }}</td>
             <td>{{ comment.item }}</td>
@@ -137,6 +139,7 @@ export default {
       const items = [];
       this.getlistComment.forEach((item) => {
         items.push({
+          header: item.header,
           comment: item.comment,
           item: item.item,
           user: item.user,

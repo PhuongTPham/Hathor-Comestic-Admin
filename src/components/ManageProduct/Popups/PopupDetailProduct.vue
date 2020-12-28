@@ -79,6 +79,36 @@
           </div>
         </div>
       </div>
+      <div class="form-input">
+        <label for="quantity">Ảnh 2:</label>
+        <div id="image2">
+          <b-form-file v-model="image2" @input="handleSelectFile()">
+          </b-form-file>
+          <div class="image_container" v-if="productDetail.image2">
+            <b-img
+            class="item_image"
+            :src="dataSubmit.image2"
+            fluid alt="Responsive image"
+            style="height: 100px, width: 200px"
+            ></b-img>
+          </div>
+        </div>
+      </div>
+      <div class="form-input">
+        <label for="quantity">Ảnh 3:</label>
+        <div id="image3">
+          <b-form-file v-model="image3" @input="handleSelectFile()">
+          </b-form-file>
+          <div class="image_container" v-if="productDetail.image3">
+            <b-img
+            class="item_image"
+            :src="dataSubmit.image3"
+            fluid alt="Responsive image"
+            style="height: 100px, width: 200px"
+            ></b-img>
+          </div>
+        </div>
+      </div>
     </div>
 </template>
 
@@ -110,6 +140,8 @@ export default {
         supplierId: this.productDetail.supplier,
         sale: this.productDetail.sale,
         image: this.productDetail.image.replace(/"/g, ''),
+        image2: this.productDetail.image2.replace(/"/g, ''),
+        image3: this.productDetail.image3.replace(/"/g, ''),
       },
       image: [],
     };

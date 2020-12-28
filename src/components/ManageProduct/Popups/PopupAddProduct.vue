@@ -66,9 +66,41 @@
         ></b-form-input>
       </div>
       <div class="form-input">
-        <label for="image">Ảnh:</label>
+        <label for="image">Ảnh 1:</label>
         <div id="image">
           <b-form-file accept="image/*" v-model="image" @input="handleSelectFile()">
+          </b-form-file>
+          <div class="image_container" v-if="getImagesUrl">
+            <b-img
+            class="item_image"
+            :src="getImagesUrl"
+            fluid alt="Responsive image"
+            style="height: 100px, width: 200px"
+            ></b-img>
+          </div>
+        </div>
+
+      </div>
+       <div class="form-input">
+        <label for="image">Ảnh 2:</label>
+        <div id="image2">
+          <b-form-file accept="image/*" v-model="image2" @input="handleSelectFile()">
+          </b-form-file>
+          <div class="image_container" v-if="getImagesUrl">
+            <b-img
+            class="item_image"
+            :src="getImagesUrl"
+            fluid alt="Responsive image"
+            style="height: 100px, width: 200px"
+            ></b-img>
+          </div>
+        </div>
+
+      </div>
+       <div class="form-input">
+        <label for="image">Ảnh 3:</label>
+        <div id="image3">
+          <b-form-file accept="image/*" v-model="image3" @input="handleSelectFile()">
           </b-form-file>
           <div class="image_container" v-if="getImagesUrl">
             <b-img
@@ -114,6 +146,8 @@ export default {
       categoryId: '',
       supplierId: '',
       image: [],
+      image2: [],
+      image3: [],
       sale: '',
     };
   },
@@ -159,6 +193,8 @@ export default {
         price: this.price,
         sale: this.sale,
         image: this.getImagesUrl,
+        image2: this.getImagesUrl,
+        image3: this.getImagesUrl,
       };
       await this.$store.dispatch('addProduct', payload);
       this.$bvModal.hide(this.idModal);
