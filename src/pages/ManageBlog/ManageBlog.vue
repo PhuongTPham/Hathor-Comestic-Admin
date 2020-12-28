@@ -154,7 +154,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getlistBlog']),
+    ...mapGetters(['getlistBlog', 'getErrorCodeBlog']),
     listBlog() {
       const items = [];
       this.getlistBlog.forEach((item) => {

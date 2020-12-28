@@ -63,7 +63,7 @@ const api = (config) => ({
   // blog
   getListBlog: (keyword) => config('get', `/customer/v1/list-blog/?search=${keyword}`),
   addBlog: (payload) => config('post', '/customer/v1/add_new_blog/', payload),
-  updateBlog: (payload) => config('post', '/customer/v1/update-blog/', payload.data),
+  updateBlog: (payload) => config('post', '/customer/v1/update_blog/', payload.data),
   deleteBlog: (payload) => config('post', '/customer/v1/delete-blog/', payload),
 
   // statistic
