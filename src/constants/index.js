@@ -136,7 +136,10 @@ const CATEGORY_CONST = {
   TITLE_POPUP_ADD: 'Thêm danh mục sản phẩm',
   TITLE_POPUP_DELETE: 'Xóa danh mục sản phẩm',
 };
-
+const ORDER_CONST = {
+  HEADER_MANAGE: 'QUẢN LÝ ĐẶT HÀNG',
+  ID_POPUP_DETAIL: 'modal-detail-order',
+};
 const COMMENT_CONST = {
   HEADER_MANAGE: 'QUẢN LÝ BÌNH LUẬN',
   TITLE_MANAGE: 'Thêm tòa nhà',
@@ -197,6 +200,24 @@ const BLOG_CONST = {
   TITLE_POPUP_ADD: 'Thêm blog',
   TITLE_POPUP_DELETE: 'Xóa blog',
 };
+const ORDER_STATUS = [
+  {
+    value: 0,
+    text: 'Chờ xác nhận',
+  },
+  {
+    value: 1,
+    text: 'Thanh toán thành công',
+  },
+  {
+    value: 3,
+    text: 'Đang vận chuyển',
+  },
+  {
+    value: 4,
+    text: 'Giao hàng thành công',
+  },
+];
 
 export default {
   COMMON_CONST,
@@ -208,4 +229,6 @@ export default {
   PRODUCT_CONST,
   SUBSCRIBER_CONST,
   BLOG_CONST,
+  ORDER_CONST,
+  ORDER_STATUS,
 };

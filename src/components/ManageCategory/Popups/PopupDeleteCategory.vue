@@ -2,12 +2,8 @@
   <b-modal :id="idModal" no-close-on-backdrop size="sm" :title="titleModal">
     <div>{{ contentModal }}</div>
     <template #modal-footer="">
-      <b-button size="sm" variant="danger" @click="cancel">
-        Không
-      </b-button>
-      <b-button size="sm" variant="success" @click="submit">
-        Có
-      </b-button>
+      <b-button size="sm" variant="danger" @click="cancel"> Không </b-button>
+      <b-button size="sm" variant="success" @click="submit"> Có </b-button>
     </template>
   </b-modal>
 </template>
@@ -26,7 +22,7 @@ export default {
     },
     selectedListId: {
       type: Array,
-    }
+    },
   },
   methods: {
     async submit() {
@@ -45,5 +41,4 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
 </style>

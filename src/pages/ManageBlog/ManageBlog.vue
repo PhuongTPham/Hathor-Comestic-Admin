@@ -4,10 +4,18 @@
       <Header />
     </div>
     <div class="manage-blog-container__options">
-      <b-form @submit="searchBlog" >
-        <div class="manage-blog-container__options__search-form" >
-          <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchBlog"></b-icon-search>
+      <b-form @submit="searchBlog">
+        <div class="manage-blog-container__options__search-form">
+          <b-form-input
+            class="search-form-input"
+            placeholder="Tìm kiếm"
+            v-model="inputSearch"
+          ></b-form-input>
+          <b-icon-search
+            class="search-form-icon"
+            :font-scale="1.5"
+            @click="searchBlog"
+          ></b-icon-search>
         </div>
       </b-form>
       <div class="manage-blog-container__options__button-group">
@@ -35,7 +43,11 @@
         <thead>
           <tr>
             <th scope="col">
-              <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
+              <input
+                type="checkbox"
+                :checked="isSelectedAll"
+                @click="setIsSelectedAll"
+              />
             </th>
             <th scope="col">Tiêu đề</th>
             <th scope="col">Nội dung</th>
@@ -48,17 +60,24 @@
         <tbody>
           <tr v-for="(blog, index) in listBlog" :key="index">
             <td>
-              <input type="checkbox" :value="blog.id" v-model="selectedListBlog" />
+              <input
+                type="checkbox"
+                :value="blog.id"
+                v-model="selectedListBlog"
+              />
             </td>
             <td>{{ blog.title }}</td>
             <template>
-              <td v-if="blog.description.length <= 50">{{ blog.description }}</td>
-              <td v-else>{{ blog.description.substr(0, 50) + '...' }}</td>
+              <td v-if="blog.description.length <= 50">
+                {{ blog.description }}
+              </td>
+              <td v-else>{{ blog.description.substr(0, 50) + "..." }}</td>
             </template>
             <td>{{ blog.author }}</td>
             <template>
               <td>
-                <img :src="blog.image" style="width: 50px; height: 50px" /></td>
+                <img :src="blog.image" style="width: 50px; height: 50px" />
+              </td>
             </template>
             <td>{{ blog.like }}</td>
             <td>
@@ -82,13 +101,25 @@
     </div>
 
     <div>
-      <b-modal id="modal-detail-blog" no-close-on-backdrop size="lg" :title="userDetail.title">
-        <PopupDetailBlog :userDetail="userDetail" @update="updateData"/>
+      <b-modal
+        id="modal-detail-blog"
+        no-close-on-backdrop
+        size="lg"
+        :title="userDetail.title"
+      >
+        <PopupDetailBlog :userDetail="userDetail" @update="updateData" />
         <template #modal-footer="">
           <b-button size="sm" variant="danger" @click="cancel">
             Hủy bỏ
           </b-button>
-          <b-button ref="btn_update_blog" size="sm" variant="success" @click="submit" :disabled="!canUpdate" :class="{ '-disable': !canUpdate }">
+          <b-button
+            ref="btn_update_blog"
+            size="sm"
+            variant="success"
+            @click="submit"
+            :disabled="!canUpdate"
+            :class="{ '-disable': !canUpdate }"
+          >
             Thay đổi
           </b-button>
         </template>
@@ -111,7 +142,6 @@
         :idModal="constants.BLOG_CONST.ID_POPUP_ADD"
       />
     </div>
-
   </div>
 </template>
 
@@ -184,7 +214,6 @@ export default {
     },
   },
   methods: {
-
     setIsSelectedAll() {
       this.isSelectedAll = !this.isSelectedAll;
       if (this.isSelectedAll) {
@@ -248,10 +277,16 @@ export default {
       if (this.getErrorCodeBlog === 0) {
         this.$bvModal.hide(constants.BLOG_CONST.ID_POPUP_DETAIL);
         await this.$store.dispatch('getListBlog', '');
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED, 'success');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED,
+          'success',
+        );
         this.canUpdate = false;
       } else {
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_FAILED, 'danger');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_UPDATE_FAILED,
+          'danger',
+        );
       }
       submitButton.classList.remove(
         'spinner',

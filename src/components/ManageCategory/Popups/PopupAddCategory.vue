@@ -3,18 +3,20 @@
     <div class="popup-add-account">
       <div class="form-input">
         <label for="name">Tên danh mục sản phẩm:</label>
-        <b-form-input placeholder="" id="name" v-model="name" ></b-form-input>
+        <b-form-input placeholder="" id="name" v-model="name"></b-form-input>
       </div>
       <div class="form-input">
         <label for="description">Miêu tả:</label>
-        <b-form-input placeholder="" id="description" v-model="description" ></b-form-input>
+        <b-form-input
+          placeholder=""
+          id="description"
+          v-model="description"
+        ></b-form-input>
       </div>
     </div>
     <template #modal-footer="">
-      <b-button size="sm" variant="danger" @click="cancel" >
-        Hủy bỏ
-      </b-button>
-      <b-button size="sm" variant="success" @click="submit" >
+      <b-button size="sm" variant="danger" @click="cancel"> Hủy bỏ </b-button>
+      <b-button size="sm" variant="success" @click="submit">
         Thêm category
       </b-button>
     </template>
@@ -22,7 +24,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     idModal: {
@@ -38,8 +39,7 @@ export default {
       description: '',
     };
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     clearData() {
       this.name = '';

@@ -1,13 +1,21 @@
 <template>
- <div class="manage-account-container">
+  <div class="manage-account-container">
     <div class="manage-account-container__header">
       <Header />
     </div>
     <div class="manage-account-container__options">
-      <b-form @submit="searchCategory" >
-        <div class="manage-account-container__options__search-form" >
-          <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchCategory"></b-icon-search>
+      <b-form @submit="searchCategory">
+        <div class="manage-account-container__options__search-form">
+          <b-form-input
+            class="search-form-input"
+            placeholder="Tìm kiếm"
+            v-model="inputSearch"
+          ></b-form-input>
+          <b-icon-search
+            class="search-form-icon"
+            :font-scale="1.5"
+            @click="searchCategory"
+          ></b-icon-search>
         </div>
       </b-form>
       <div class="manage-account-container__options__button-group">
@@ -35,7 +43,11 @@
         <thead>
           <tr>
             <th scope="col">
-              <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
+              <input
+                type="checkbox"
+                :checked="isSelectedAll"
+                @click="setIsSelectedAll"
+              />
             </th>
             <th scope="col">ID</th>
             <th scope="col">NAME</th>
@@ -46,7 +58,11 @@
         <tbody>
           <tr v-for="(account, index) in listAccount" :key="index">
             <td>
-              <input type="checkbox" :value="account.id" v-model="selectedListAccount" />
+              <input
+                type="checkbox"
+                :value="account.id"
+                v-model="selectedListAccount"
+              />
             </td>
             <td>{{ account.id }}</td>
             <td>{{ account.name }}</td>
@@ -72,13 +88,25 @@
     </div>
 
     <div>
-      <b-modal id="modal-detail-category" no-close-on-backdrop size="lg" :title="userDetail.name">
-        <PopupDetaillCategory :userDetail="userDetail" @update="updateData"/>
+      <b-modal
+        id="modal-detail-category"
+        no-close-on-backdrop
+        size="lg"
+        :title="userDetail.name"
+      >
+        <PopupDetaillCategory :userDetail="userDetail" @update="updateData" />
         <template #modal-footer="">
           <b-button size="sm" variant="danger" @click="cancel">
             Hủy bỏ
           </b-button>
-          <b-button ref="btn_update_category" size="sm" variant="success" @click="submit" :disabled="!canUpdate" :class="{ '-disable': !canUpdate }">
+          <b-button
+            ref="btn_update_category"
+            size="sm"
+            variant="success"
+            @click="submit"
+            :disabled="!canUpdate"
+            :class="{ '-disable': !canUpdate }"
+          >
             Thay đổi
           </b-button>
         </template>
@@ -95,7 +123,7 @@
       />
     </div>
 
-     <div>
+    <div>
       <PopupAddCategory
         :titleModal="constants.CATEGORY_CONST.TITLE_POPUP_ADD"
         :idModal="constants.CATEGORY_CONST.ID_POPUP_ADD"
@@ -224,10 +252,16 @@ export default {
       if (this.getErrorCodeCategory === 0) {
         this.$bvModal.hide(constants.CATEGORY_CONST.ID_POPUP_DETAIL);
         await this.$store.dispatch('getListCategory', '');
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED, 'success');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED,
+          'success',
+        );
         this.canUpdate = false;
       } else {
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_FAILED, 'danger');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_UPDATE_FAILED,
+          'danger',
+        );
       }
       submitButton.classList.remove(
         'spinner',

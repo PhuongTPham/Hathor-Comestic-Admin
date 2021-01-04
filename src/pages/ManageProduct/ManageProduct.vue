@@ -4,10 +4,18 @@
       <Header />
     </div>
     <div class="manage-product-container__options">
-      <b-form @submit="searchProduct" >
-        <div class="manage-product-container__options__search-form" >
-          <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchProduct"></b-icon-search>
+      <b-form @submit="searchProduct">
+        <div class="manage-product-container__options__search-form">
+          <b-form-input
+            class="search-form-input"
+            placeholder="Tìm kiếm"
+            v-model="inputSearch"
+          ></b-form-input>
+          <b-icon-search
+            class="search-form-icon"
+            :font-scale="1.5"
+            @click="searchProduct"
+          ></b-icon-search>
         </div>
       </b-form>
       <div class="manage-product-container__options__button-group">
@@ -35,7 +43,11 @@
         <thead>
           <tr>
             <th scope="col">
-              <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
+              <input
+                type="checkbox"
+                :checked="isSelectedAll"
+                @click="setIsSelectedAll"
+              />
             </th>
             <th scope="col">Tên sản phẩm</th>
             <th scope="col">Giá gốc</th>
@@ -51,17 +63,23 @@
         <tbody>
           <tr v-for="(product, index) in listProduct" :key="index">
             <td>
-              <input type="checkbox" :value="product.id" v-model="selectedListProduct" />
+              <input
+                type="checkbox"
+                :value="product.id"
+                v-model="selectedListProduct"
+              />
             </td>
             <template>
               <td v-if="product.name.length <= 50">{{ product.name }}</td>
-              <td v-else>{{ product.name.substr(0, 50) + '...' }}</td>
+              <td v-else>{{ product.name.substr(0, 50) + "..." }}</td>
             </template>
             <td>{{ formatNumber(product.price) }}</td>
             <td>{{ formatNumber(product.price_temp) }}</td>
             <template>
-             <td v-if="product.description.length <= 50">{{ product.description.substr(0, 50) + '...' }}</td>
-             <td v-else>{{ product.description.substr(0, 50) + '...' }}</td>
+              <td v-if="product.description.length <= 50">
+                {{ product.description.substr(0, 50) + "..." }}
+              </td>
+              <td v-else>{{ product.description.substr(0, 50) + "..." }}</td>
             </template>
             <td>{{ formatNumber(product.quantity) }}</td>
             <td>{{ product.view_item }}</td>
@@ -102,13 +120,28 @@
       />
     </div>
     <div>
-      <b-modal id="modal-detail-product" no-close-on-backdrop size="lg" :title="productDetail.name">
-        <PopupDetailProduct :productDetail="productDetail" @update="updateData"/>
+      <b-modal
+        id="modal-detail-product"
+        no-close-on-backdrop
+        size="lg"
+        :title="productDetail.name"
+      >
+        <PopupDetailProduct
+          :productDetail="productDetail"
+          @update="updateData"
+        />
         <template #modal-footer="">
           <b-button size="sm" variant="danger" @click="cancelModalDetail">
             Hủy bỏ
           </b-button>
-          <b-button ref="btn_update_product" size="sm" variant="success" @click="editProduct" :disabled="!canUpdate" :class="{ '-disable': !canUpdate }">
+          <b-button
+            ref="btn_update_product"
+            size="sm"
+            variant="success"
+            @click="editProduct"
+            :disabled="!canUpdate"
+            :class="{ '-disable': !canUpdate }"
+          >
             Thay đổi
           </b-button>
         </template>
@@ -223,10 +256,16 @@ export default {
       if (this.getErrorCodeProduct === 0) {
         this.$bvModal.hide(constants.PRODUCT_CONST.ID_POPUP_DETAIL);
         await this.$store.dispatch('getProduct', '');
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED, 'success');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED,
+          'success',
+        );
         this.canUpdate = false;
       } else {
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_FAILED, 'danger');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_UPDATE_FAILED,
+          'danger',
+        );
       }
       submitButton.classList.remove(
         'spinner',
@@ -244,7 +283,8 @@ export default {
     formatDate(date) {
       if (date) {
         return moment(date).format('YYYY-MM-DD');
-      } return '';
+      }
+      return '';
     },
     updateSelectedListId(value) {
       this.selectedListProduct = value;

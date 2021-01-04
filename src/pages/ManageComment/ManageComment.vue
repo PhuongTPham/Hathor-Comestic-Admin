@@ -4,10 +4,18 @@
       <Header />
     </div>
     <div class="manage-comment-container__options">
-      <b-form @submit="searchComment" >
-        <div class="manage-comment-container__options__search-form" >
-          <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchComment"></b-icon-search>
+      <b-form @submit="searchComment">
+        <div class="manage-comment-container__options__search-form">
+          <b-form-input
+            class="search-form-input"
+            placeholder="Tìm kiếm"
+            v-model="inputSearch"
+          ></b-form-input>
+          <b-icon-search
+            class="search-form-icon"
+            :font-scale="1.5"
+            @click="searchComment"
+          ></b-icon-search>
         </div>
       </b-form>
       <div class="manage-comment-container__options__button-group">
@@ -35,9 +43,13 @@
         <thead>
           <tr>
             <th scope="col">
-              <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
+              <input
+                type="checkbox"
+                :checked="isSelectedAll"
+                @click="setIsSelectedAll"
+              />
             </th>
-             <th scope="col">Tiêu đề</th>
+            <th scope="col">Tiêu đề</th>
             <th scope="col">Nội dung bình luận</th>
             <th scope="col">Mã sản phẩm</th>
             <th scope="col">Mã người bình luận</th>
@@ -48,16 +60,26 @@
         <tbody>
           <tr v-for="(comment, index) in listComment" :key="index">
             <td>
-              <input type="checkbox" :value="comment.id" v-model="selectedListComment" />
+              <input
+                type="checkbox"
+                :value="comment.id"
+                v-model="selectedListComment"
+              />
             </td>
             <td>{{ comment.header }}</td>
             <td v-if="comment.comment.length <= 50">{{ comment.comment }}</td>
-            <td v-else>{{ comment.comment.substr(0,50)+ '...' }}</td>
+            <td v-else>{{ comment.comment.substr(0, 50) + "..." }}</td>
             <td>{{ comment.item }}</td>
             <td>{{ comment.user }}</td>
             <td>
-              <b-form-rating v-model="comment.rating" variant="warning" class="mb-2" readonly precision="2"></b-form-rating>
-              </td>
+              <b-form-rating
+                v-model="comment.rating"
+                variant="warning"
+                class="mb-2"
+                readonly
+                precision="2"
+              ></b-form-rating>
+            </td>
             <td>
               <div class="show-detail">
                 <b-icon-pencil-square
@@ -79,8 +101,13 @@
     </div>
 
     <div>
-      <b-modal id="modal-detail-comment" no-close-on-backdrop size="lg" :title="userDetail.comment">
-        <PopupDetailComment :userDetail="userDetail"/>
+      <b-modal
+        id="modal-detail-comment"
+        no-close-on-backdrop
+        size="lg"
+        :title="userDetail.comment"
+      >
+        <PopupDetailComment :userDetail="userDetail" />
       </b-modal>
     </div>
     <div>
@@ -119,7 +146,6 @@ export default {
       selectedListComment: [],
       constants,
       userDetail: {},
-
     };
   },
   watch: {
@@ -164,7 +190,6 @@ export default {
     },
   },
   methods: {
-
     setIsSelectedAll() {
       this.isSelectedAll = !this.isSelectedAll;
       if (this.isSelectedAll) {

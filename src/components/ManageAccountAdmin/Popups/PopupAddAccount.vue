@@ -3,23 +3,41 @@
     <div class="popup-add-account">
       <div class="form-input">
         <label for="username">Tài khoản:</label>
-        <b-form-input placeholder="" id="username" v-model="userName" ></b-form-input>
+        <b-form-input
+          placeholder=""
+          id="username"
+          v-model="userName"
+        ></b-form-input>
       </div>
       <div class="form-input">
         <label for="password">Mật khẩu:</label>
-        <b-form-input type="password" placeholder="" id="password" v-model="password" ></b-form-input>
+        <b-form-input
+          type="password"
+          placeholder=""
+          id="password"
+          v-model="password"
+        ></b-form-input>
       </div>
       <div class="form-input">
         <label for="confirmPassword">Xác nhận mật khẩu:</label>
-        <b-form-input type="password" placeholder="" id="confirmPassword" v-model="confirmPassword" ></b-form-input>
+        <b-form-input
+          type="password"
+          placeholder=""
+          id="confirmPassword"
+          v-model="confirmPassword"
+        ></b-form-input>
       </div>
       <div class="form-input">
         <label for="fullName">Tên nhân viên:</label>
-        <b-form-input placeholder="" id="fullName" v-model="fullName" ></b-form-input>
+        <b-form-input
+          placeholder=""
+          id="fullName"
+          v-model="fullName"
+        ></b-form-input>
       </div>
       <div class="form-input">
         <label for="role">Vai trò:</label>
-        <select id="role" class="b-dropdown" v-model="role" >
+        <select id="role" class="b-dropdown" v-model="role">
           <option :value="1">ADMIN</option>
           <option :value="2">VIEW</option>
           <option :value="3">DISABLED</option>
@@ -27,24 +45,28 @@
       </div>
       <div class="form-input">
         <label for="staffCode">Mã nhân viên:</label>
-        <b-form-input placeholder="" id="staffCode" v-model="staffCode" ></b-form-input>
+        <b-form-input
+          placeholder=""
+          id="staffCode"
+          v-model="staffCode"
+        ></b-form-input>
       </div>
       <div class="form-input">
         <label for="company">Tên công ty:</label>
-        <select id="company" class="b-dropdown" v-model="company" >
-          <option v-for="company in getListTenant" :key="company.id" :value="company.id">{{
-            company.name
-          }}</option>
+        <select id="company" class="b-dropdown" v-model="company">
+          <option
+            v-for="company in getListTenant"
+            :key="company.id"
+            :value="company.id"
+          >
+            {{ company.name }}
+          </option>
         </select>
       </div>
     </div>
     <template #modal-footer="">
-      <b-button size="sm" variant="danger" @click="cancel" >
-        Hủy bỏ
-      </b-button>
-      <b-button size="sm" variant="success" @click="submit" >
-        Tạo
-      </b-button>
+      <b-button size="sm" variant="danger" @click="cancel"> Hủy bỏ </b-button>
+      <b-button size="sm" variant="success" @click="submit"> Tạo </b-button>
     </template>
   </b-modal>
 </template>
@@ -55,11 +77,11 @@ import { mapGetters } from 'vuex';
 export default {
   props: {
     idModal: {
-      type: String
+      type: String,
     },
     titleModal: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
@@ -73,7 +95,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getListTenant'])
+    ...mapGetters(['getListTenant']),
   },
   methods: {
     clearData() {

@@ -61,7 +61,7 @@ const routes = [
         name: 'ManageOrder',
         path: '/manage-order',
         beforeEnter: async (to, from, next) => {
-          await store.dispatch('getGuest', '');
+          await store.dispatch('getOrders', '');
           next();
         },
         component: () => import('@/pages/ManageOrder/ManageOrder'),

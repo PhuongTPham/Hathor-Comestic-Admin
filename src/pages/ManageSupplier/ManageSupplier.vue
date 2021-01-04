@@ -1,13 +1,22 @@
 <template>
- <div class="manage-account-container">
+  <div class="manage-account-container">
     <div class="manage-account-container__header">
       <Header />
     </div>
     <div class="manage-account-container__options">
-      <b-form @submit="searchSupplier" >
-        <div class="manage-account-container__options__search-form" >
-          <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchSupplier" @keyup.enter="searchSupplier"></b-icon-search>
+      <b-form @submit="searchSupplier">
+        <div class="manage-account-container__options__search-form">
+          <b-form-input
+            class="search-form-input"
+            placeholder="Tìm kiếm"
+            v-model="inputSearch"
+          ></b-form-input>
+          <b-icon-search
+            class="search-form-icon"
+            :font-scale="1.5"
+            @click="searchSupplier"
+            @keyup.enter="searchSupplier"
+          ></b-icon-search>
         </div>
       </b-form>
       <div class="manage-account-container__options__button-group">
@@ -35,7 +44,11 @@
         <thead>
           <tr>
             <th scope="col">
-              <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
+              <input
+                type="checkbox"
+                :checked="isSelectedAll"
+                @click="setIsSelectedAll"
+              />
             </th>
             <th scope="col">ID</th>
             <th scope="col">NAME</th>
@@ -47,12 +60,16 @@
         <tbody>
           <tr v-for="(account, index) in listSupplier" :key="index">
             <td>
-              <input type="checkbox" :value="account.id" v-model="selectedListSupplier" />
+              <input
+                type="checkbox"
+                :value="account.id"
+                v-model="selectedListSupplier"
+              />
             </td>
             <td>{{ account.id }}</td>
             <td>{{ account.name }}</td>
             <td>{{ account.description }}</td>
-             <td>{{ account.address }}</td>
+            <td>{{ account.address }}</td>
             <td>
               <div class="show-detail">
                 <b-icon-pencil-square
@@ -74,13 +91,28 @@
     </div>
 
     <div>
-      <b-modal id="modal-detail-supplier" no-close-on-backdrop size="lg" :title="userSupplier.name">
-        <PopupDetaillSupplier :userSupplier="userSupplier" @update="updateData"/>
+      <b-modal
+        id="modal-detail-supplier"
+        no-close-on-backdrop
+        size="lg"
+        :title="userSupplier.name"
+      >
+        <PopupDetaillSupplier
+          :userSupplier="userSupplier"
+          @update="updateData"
+        />
         <template #modal-footer="">
           <b-button size="sm" variant="danger" @click="cancel">
             Hủy bỏ
           </b-button>
-          <b-button ref="btn_update_supplier" size="sm" variant="success" @click="submit" :disabled="!canUpdate" :class="{ '-disable': !canUpdate }">
+          <b-button
+            ref="btn_update_supplier"
+            size="sm"
+            variant="success"
+            @click="submit"
+            :disabled="!canUpdate"
+            :class="{ '-disable': !canUpdate }"
+          >
             Thay đổi
           </b-button>
         </template>
@@ -97,7 +129,7 @@
       />
     </div>
 
-     <div>
+    <div>
       <PopupAddSupplier
         :titleModal="constants.SUPPLIER_CONST.TITLE_POPUP_ADD"
         :idModal="constants.SUPPLIER_CONST.ID_POPUP_ADD"
@@ -225,10 +257,16 @@ export default {
       if (this.getErrorCodeSupplier === 0) {
         this.$bvModal.hide(constants.SUPPLIER_CONST.ID_POPUP_DETAIL);
         await this.$store.dispatch('getListSupplier', '');
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED, 'success');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED,
+          'success',
+        );
         this.canUpdate = false;
       } else {
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_FAILED, 'danger');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_UPDATE_FAILED,
+          'danger',
+        );
       }
       submitButton.classList.remove(
         'spinner',

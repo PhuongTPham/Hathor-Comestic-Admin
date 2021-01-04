@@ -1,6 +1,9 @@
 <template>
   <div class="popup-detail-account">
-  <div>Bạn có muốn chuyển tài khoản {{ userDetail.username }} thành quản trị viên không ?</div>
+    <div>
+      Bạn có muốn chuyển tài khoản {{ userDetail.username }} thành quản trị viên
+      không ?
+    </div>
   </div>
 </template>
 
@@ -14,8 +17,7 @@ export default {
       type: Object,
     },
   },
-  components: {
-  },
+  components: {},
   data() {
     return {
       dataSubmit: {
@@ -45,25 +47,25 @@ export default {
 
 <style lang='scss' scoped>
 .popup-detail-account {
- .form-input {
-   display: grid;
-   grid-template-columns: 20% 80%;
-   margin-bottom: 12px;
-   .b-dropdown {
-     width: 130px;
-     border: 1px solid #dcdcdc;
-     outline: none;
-   }
- }
- &__button-wrapper {
-   display: flex;
-   justify-content: flex-end;
-   button {
-     margin-right: 7px;
-   }
-   button:last-child {
-     margin-right: 0px;
-   }
- }
+  .form-input {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin-bottom: 12px;
+    .b-dropdown {
+      width: 130px;
+      border: 1px solid #dcdcdc;
+      outline: none;
+    }
+  }
+  &__button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      margin-right: 7px;
+    }
+    button:last-child {
+      margin-right: 0px;
+    }
+  }
 }
 </style>

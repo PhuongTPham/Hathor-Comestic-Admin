@@ -10,14 +10,9 @@
 
 // Main demo style scss
 @import "./assets/sass/style.vue.scss";
-
-// Check documentation for RTL css
-// Update HTML with RTL attribute at public/index.html
-/*@import "assets/css/style.vue.rtl";*/
 </style>
 
 <script>
-
 export default {
   name: 'App',
   mounted() {

@@ -49,13 +49,9 @@
           v-model="shortDescription"
         ></b-form-input>
       </div>
-       <div class="form-input">
+      <div class="form-input">
         <label for="sale">% SALE:</label>
-        <b-form-input
-          placeholder=""
-          id="sale"
-          v-model="sale"
-        ></b-form-input>
+        <b-form-input placeholder="" id="sale" v-model="sale"></b-form-input>
       </div>
       <div class="form-input">
         <label for="quantity">Số lượng:</label>
@@ -68,50 +64,62 @@
       <div class="form-input">
         <label for="image">Ảnh 1:</label>
         <div id="image">
-          <b-form-file accept="image/*" v-model="image" @input="handleSelectFile()">
+          <b-form-file
+            accept="image/*"
+            v-model="image"
+            @input="handleSelectFile()"
+          >
           </b-form-file>
           <div class="image_container" v-if="getImagesUrl">
             <b-img
-            class="item_image"
-            :src="getImagesUrl"
-            fluid alt="Responsive image"
-            style="height: 100px, width: 200px"
+              class="item_image"
+              :src="getImagesUrl"
+              fluid
+              alt="Responsive image"
+              style="height: 100px, width: 200px"
             ></b-img>
           </div>
         </div>
-
       </div>
-       <div class="form-input">
+      <div class="form-input">
         <label for="image">Ảnh 2:</label>
         <div id="image2">
-          <b-form-file accept="image/*" v-model="image2" @input="handleSelectFile()">
+          <b-form-file
+            accept="image/*"
+            v-model="image2"
+            @input="handleSelectFile()"
+          >
           </b-form-file>
           <div class="image_container" v-if="getImagesUrl">
             <b-img
-            class="item_image"
-            :src="getImagesUrl"
-            fluid alt="Responsive image"
-            style="height: 100px, width: 200px"
+              class="item_image"
+              :src="getImagesUrl"
+              fluid
+              alt="Responsive image"
+              style="height: 100px, width: 200px"
             ></b-img>
           </div>
         </div>
-
       </div>
-       <div class="form-input">
+      <div class="form-input">
         <label for="image">Ảnh 3:</label>
         <div id="image3">
-          <b-form-file accept="image/*" v-model="image3" @input="handleSelectFile()">
+          <b-form-file
+            accept="image/*"
+            v-model="image3"
+            @input="handleSelectFile()"
+          >
           </b-form-file>
           <div class="image_container" v-if="getImagesUrl">
             <b-img
-            class="item_image"
-            :src="getImagesUrl"
-            fluid alt="Responsive image"
-            style="height: 100px, width: 200px"
+              class="item_image"
+              :src="getImagesUrl"
+              fluid
+              alt="Responsive image"
+              style="height: 100px, width: 200px"
             ></b-img>
           </div>
         </div>
-
       </div>
     </div>
     <template #modal-footer="">

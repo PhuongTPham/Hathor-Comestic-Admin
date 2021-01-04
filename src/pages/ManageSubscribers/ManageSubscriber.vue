@@ -4,10 +4,18 @@
       <Header />
     </div>
     <div class="manage-subscriber-container__options">
-      <b-form @submit="searchSubscriber" >
-        <div class="manage-subscriber-container__options__search-form" >
-          <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchSubscriber"></b-icon-search>
+      <b-form @submit="searchSubscriber">
+        <div class="manage-subscriber-container__options__search-form">
+          <b-form-input
+            class="search-form-input"
+            placeholder="Tìm kiếm"
+            v-model="inputSearch"
+          ></b-form-input>
+          <b-icon-search
+            class="search-form-icon"
+            :font-scale="1.5"
+            @click="searchSubscriber"
+          ></b-icon-search>
         </div>
       </b-form>
       <div class="manage-subscriber-container__options__button-group">
@@ -35,7 +43,11 @@
         <thead>
           <tr>
             <th scope="col">
-              <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
+              <input
+                type="checkbox"
+                :checked="isSelectedAll"
+                @click="setIsSelectedAll"
+              />
             </th>
             <th scope="col">Email</th>
             <th scope="col">Ngày đăng kí</th>
@@ -46,7 +58,11 @@
         <tbody>
           <tr v-for="(sub, index) in listSubscriber" :key="index">
             <td>
-              <input type="checkbox" :value="sub.id" v-model="selectedListSubscriber" />
+              <input
+                type="checkbox"
+                :value="sub.id"
+                v-model="selectedListSubscriber"
+              />
             </td>
             <td>{{ sub.email }}</td>
             <td>{{ sub.created_at }}</td>
@@ -102,7 +118,9 @@ export default {
   watch: {
     selectedListSubscriber: {
       handler() {
-        if (this.selectedListSubscriber.length === this.listIdSubscriber.length) {
+        if (
+          this.selectedListSubscriber.length === this.listIdSubscriber.length
+        ) {
           this.isSelectedAll = true;
         } else {
           this.isSelectedAll = false;
@@ -139,7 +157,6 @@ export default {
     },
   },
   methods: {
-
     setIsSelectedAll() {
       this.isSelectedAll = !this.isSelectedAll;
       if (this.isSelectedAll) {

@@ -4,10 +4,18 @@
       <Header />
     </div>
     <div class="manage-toanha-container__options">
-      <b-form @submit="searchContact" >
-        <div class="manage-toanha-container__options__search-form" >
-          <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchContact"></b-icon-search>
+      <b-form @submit="searchContact">
+        <div class="manage-toanha-container__options__search-form">
+          <b-form-input
+            class="search-form-input"
+            placeholder="Tìm kiếm"
+            v-model="inputSearch"
+          ></b-form-input>
+          <b-icon-search
+            class="search-form-icon"
+            :font-scale="1.5"
+            @click="searchContact"
+          ></b-icon-search>
         </div>
       </b-form>
       <div class="manage-toanha-container__options__button-group">
@@ -35,7 +43,11 @@
         <thead>
           <tr>
             <th scope="col">
-              <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
+              <input
+                type="checkbox"
+                :checked="isSelectedAll"
+                @click="setIsSelectedAll"
+              />
             </th>
             <th scope="col">Họ và tên</th>
             <th scope="col">Email</th>
@@ -46,7 +58,11 @@
         <tbody>
           <tr v-for="(contact, index) in listContact" :key="index">
             <td>
-              <input type="checkbox" :value="contact.id" v-model="selectedListContact" />
+              <input
+                type="checkbox"
+                :value="contact.id"
+                v-model="selectedListContact"
+              />
             </td>
             <td>{{ contact.full_name }}</td>
             <td>{{ contact.email }}</td>
@@ -140,7 +156,6 @@ export default {
     },
   },
   methods: {
-
     setIsSelectedAll() {
       this.isSelectedAll = !this.isSelectedAll;
       if (this.isSelectedAll) {

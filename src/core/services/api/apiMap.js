@@ -36,8 +36,8 @@ const api = (config) => ({
   updateProduct: (payload) => config('post', '/cms-admin/v1/update-item/', payload.data),
 
   // order
-  getDetailOrder: (payload) => config('get', `/cms-admin/v1/get-order-detail/${payload.id}`),
   getListOrder: (keyword) => config('get', `/cms-admin/v1/list-order/?search=${keyword}`),
+  updateStatusOrder: (payload) => config('post', '/cms-admin/v1/update-order/', payload),
 
   // image
   uploadImage: (payload) => config('post', '/cms-admin/v1/upload-image-item/', payload),
@@ -68,6 +68,7 @@ const api = (config) => ({
 
   // statistic
   getAllStatistic: () => config('get', '/cms-admin/v1/statistic/'),
+
 });
 
 export default api;

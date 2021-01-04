@@ -16,7 +16,10 @@
                 :state="validateState('oldPassword')"
                 aria-describedby="input-oldPassword-feedback"
               ></b-form-input>
-              <b-form-invalid-feedback id="input-oldPassword-feedback" v-if="!$v.oldPassword.required" >
+              <b-form-invalid-feedback
+                id="input-oldPassword-feedback"
+                v-if="!$v.oldPassword.required"
+              >
                 Xin hãy nhập mật khẩu hiện tại
               </b-form-invalid-feedback>
             </div>
@@ -35,7 +38,10 @@
                 :state="validateState('newPassword')"
                 aria-describedby="input-newPassword-feedback"
               ></b-form-input>
-              <b-form-invalid-feedback id="input-newPassword-feedback" v-if="!$v.newPassword.required" >
+              <b-form-invalid-feedback
+                id="input-newPassword-feedback"
+                v-if="!$v.newPassword.required"
+              >
                 Xin hãy nhập mật khẩu hiện mới
               </b-form-invalid-feedback>
             </div>
@@ -54,10 +60,16 @@
                 :state="validateState('confirmNewPassword')"
                 aria-describedby="input-confirmNewPassword-feedback"
               ></b-form-input>
-              <b-form-invalid-feedback id="input-confirmNewPassword-feedback" v-if="!$v.confirmNewPassword.required" >
+              <b-form-invalid-feedback
+                id="input-confirmNewPassword-feedback"
+                v-if="!$v.confirmNewPassword.required"
+              >
                 Xin hãy xác nhận mật khẩu mới
               </b-form-invalid-feedback>
-              <b-form-invalid-feedback id="input-confirmNewPassword-feedback" v-else-if="!$v.confirmNewPassword.sameAsPassword" >
+              <b-form-invalid-feedback
+                id="input-confirmNewPassword-feedback"
+                v-else-if="!$v.confirmNewPassword.sameAsPassword"
+              >
                 Mật khẩu mới không khớp nhau
               </b-form-invalid-feedback>
             </div>
@@ -65,7 +77,9 @@
         </div>
 
         <div>
-          <b-button ref="btn_change_password" variant="success" @click="submit">Thay đổi</b-button>
+          <b-button ref="btn_change_password" variant="success" @click="submit"
+            >Thay đổi</b-button
+          >
         </div>
       </div>
       <div></div>
@@ -127,11 +141,17 @@ export default {
       submitButton.classList.add('spinner', 'spinner-light', 'spinner-right');
       const response = await api('changePassword', payload);
       if (response?.data?.error_code === 0) {
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_CHANGE_PASSWORD_SUCCEED, 'success');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_CHANGE_PASSWORD_SUCCEED,
+          'success',
+        );
         sessionStorage.clear();
         this.$router.push('/login');
       } else {
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_CHANGE_PASSWORD_FAILED, 'danger');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_CHANGE_PASSWORD_FAILED,
+          'danger',
+        );
       }
       submitButton.classList.remove(
         'spinner',

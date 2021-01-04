@@ -1,13 +1,21 @@
 <template>
- <div class="manage-account-container">
+  <div class="manage-account-container">
     <div class="manage-account-container__header">
       <Header />
     </div>
     <div class="manage-account-container__options">
-      <b-form @submit="searchAccount" >
-        <div class="manage-account-container__options__search-form" >
-          <b-form-input class="search-form-input" placeholder="Tìm kiếm" v-model="inputSearch" ></b-form-input>
-          <b-icon-search class="search-form-icon" :font-scale="1.5" @click="searchAccount"></b-icon-search>
+      <b-form @submit="searchAccount">
+        <div class="manage-account-container__options__search-form">
+          <b-form-input
+            class="search-form-input"
+            placeholder="Tìm kiếm"
+            v-model="inputSearch"
+          ></b-form-input>
+          <b-icon-search
+            class="search-form-icon"
+            :font-scale="1.5"
+            @click="searchAccount"
+          ></b-icon-search>
         </div>
       </b-form>
       <div class="manage-account-container__options__button-group">
@@ -35,7 +43,11 @@
         <thead>
           <tr>
             <th scope="col">
-              <input type="checkbox" :checked="isSelectedAll" @click="setIsSelectedAll" />
+              <input
+                type="checkbox"
+                :checked="isSelectedAll"
+                @click="setIsSelectedAll"
+              />
             </th>
             <th scope="col">Tài khoản</th>
             <th scope="col">Email</th>
@@ -48,7 +60,11 @@
         <tbody>
           <tr v-for="(account, index) in listAccount" :key="index">
             <td>
-              <input type="checkbox" :value="account.id" v-model="selectedListAccount" />
+              <input
+                type="checkbox"
+                :value="account.id"
+                v-model="selectedListAccount"
+              />
             </td>
             <td>{{ account.username }}</td>
             <td>{{ account.email }}</td>
@@ -76,13 +92,23 @@
     </div>
 
     <div>
-      <b-modal id="modal-detail-account" no-close-on-backdrop size="md" :title="userDetail.full_name">
-        <PopupDetailAccount :userDetail="userDetail" @update="updateData"/>
+      <b-modal
+        id="modal-detail-account"
+        no-close-on-backdrop
+        size="md"
+        :title="userDetail.full_name"
+      >
+        <PopupDetailAccount :userDetail="userDetail" @update="updateData" />
         <template #modal-footer="">
           <b-button size="sm" variant="danger" @click="cancel">
             Hủy bỏ
           </b-button>
-          <b-button ref="btn_update_account" size="sm" variant="success" @click="changeRole">
+          <b-button
+            ref="btn_update_account"
+            size="sm"
+            variant="success"
+            @click="changeRole"
+          >
             Đồng ý
           </b-button>
         </template>
@@ -243,18 +269,27 @@ export default {
       const submitButton = this.$refs.btn_update_account;
       submitButton.classList.add('spinner', 'spinner-light', 'spinner-right');
       const params = {
-        user_id: this.userDetail.id
-      }
-      const changeRoleAccount = await this.$store.dispatch('changeRoleAccount', params);
-      console.log(changeRoleAccount)
+        user_id: this.userDetail.id,
+      };
+      const changeRoleAccount = await this.$store.dispatch(
+        'changeRoleAccount',
+        params,
+      );
+      console.log(changeRoleAccount);
       // await this.$store.dispatch('updateAccount', this.dataChanged);
       if (changeRoleAccount.success) {
         this.$bvModal.hide(constants.ACCOUNT_CONST.ID_POPUP_DETAIL_ACCOUNT);
         await this.$store.dispatch('getAccount', '');
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED, 'success');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_UPDATE_SUCCEED,
+          'success',
+        );
         this.canUpdate = false;
       } else {
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_UPDATE_FAILED, 'danger');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_UPDATE_FAILED,
+          'danger',
+        );
       }
       submitButton.classList.remove(
         'spinner',

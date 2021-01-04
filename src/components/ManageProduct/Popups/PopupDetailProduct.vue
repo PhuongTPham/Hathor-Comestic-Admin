@@ -1,115 +1,125 @@
 <template>
   <div class="popup-add-product">
-      <div class="form-input">
-        <label for="name">Tên sản phẩm:</label>
-        <b-form-input placeholder="" id="name" v-model="dataSubmit.name"></b-form-input>
-      </div>
-      <div class="form-input">
-        <label for="role">Loại sản phẩm:</label>
-        <select id="role" class="b-dropdown" v-model="dataSubmit.categoryId">
-          <option :value="item.id" v-for="item in listCategory" :key="item.id">
-            {{ item.name }}
-          </option>
-        </select>
-      </div>
-      <div class="form-input">
-        <label for="role">Nhà cung cấp:</label>
-        <select id="role" class="b-dropdown" v-model="dataSubmit.supplierId">
-          <option :value="item.id" v-for="item in listSupplier" :key="item.id">
-            {{ item.name }}
-          </option>
-        </select>
-      </div>
-      <div class="form-input">
-        <label for="price">Giá tiền:</label>
-        <b-form-input placeholder="" id="price" v-model="dataSubmit.price"></b-form-input>
-      </div>
-      <div class="form-input">
-        <label for="price_temp">Giá sale:</label>
-        <b-form-input
-          placeholder=""
-          id="price_temp"
-          v-model="dataSubmit.priceTemp"
-        ></b-form-input>
-      </div>
-      <div class="form-input">
-        <label for="description">Mô tả:</label>
-        <b-form-input
-          placeholder=""
-          id="description"
-          v-model="dataSubmit.description"
-        ></b-form-input>
-      </div>
-      <div class="form-input">
-        <label for="shortDescription">Mô tả ngắn:</label>
-        <b-form-input
-          placeholder=""
-          id="shortDescription"
-          v-model="dataSubmit.shortDescription"
-        ></b-form-input>
-      </div>
-      <div class="form-input">
-        <label for="sale">% SALE:</label>
-        <b-form-input
-          placeholder=""
-          id="sale"
-          v-model="dataSubmit.sale"
-        ></b-form-input>
-      </div>
-      <div class="form-input">
-        <label for="quantity">Số lượng:</label>
-        <b-form-input
-          placeholder=""
-          id="quantity"
-          v-model="dataSubmit.quantity"
-        ></b-form-input>
-      </div>
-      <div class="form-input">
-        <label for="quantity">Ảnh:</label>
-        <div id="image">
-          <b-form-file v-model="image" @input="handleSelectFile()">
-          </b-form-file>
-          <div class="image_container" v-if="productDetail.image">
-            <b-img
+    <div class="form-input">
+      <label for="name">Tên sản phẩm:</label>
+      <b-form-input
+        placeholder=""
+        id="name"
+        v-model="dataSubmit.name"
+      ></b-form-input>
+    </div>
+    <div class="form-input">
+      <label for="role">Loại sản phẩm:</label>
+      <select id="role" class="b-dropdown" v-model="dataSubmit.categoryId">
+        <option :value="item.id" v-for="item in listCategory" :key="item.id">
+          {{ item.name }}
+        </option>
+      </select>
+    </div>
+    <div class="form-input">
+      <label for="role">Nhà cung cấp:</label>
+      <select id="role" class="b-dropdown" v-model="dataSubmit.supplierId">
+        <option :value="item.id" v-for="item in listSupplier" :key="item.id">
+          {{ item.name }}
+        </option>
+      </select>
+    </div>
+    <div class="form-input">
+      <label for="price">Giá tiền:</label>
+      <b-form-input
+        placeholder=""
+        id="price"
+        v-model="dataSubmit.price"
+      ></b-form-input>
+    </div>
+    <div class="form-input">
+      <label for="price_temp">Giá sale:</label>
+      <b-form-input
+        placeholder=""
+        id="price_temp"
+        v-model="dataSubmit.priceTemp"
+      ></b-form-input>
+    </div>
+    <div class="form-input">
+      <label for="description">Mô tả:</label>
+      <b-form-input
+        placeholder=""
+        id="description"
+        v-model="dataSubmit.description"
+      ></b-form-input>
+    </div>
+    <div class="form-input">
+      <label for="shortDescription">Mô tả ngắn:</label>
+      <b-form-input
+        placeholder=""
+        id="shortDescription"
+        v-model="dataSubmit.shortDescription"
+      ></b-form-input>
+    </div>
+    <div class="form-input">
+      <label for="sale">% SALE:</label>
+      <b-form-input
+        placeholder=""
+        id="sale"
+        v-model="dataSubmit.sale"
+      ></b-form-input>
+    </div>
+    <div class="form-input">
+      <label for="quantity">Số lượng:</label>
+      <b-form-input
+        placeholder=""
+        id="quantity"
+        v-model="dataSubmit.quantity"
+      ></b-form-input>
+    </div>
+    <div class="form-input">
+      <label for="quantity">Ảnh:</label>
+      <div id="image">
+        <b-form-file v-model="image" @input="handleSelectFile()"> </b-form-file>
+        <div class="image_container" v-if="productDetail.image">
+          <b-img
             class="item_image"
             :src="dataSubmit.image"
-            fluid alt="Responsive image"
+            fluid
+            alt="Responsive image"
             style="height: 100px, width: 200px"
-            ></b-img>
-          </div>
-        </div>
-      </div>
-      <div class="form-input">
-        <label for="quantity">Ảnh 2:</label>
-        <div id="image2">
-          <b-form-file v-model="image2" @input="handleSelectFile()">
-          </b-form-file>
-          <div class="image_container" v-if="productDetail.image2">
-            <b-img
-            class="item_image"
-            :src="dataSubmit.image2"
-            fluid alt="Responsive image"
-            style="height: 100px, width: 200px"
-            ></b-img>
-          </div>
-        </div>
-      </div>
-      <div class="form-input">
-        <label for="quantity">Ảnh 3:</label>
-        <div id="image3">
-          <b-form-file v-model="image3" @input="handleSelectFile()">
-          </b-form-file>
-          <div class="image_container" v-if="productDetail.image3">
-            <b-img
-            class="item_image"
-            :src="dataSubmit.image3"
-            fluid alt="Responsive image"
-            style="height: 100px, width: 200px"
-            ></b-img>
-          </div>
+          ></b-img>
         </div>
       </div>
     </div>
+    <div class="form-input">
+      <label for="quantity">Ảnh 2:</label>
+      <div id="image2">
+        <b-form-file v-model="image2" @input="handleSelectFile()">
+        </b-form-file>
+        <div class="image_container" v-if="productDetail.image2">
+          <b-img
+            class="item_image"
+            :src="dataSubmit.image2"
+            fluid
+            alt="Responsive image"
+            style="height: 100px, width: 200px"
+          ></b-img>
+        </div>
+      </div>
+    </div>
+    <div class="form-input">
+      <label for="quantity">Ảnh 3:</label>
+      <div id="image3">
+        <b-form-file v-model="image3" @input="handleSelectFile()">
+        </b-form-file>
+        <div class="image_container" v-if="productDetail.image3">
+          <b-img
+            class="item_image"
+            :src="dataSubmit.image3"
+            fluid
+            alt="Responsive image"
+            style="height: 100px, width: 200px"
+          ></b-img>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -174,8 +184,7 @@ export default {
     },
   },
   methods: {
-    submit() {
-    },
+    submit() {},
     cancel() {
       this.$bvModal.hide('modal-detail-category');
     },
@@ -201,7 +210,7 @@ export default {
       flex-wrap: wrap;
       margin-top: 10px;
     }
-    .item_image  {
+    .item_image {
       height: 100px;
       width: auto;
     }

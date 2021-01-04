@@ -2,12 +2,8 @@
   <b-modal :id="idModal" no-close-on-backdrop size="sm" :title="titleModal">
     <div>{{ contentModal }}</div>
     <template #modal-footer="">
-      <b-button size="sm" variant="danger" @click="cancel">
-        Không
-      </b-button>
-      <b-button size="sm" variant="success" @click="submit">
-        Có
-      </b-button>
+      <b-button size="sm" variant="danger" @click="cancel"> Không </b-button>
+      <b-button size="sm" variant="success" @click="submit"> Có </b-button>
     </template>
   </b-modal>
 </template>
@@ -55,11 +51,17 @@ export default {
       await this.$store.dispatch('deleteComment', payload);
       this.$bvModal.hide(this.idModal);
       if (this.getErrorCodeContact === 0) {
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_DELETE_SUCCEED, 'success');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_DELETE_SUCCEED,
+          'success',
+        );
         this.selectedListId = [];
         this.$emit('updateSelectedListId', this.selectedListId);
       } else {
-        this.makeToastMessage(constants.COMMON_CONST.MESSAGE_DELETE_FAILED, 'danger');
+        this.makeToastMessage(
+          constants.COMMON_CONST.MESSAGE_DELETE_FAILED,
+          'danger',
+        );
       }
       await this.$store.dispatch('getListComment', '');
     },
@@ -71,5 +73,4 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
 </style>
